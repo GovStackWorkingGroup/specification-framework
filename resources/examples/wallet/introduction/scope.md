@@ -2,19 +2,13 @@
 title: Scope
 ---
 
-<!--
-Worked example for chapters/introductory_chapters.md. Illustrative: the Credentials Reference
-Architecture (govstack:ra:credentials) and the requirement file names are examples, not published
-artefacts.
--->
+<!-- Worked example for chapters/introductory_chapters.md. Illustrative: the Credentials Reference Architecture (govstack:ra:credentials) and the requirement file names are examples, not published artefacts. -->
 
 # Scope
 
 ## Subject and applicability
 
-This document specifies the Wallet Building Block, a software component that holds credentials on
-behalf of one person, together with the keys bound to them, and presents them at that person's
-direction.
+This document specifies the Wallet Building Block, a software component that holds credentials on behalf of one person, together with the keys bound to them, and presents them at that person's direction.
 
 It is applicable to any software solution claiming conformance to `govstack:spec:bb:wallet`.
 
@@ -26,17 +20,12 @@ The Wallet Building Block performs the Credential Holder role in `govstack:ra:cr
 
 ## Covered
 
-- **Credential Intake**: receiving issued and bearer credentials, recognising their format, and
-  checking them before storage
+- **Credential Intake**: receiving issued and bearer credentials, recognising their format, and checking them before storage
 - **Credential Management**: keeping, displaying, deleting, backing up and recovering credentials
-- **Key Management**: generating, protecting and rotating keys bound to credentials, and attesting
-  to them
-- **Holder Consent**: showing the Holder each request and recording their decision before
-  disclosure
-- **Credential Presentation**: answering presentation requests with only the attributes the Holder
-  agreed to disclose
-- The Wallet's side of the issuance, presentation and trust lookup exchanges defined in
-  `govstack:ra:credentials`
+- **Key Management**: generating, protecting and rotating keys bound to credentials, and attesting to them
+- **Holder Consent**: showing the Holder each request and recording their decision before disclosure
+- **Credential Presentation**: answering presentation requests with only the attributes the Holder agreed to disclose
+- The Wallet's side of the issuance, presentation and trust lookup exchanges defined in `govstack:ra:credentials`
 
 ## Not covered
 
@@ -52,5 +41,4 @@ The Wallet Building Block performs the Credential Holder role in `govstack:ra:cr
 
 ## Ownership
 
-Owned by the Credentials and Identity Working Group (`govstack:wg:cfid`). Change requests are raised
-as issues in the specification's repository.
+Owned by the Credentials and Identity Working Group (`govstack:wg:cfid`). Change requests are raised as issues in the specification's repository.
