@@ -48,18 +48,13 @@ The `introduction/` directory opens the specification. It tells a reader why the
 | `terminology.md` | Terms used in a non-obvious sense, and terms shared with adjacent specifications |
 | `references.md` | Every external document the specification depends on |
 
-`overview.md` and `scope.md` work as a pair: the overview describes the Building Block, and the scope
-turns that description into the boundary of the document. The functionalities named in the overview are the files in `requirements/`, with the same names.
+`overview.md` and `scope.md` work as a pair: the overview describes the Building Block, and the scope turns that description into the boundary of the document. The functionalities named in the overview are the files in `requirements/`, with the same names.
 
-See `chapters/introductory_chapters.md` for guidance on writing each section, and
-`resources/examples/wallet/introduction/` for a worked example.
+See `chapters/introductory_chapters.md` for guidance on writing each section, and `resources/examples/wallet/introduction/` for a worked example.
 
 ## Requirement files
 
-The `requirements/` directory holds one file per functionality. A specification has requirements
-rather than chapters, so this directory takes the place that `chapters/` has in other GovStack
-publications. Each file carries its requirements in its YAML front matter and describes the
-functionality, its workflows and its data structures in the body. Here's an example template
+The `requirements/` directory holds one file per functionality. A specification has requirements rather than chapters, so this directory takes the place that `chapters/` has in other GovStack publications. Each file carries its requirements in its YAML front matter and describes the functionality, its workflows and its data structures in the body. Here's an example template
 
 ```yaml
 ---
