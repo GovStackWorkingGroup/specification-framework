@@ -2,23 +2,30 @@
 title: Overview
 ---
 
-GovStack Building Block Specifications are documents that outline the capabilities a software solution must perform and the requirements that fulfill those capabilities. While capabilities describe the business functions, requirements translate them into their technical detail. This publication describes how to properly craft GovStack Specifications, their requirements and its terminology. 
+GovStack Specifications are publications that identify in a complete, precise and verifiable manner, the requirements, design, behavior, or other expected characteristics of the entity that can be verified against[^spec-definition]. GovStack organises its publications into classes, and the class records what a publication asserts requirements about:
 
-The field of specification writing has been extensibly developed by global standardisation bodies and practitioner groups throughout the decades. For this version of the GovStack Specification Model we are drawing explicitly from canonical sources on specification, terminology and requirement engineering. Key concepts being drawed from include the following:
+| Class | Asserts requirements about | Examples |
+|---|---|---|
+| `govstack:spec` | specifications | this publication |
+| `govstack:spec:cfr` | software | Cross-Functional Requirements: protocol interoperability and the minimum practices interoperability is built upon |
+| `govstack:spec:bb:*` | software | Building Block Specifications: cross-functional interoperability for common technology components, prioritising replaceability of the minimum and essential characteristics across compliant implementations |
 
-- The structure of GovStack Specifications draw from the concept and structure of the __«Software Requirements Specification»__ outlined on __ISO/IEC/IEEE Std 830-1998, Recommended Practice for Software Requirements Specifications__.
-- Requirements inside specifications draw from the ample literature on the field of __«Requirements Engineering»__, specially on the subject of crafting _«Well-Formed Requirements»_. The main sources used are __ISO/IEC/IEEE Std 24765-2017, Standard for Software and Systems Engineering — Life Cycle Processes — Requirements Engineering__ and  __ISO/IEC/IEEE 29148:2018 Systems and software engineering — Life cycle processes — Requirements engineering__.
-- Terminology aspects draw from existing canonical vocabularies for Information Technology ISO 1087:2019 and ISO/IEC/IEEE 24765:2017, while the guidance on crafting terminologies for GovStack specifications draw from several publications on Terminology work, all of them listed on the terminology chapter.
+This publication sits at `govstack:spec` and holds the rules every GovStack specification follows, together with the machine-readable requirements and conformance artifacts that verify them. Rules particular to one specification type are chapters of this publication rather than separate publications.
 
-On all occasions, canonical texts are taken as support mterial for foundations, but they are condensed and consolidated both with GovStack Arechitecture version 2, and with the expertise and practices built by the GovStack community throught its members and practitioners.
+More information can be found at the chapters of [GovStack Interoperability](/ra/architecture/chapters/govstack-interoperability), at [Building Block Approach](/ra/architecture/chapters/building-block-approach) of the core GovStack Architecture.  
 
-<!-- original: 
+What separates GovStack Specifications from other types of publications is that every specification contains requirements that can be tested against, which makes them evaluation instruments.
 
-# 5 Specification Framework
+Requirements are an essential part of GovStacks' value proposition. They allow a builder to precisely identify what is expected from a system, an implementer to identify whether a software product performs the minimum functionalities required, or a procurer to have an instrument to measure offers or write into contracts, that offers tangible ways to evaluate. When applied as a policy at the organisational level or accross organisations, it makes interoperability between software systems possible.
 
-This document is intended to provide guidance for implementing teams of governments and developer teams of software providers who want to adhere to GovStack's technical best practices. It provides guidelines and principles that should be considered by all building blocks and cross-functional requirements that must be considered for any GovStack-based project.
+This publication describes how to build a GovStack Specification whose requirements are well formed: unambiguous enough that a reader can tell what conformance demands, and structured enough that a tool can check it. A requirement that cannot be verified against either a software solution or a specification document does not belong in a GovStack publication.
 
-This will accelerate the collaborative development of best-of-breed digital government services and Digital Public Infrastructure (DPI), enhancing efficiency and transparency across the world - especially in low-resource settings.
+Because this publication governs every GovStack specification, it governs itself. `govstack:spec` conforms to `govstack:spec`. ISO/IEC Directives Part 2 has the same property, for the same reason: a document setting out how normative documents are written is itself a normative document.
 
--->
-
+## Footnotes
+[^spec-definition]: from ./terminology#specification and originally from ./references#SEVOCAB
+- (1) information item that identifies, in a complete, precise, and verifiable manner, the requirements, design, behavior, or other expected characteristics of a system, service, or process (ISO/IEC/IEEE 15289:2019 Systems and software engineering--Content of life-cycle information items (documentation), 5.24) 
+- (2) detailed formulation, in document form, which provides a definitive description of a system for the purpose of developing or validating the system (ISO/IEC 2382:2015 Information technology -- Vocabulary) 
+- (3) information part that identifies, in a complete, precise and verifiable manner, the requirements, design, behavior, or other expected characteristics of an entity (ISO/IEC/IEEE 42010:2022, Software, systems and enterprise  Architecture description, 3.16) 
+- (4) concrete representation of a model in some notation (ISO/IEC 10746-2:2009 Information technology -- Open Distributed Processing -- Reference Model: Foundations, 7.4) 
+- (5) attribute that is necessary to be present in a project deliverable to help meet or exceed a target business objective (A Guide to the Project Management Body of Knowledge (PMBOK(R) Guide) -- Eighth Edition)

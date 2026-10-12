@@ -3,16 +3,10 @@ toc:
   introduction:
     - foreword.md
     - overview.md
-    - scope.md
-    - references.md
-    - terminology.md
-  - chapters:
-    - specifications_model.md
-    - requirements_model.md
-    - crafting_well_formed_requirements.md
-    - specifications_use.md
-    - compliance_and_ai_readiness.md
-  - resources:
-    - specification_template.md
-    - requirements_template.md
-    - skills.md
+    - scope.md # to update references to terminology as a document
+    - terminology.md # to complete table
+    - references.md # to update format
+  chapters:
+    - structure_of_specifications.md
+    - introductory_chapters.md
+  resources:

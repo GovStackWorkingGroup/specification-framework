@@ -3,6 +3,4 @@
 authors:
   - name: Ali González-García
     roles: [Author, Editor]
-    uri: govstack:person:ali-gonzalez
-  - name: Nico Lüeck
-    roles: [Author, Editor]
+    urn: govstack:person:ali-gonzalez-garcia

@@ -2,18 +2,21 @@
 title: Scope
 ---
 
-# Scope of applicability
+## Scope
+This document applies to all GovStack specifications as defined in `govstack:process` on the GovStack Publications chapter.
 
-Guidance in this publication is applicable to as follows:
+It has the following objectives:
 
-- **Using and Creating Terminologies:** Covers foundational vocabulary, terminology creation, and governance common terminologies for all GovStack Publications
-- **Structure of a Specification:** Covers how to structure GovStack specifications for Building Blocks and the specific pieces that make up one (govstack-bb series)
-- **Crafting Testable Requirements:** Covers how to write machine-readable, and are ready for compliance testing. Applies to Cross-Functional Specifications and all Building Block Specifications (govstack-cfr series and govstack-bb series)
+1. Define the structure of a Specification and its main sections.
+2. Explain how to organize requirements into capability groups
+3. Rules for crafting well-formed GovStack requirements
 
 The ownership of this publication is by the GovStack Technical Committee. Change requests to this publication are welcome on its [discussion channel](#TODO).
 
 ## Out of Scope
 
-- How a GovStack Specification fits a systems architecture can be found in the GovStack Architecture [chapter about interoperability architecture](https://specs.govstack.global/architecture/4-interoperability-architecture) and the chapter about the [Specification Scope](https://specs.govstack.global/architecture/5-specification-framework/5.1-specification-scope). This is owned by the Architecture Working Group.
+- How a GovStack Specification fits a systems architecture belongs to `govstack:ra:architecture`, in the [chapter about interoperability architecture](specs.govstack.global/govstack:ra:architecture/chapters/interoperability-architecture) and in the Specification Scope chapter. This is owned by the Architecture Working Group.
 - Changes to individual specifications are owned by the working group that owns it.
-- The governance of Working Groups and how specifications undergo the Publication Cycle belong in the [GovStack Publication Governance](#TODO)
+- The governance of Working Groups and how specifications undergo the Publication Cycle belong to the GovStack Process, `govstack:process`
+- The governance process by which a new template would be adopted, phased in, or made mandatory for Working Groups — that belongs in `publication_tracks.md` within the GovStack Process
+- How to write the Terminology chapter — that is the subject of `crafting_terminology.md`.

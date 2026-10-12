@@ -1,11 +1,13 @@
 ---
 name: GovStack Specification Framework
-description: GovStack Core Specification on writing specifications and requirements.
+abstract: GovStack Core Specification on writing specifications and requirements.
 url: https://specs.govstack.global/specification-framework
-repository: https://github.com/govStackWorkingGroup/specification-framework
-publication_id: govstack:core:specification-framework
-working_group: govstack:team:technical-committee
+repository: https://github.com/GovStackWorkingGroup/specification-framework
+urn: govstack:spec
+owner_group: govstack:team:technical-committee
 versions:
   - version: 1.0-draft
     url_suffix: /specification-framework/1.0-draft
     latest: true
+    release_date:
+    short_description:
