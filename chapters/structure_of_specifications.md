@@ -37,6 +37,8 @@ treeView
 
 metadata.yml, authors.yml and toc.yml are files necessary for the compilation of a specification. Further explanation can be read at `govstack:process` on its Compiling Specifications chapter.
 
+A specification declares its capabilities in metadata.yml, under `capabilities`, and its extensions, if it has any, under `extensions`. See `chapters/functionalities_and_extensions.md`.
+
 ## Introduction files
 
 The `introduction/` directory opens the specification. It tells a reader why the Building Block exists, what a conformant solution is, and what this document covers. Each kind of content has its own file, so that a reader looking for the scope of a specification always finds it in the same place.
@@ -59,8 +61,11 @@ The `requirements/` directory holds one file per functionality. A specification 
 ```yaml
 ---
 title: <functionality name>
-capability: |
+description: |
    <description from the business point of view>
+realises: [] # ids of capabilities declared in metadata.yml
+conformance: CORE # CORE, EXTENSION
+extension: # id of an extension declared in metadata.yml; only when conformance is EXTENSION
 requirements:
   - id: '1'
     status: DRAFT # DRAFT, WITHDRAWN, CANDIDATE, ACCEPTED, PUBLISHED, DEPRECATED
@@ -72,3 +77,7 @@ requirements:
     test:
 ---
 ```
+
+`realises` lists the capabilities the functionality realises. Every functionality realises at least one, and every capability declared in metadata.yml is realised by at least one functionality.
+
+`conformance` says whether the functionality is part of the core, which every conformant solution meets, or of an extension, which a solution may claim in addition to the core. It defaults to `CORE`. See `chapters/functionalities_and_extensions.md`.

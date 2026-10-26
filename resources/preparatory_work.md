@@ -86,13 +86,18 @@ Aim for scenarios that differ: a different country, a different sector, a differ
 
 Turn the marked steps into the shape of the specification.
 
-**Capabilities** say what the Building Block makes possible, as outcomes. Name each one with a noun phrase ("Credential Custody", not "stores credentials"), and name no technology. Capabilities appear in the Purpose of `overview.md`.
+**Capabilities** say what the Building Block makes possible, as outcomes. Name each one with a noun phrase ("Credential Custody", not "stores credentials"), and name no technology. Give each a short id. Capabilities are declared in `metadata.yml` and appear in the Purpose of `overview.md`.
 
-**Functionalities** organise the requirements. Group the marked steps from section 3 into functionalities. Each functionality becomes one file in `requirements/`, and each must realise at least one capability.
-
-| Functionality | Steps from section 3 | Capability it realises |
+| Id | Capability | Outcome, for whom |
 |---|---|---|
-| Credential Intake | Accept the credential | Credential Custody |
+| `custody` | Credential Custody | A person keeps the credentials issued to them and can use them whenever they need to |
+| | | |
+
+**Functionalities** organise the requirements. Group the marked steps from section 3 into functionalities. Each functionality becomes one file in `requirements/`, and each must realise at least one capability. A functionality may realise several capabilities, and a capability is often realised by several functionalities.
+
+| Functionality | Steps from section 3 | Capabilities it realises |
+|---|---|---|
+| Credential Intake | Accept the credential | `custody` |
 | | | |
 
 Check the result:
