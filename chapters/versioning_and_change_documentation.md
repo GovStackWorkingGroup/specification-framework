@@ -8,7 +8,7 @@ references:
   - Keep a Changelog 1.1.0, Lacan, O. <https://keepachangelog.com/en/1.1.0/>
 ---
 
-> **Proposal for discussion with the Architecture Working Group.** This chapter sets out how a Working Group decides whether a release of its specification is a major, minor or patch release, and how it documents what changed. It builds on `requirements/use_semantic_versioning.md` and `research/specification_versioning.md`, and departs from them in a few places, listed in [Departures from the current text](#departures-from-the-current-text). Where it depends on the requirement status model, it assumes Option 2 of ARCH-ADR-5. The questions the Working Group needs to settle are listed at the end.
+> **Proposal for discussion with the Architecture Working Group.** This chapter sets out how a Working Group decides whether a release of its specification is a major, minor or patch release, and how it documents what changed. It builds on `requirements/use_semantic_versioning.md`, and departs from it in a few places, listed in [Departures from the current text](#departures-from-the-current-text). Where it depends on the requirement status model, it assumes Option 2 of ARCH-ADR-5. The questions the Working Group needs to settle are listed at the end.
 
 GovStack versions its specifications with [Semantic Versioning](https://semver.org/). A version number has three parts, `MAJOR.MINOR.PATCH`, and each part tells a reader something different about what changed since the last release. The number is only useful if every Working Group reads a change the same way. Two Working Groups that make the same change to their specifications should arrive at the same kind of release. This chapter gives the rules that make that possible.
 
@@ -81,7 +81,7 @@ A change is **breaking** if it adds an obligation that a conformant solution may
 - **Changing the intent of a REQUIRED requirement**, whether it narrows what a solution may do (implementers break) or broadens it (dependents break). "The solution returns credentials in JSON" changed to "in JSON or CBOR" is breaking: an integrator that only reads JSON stops working with some conformant solutions
 - **Changing an interface a REQUIRED requirement refers to** in a way listed as breaking in [Interface changes](#interface-changes)
 - **Restricting the mutability of a requirement**, such as `REPLACEABLE` to `EXTENSIBLE` or `EXTENSIBLE` to `IMMUTABLE`. Extending specifications that replaced or switched off the rule are no longer valid
-- **Changing the intent of an `IMMUTABLE` requirement**, at any level. The requirements model already forbids this within a major version
+- **Changing the intent of an `IMMUTABLE` requirement**, at any level. `chapters/requirements.md` already forbids this within a major version
 - **Moving to a new major version of an extended specification**, such as a Building Block specification adopting a new major version of the cross-functional requirements
 - **Reusing, renumbering or removing a requirement number.** The *Unique Identifier* rules forbid this outright, in any release type; it is listed here only because a specification that did it would break every citation of the number
 
@@ -114,7 +114,7 @@ A **patch** change corrects the specification without changing what any solution
 
 ## Classifier changes
 
-The requirements model says that any change to a classifier requires a new version. This table says which one.
+`chapters/requirements.md` says that any change to a classifier requires a new version. This table says which one.
 
 | Classifier | Change | Release |
 |---|---|---|
@@ -129,9 +129,9 @@ The requirements model says that any change to a classifier requires a new versi
 | `mutability` | towards more restrictive (`REPLACEABLE` → `EXTENSIBLE` → `IMMUTABLE`) | MAJOR |
 | `mutability` | towards less restrictive (`IMMUTABLE` → `EXTENSIBLE` → `REPLACEABLE`) | MINOR |
 | `observability` | `OBSERVABLE` ↔ `AUDITABLE`, demand unchanged | MINOR |
-| `type` | corrected, statement unchanged | PATCH |
+| `interaction` | corrected, statement unchanged | PATCH |
 
-A requirement with no explicit classifier takes the default the requirements model gives it. Writing the default explicitly is not a change.
+A requirement with no explicit classifier takes the default given in `chapters/requirements.md`. Writing the default explicitly is not a change.
 
 ## Interface changes
 
@@ -281,7 +281,7 @@ Changes of intent in a statement cannot be detected by a comparison. The compile
 
 # Departures from the current text
 
-This proposal departs from `requirements/use_semantic_versioning.md` and `research/specification_versioning.md` in these places:
+This proposal departs from `requirements/use_semantic_versioning.md` in these places:
 
 | The current text says | This proposal says | Why |
 |---|---|---|

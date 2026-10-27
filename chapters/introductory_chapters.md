@@ -242,10 +242,11 @@ Types worth distinguishing:
 | Event | A message published or subscribed to | This specification, or the publishing Building Block's |
 | User interface | Interaction with a person | This specification, as far as it is specified at all |
 | Device | Interaction with hardware, such as a card reader or biometric sensor | This specification, or an external standard |
+| File | A file or data package read or produced in a defined format | This specification, or an external standard for the format |
 
 Guidance:
 
-- Every interface in this table is realised by at least one requirement. An interface no requirement realises is either missing its requirement or does not belong in the table
+- Every interface in this table is realised by at least one requirement, whose `interaction` classifier matches the type of the interface (`chapters/requirements.md`). An interface no requirement realises is either missing its requirement or does not belong in the table
 - A protocol defined for a domain is usually realised by an extension functionality, because it is an obligation towards a role that not every deployment has. If such an interface is realised by a core functionality, explain in *Core and extensions* why every conformant solution needs it
 - Interfaces every Building Block shares, such as logging, monitoring and deployment, are inherited from the cross-functional requirements and are not listed. List one only where this Building Block adds to the inherited contract
 - Exchanges between deployments across a network go through an Information Mediator in the GovStack Architecture. Record the logical counterpart, not the mediator, unless the Building Block depends on a mediation feature specifically

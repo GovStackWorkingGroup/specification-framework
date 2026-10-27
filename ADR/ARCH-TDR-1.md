@@ -181,4 +181,4 @@ Confirmed by the Architecture Committee following Architecture Working Group dis
 * `resources/examples/wallet/introduction/overview.md`
 * `govstack-process/chapters/reference_architectures.md`, Part 3, *Capability mapping*
 * ARCH-ADR-7 (proposed), *Organise a specification's functionalities into a core and extensions*
-* ISO/IEC/IEEE 29148:2018, the "feature" organisation of requirements, which GovStack functionalities follow (`research/functionality_model.md`)
+* ISO/IEC/IEEE 29148:2018, the "feature" organisation of requirements, which GovStack functionalities follow (`chapters/functionalities_and_extensions.md`, *Functionalities*)

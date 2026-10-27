@@ -61,6 +61,8 @@ A Domain Reference Architecture has capabilities of its own, in its capability m
 
 A functionality is a service the Building Block provides to an actor outside it, realised by a set of requirements. It is the unit a specification is organised by: each functionality has its own file in `requirements/`, and the functionalities named in the overview are those files, with the same names (`chapters/structure_of_specifications.md`).
 
+This follows the "feature" organisation of requirements in ISO/IEC/IEEE 29148: a feature is a service the system provides externally, which may need a sequence of inputs to produce its result. A functionality is such a feature, and the sequence of inputs and responses that realises it is its workflow, described in the body of its file.
+
 A functionality file holds:
 
 | Part | Where | Content |
@@ -231,4 +233,5 @@ A complete worked example of the introductory chapters, with this split, is in `
 - ARCH-ADR-6 (proposed), *Model alternative and conditional requirements*
 - ARCH-ADR-7 (proposed), *Organise a specification's functionalities into a core and extensions*
 - ARCH-TDR-1 (proposed), *Declare capabilities and link functionalities to them*
+- ISO/IEC/IEEE 29148:2018, *Systems and software engineering — Life cycle processes — Requirements engineering*
 - OGC 08-131r3, *The Specification Model — A Standard for Modular Specifications*, Open Geospatial Consortium, 2009

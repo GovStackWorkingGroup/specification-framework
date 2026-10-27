@@ -72,7 +72,10 @@ requirements:
     level: RECOMMENDED # RECOMMENDED, REQUIRED
     observability: # OBSERVABLE, AUDITABLE
     mutability: # IMMUTABLE, EXTENSIBLE
+    interaction: # SERVICE_API, CONSUMED_API, PROTOCOL, EVENT, USER_INTERFACE, DEVICE, FILE, INTERNAL
+    contract: # where the contract is defined, when it is defined elsewhere
     statement: <one sentence>
+    documentation: # conditions, constraints and, for AUDITABLE requirements, the evidence a vendor produces
     api_operation_id:
     test:
 ---
