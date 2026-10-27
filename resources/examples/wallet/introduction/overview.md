@@ -20,7 +20,7 @@ A common specification matters here for two reasons. The first is **choice**: a 
 
 The Wallet operates within the GovStack Architecture, and every conformant Wallet meets the GovStack cross-functional requirements.
 
-In the Credentials Reference Architecture (`govstack:ra:credentials`) the Wallet performs the **Credential Holder** role. Three other roles complete the system: the **Credential Issuer**, which issues credentials; the **Credential Verifier**, which requests and checks them; and the **Trust Registry Operator**, which publishes the trust anchors and status information that let the Holder and the Verifier decide whether to trust an Issuer and whether a credential is still valid.
+In the Credentials Reference Architecture (`govstack:ra:credentials`) the Wallet performs the **Credential Holder** role. Every conformant Wallet holds and presents credentials. The exchanges with Issuers and Verifiers that the role involves are in two extensions, Issuance and Presentation, so only a Wallet that claims them performs the role in full. Three other roles complete the system: the **Credential Issuer**, which issues credentials; the **Credential Verifier**, which requests and checks them; and the **Trust Registry Operator**, which publishes the trust anchors and status information that let the Holder and the Verifier decide whether to trust an Issuer and whether a credential is still valid.
 
 The Wallet is a feature Building Block: no other Building Block depends on it. It commonly works with:
 
@@ -61,17 +61,28 @@ The Wallet is assessed as a black box. Every functionality is observable through
 
 ### Functionalities
 
-| Functionality | Description | Requirements |
-|---|---|---|
-| Credential Intake | Receiving a credential, whether issued by an Issuer or supplied directly by the Holder, recognising its format, and checking it before it is stored | `requirements/credential-intake.md` |
-| Credential Management | Keeping credentials across sessions and devices, showing them to the Holder, and deleting, backing up and recovering them | `requirements/credential-management.md` |
-| Key Management | Generating, protecting and rotating the keys bound to credentials, and attesting to them when asked | `requirements/key-management.md` |
-| Holder Consent | Showing the Holder who is asking for what, and recording their decision before anything is disclosed | `requirements/holder-consent.md` |
-| Credential Presentation | Answering a Verifier's request with only the attributes the Holder agreed to disclose | `requirements/credential-presentation.md` |
+| Functionality | Realises | Conformance | Description | Requirements |
+|---|---|---|---|---|
+| Credential Intake | Credential Custody | Core | Receiving a credential the Holder supplies, such as a signed code printed on a certificate, a file or a link, recognising its format, and checking it before it is stored | `requirements/credential-intake.md` |
+| Credential Management | Credential Custody, Holder Control | Core | Keeping credentials across sessions and devices, showing them to the Holder, and deleting, backing up and recovering them | `requirements/credential-management.md` |
+| Key Management | Selective Disclosure | Core | Generating, protecting and rotating the keys bound to credentials, and attesting to them when asked | `requirements/key-management.md` |
+| Holder Consent | Holder Control | Core | Showing the Holder who is asking for what, and recording their decision before anything is disclosed | `requirements/holder-consent.md` |
+| Credential Presentation | Selective Disclosure | Core | Presenting a credential with only the attributes the Holder agreed to disclose, at least by showing it for a Verifier to scan | `requirements/credential-presentation.md` |
+| Credential Issuance | Credential Custody | Issuance extension | Obtaining credentials from a Credential Issuer through the issuance exchange, started by an offer the Holder scans or follows | `requirements/credential-issuance.md` |
+| Presentation Exchange | Selective Disclosure | Presentation extension | Answering a Credential Verifier's request, remotely or in proximity, through the presentation exchange, with proof that the credential is bound to the Holder | `requirements/presentation-exchange.md` |
 
-Credential Intake and Credential Management realise **Credential Custody**. Credential Presentation and Key Management realise **Selective Disclosure**. Holder Consent and the deletion part of Credential Management realise **Holder Control**.
+Every capability is realised by at least one core functionality, so every conformant Wallet provides all three. **Credential Custody** is divided between taking credentials in (Credential Intake, and Credential Issuance in the Issuance extension) and keeping them (Credential Management). **Selective Disclosure** rests on Key Management, which binds a credential to its Holder, and on Credential Presentation; the Presentation extension adds remote presentation with proof of that binding. **Holder Control** is Holder Consent, together with the Holder's power to delete credentials in Credential Management.
 
-Credential Intake covers two cases that look alike to the Holder. An issued credential arrives through an exchange with an Issuer, started by an offer the Holder scans or follows. A bearer credential, such as a signed code printed on a certificate, is itself the credential, and arrives with no Issuer in the exchange at all.
+#### Core and extensions
+
+The core is what makes a product a Wallet: it holds credentials signed by an issuer other than the Holder, protects them and the keys bound to them, and presents them at the Holder's direction. A Wallet that meets only the core can take in a credential the Holder supplies and show it to a Verifier for scanning, with no Issuer or Verifier following any particular protocol. A product that holds keys but no issued credential, such as a crypto hardware wallet, does not meet the core.
+
+| Extension | Adds | Functionalities | Role served | Requires |
+|---|---|---|---|---|
+| Issuance | Obtaining credentials from an Issuer, instead of only from the Holder | Credential Issuance | Credential Holder, towards the Credential Issuer, in `govstack:ra:credentials` | |
+| Presentation | Answering a Verifier's request remotely or in proximity, with holder binding | Presentation Exchange | Credential Holder, towards the Credential Verifier, in `govstack:ra:credentials` | |
+
+Both exchanges are extensions because they are obligations towards roles of the credentials domain, and they depend on a trust registry that not every deployment operates. A Wallet built for a credentials ecosystem claims both. A Wallet that imports credentials from printed codes and presents them to online services claims Presentation only.
 
 Three functionalities a reader might expect are placed elsewhere: issuing credentials belongs to the Issuer, operating a trust registry to the Trust Registry Operator, and managing an organisation's records of consent to process personal data to the Consent Building Block. See the scope for their owners.
 
@@ -84,47 +95,59 @@ flowchart LR
 
   subgraph SUT["Wallet Building Block (system under test)"]
     direction TB
-    Intake["Credential Intake"]
-    Manage["Credential Management"]
-    Keys["Key Management"]
-    Consent["Holder Consent"]
-    Present["Credential Presentation"]
+    subgraph Core["Core"]
+      Intake["Credential Intake"]
+      Manage["Credential Management"]
+      Keys["Key Management"]
+      Consent["Holder Consent"]
+      Present["Credential Presentation"]
+    end
+    subgraph ExtI["Issuance extension"]
+      Issue["Credential Issuance"]
+    end
+    subgraph ExtP["Presentation extension"]
+      Exchange["Presentation Exchange"]
+    end
     Intake --> Manage
-    Keys --> Intake
+    Issue --> Manage
+    Keys --> Issue
     Manage --> Present
-    Keys --> Present
     Consent --> Present
+    Present --> Exchange
+    Keys --> Exchange
   end
 
-  Issuer -- "credential offer, credential" --> Intake
   Person -- "scans or supplies a credential" --> Intake
   Person -- "views, deletes, backs up" --> Manage
   Person -- "approves or refuses" --> Consent
-  Verifier -- "presentation request" --> Present
-  Present -- "presentation, key attestation" --> Verifier
-  Intake -. "issuer trust check" .-> Registry
-  Present -. "verifier trust check, status" .-> Registry
+  Present -- "credential shown for scanning" --> Verifier
+  Issuer -- "credential offer, credential" --> Issue
+  Verifier -- "presentation request" --> Exchange
+  Exchange -- "presentation, key attestation" --> Verifier
+  Issue -. "issuer trust check" .-> Registry
+  Exchange -. "verifier trust check, status" .-> Registry
 ```
 
-*Figure 2: functionality map.*
+*Figure 2: functionality map, with the core and two extensions.*
 
 ### Actors
 
 | Actor | Kind | Boundary | Reaches the Wallet through | Specified where |
 |---|---|---|---|---|
 | Holder | Person | Outside | Credential Intake, Credential Management, Holder Consent | Not specified: a person is not assessed. The user interface is specified here |
-| Credential Issuer | System | Outside | Credential Intake | `govstack:ra:credentials` |
-| Credential Verifier | System | Outside | Credential Presentation | `govstack:ra:credentials` |
-| Trust Registry | System | Outside | Credential Intake, Credential Presentation | `govstack:ra:credentials` |
+| Credential Issuer | System | Outside | Credential Issuance (Issuance extension) | `govstack:ra:credentials` |
+| Credential Verifier | System | Outside | Credential Presentation; Presentation Exchange (Presentation extension) | `govstack:ra:credentials` |
+| Trust Registry | System | Outside | Credential Issuance, Presentation Exchange | `govstack:ra:credentials` |
 
 ### Interfaces
 
 | Interface | Counterpart | Direction | Functionality | Type | Contract defined in |
 |---|---|---|---|---|---|
-| Credential issuance | Credential Issuer | Inbound offer and credential, outbound request | Credential Intake | Protocol | `govstack:ra:credentials`, realised by `requirements/credential-intake.md` |
+| Credential issuance | Credential Issuer | Inbound offer and credential, outbound request | Credential Issuance | Protocol | `govstack:ra:credentials`, realised by `requirements/credential-issuance.md` |
 | Credential carrier | Holder | Inbound | Credential Intake | Device: camera, file, link | This specification, `requirements/credential-intake.md` |
-| Presentation exchange | Credential Verifier | Inbound request, outbound presentation | Credential Presentation, Key Management | Protocol | `govstack:ra:credentials`, realised by `requirements/credential-presentation.md` |
-| Trust and status lookup | Trust Registry | Outbound | Credential Intake, Credential Presentation | Service | `govstack:ra:credentials` |
+| Credential display | Credential Verifier | Outbound | Credential Presentation | Device: screen | This specification, `requirements/credential-presentation.md` |
+| Presentation exchange | Credential Verifier | Inbound request, outbound presentation | Presentation Exchange, Key Management | Protocol | `govstack:ra:credentials`, realised by `requirements/presentation-exchange.md` |
+| Trust and status lookup | Trust Registry | Outbound | Credential Issuance, Presentation Exchange | Service | `govstack:ra:credentials` |
 | Consent prompt | Holder | Outbound prompt, inbound decision | Holder Consent | User interface | This specification, `requirements/holder-consent.md` |
 | Credential management | Holder | Both | Credential Management | User interface | This specification, `requirements/credential-management.md` |
 
