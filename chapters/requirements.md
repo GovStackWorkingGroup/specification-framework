@@ -116,7 +116,7 @@ The level says how strongly a conformant solution is bound.
 
 **REQUIRED** - every conformant solution meets the requirement exactly as written. A solution that fails a single published REQUIRED requirement is not GovStack compliant.
 
-**RECOMMENDED** - the requirement improves a solution but is optional. GovMarket reports the share of published RECOMMENDED requirements a solution meets, as an additional signal for buyers.
+**RECOMMENDED** - the requirement improves a solution, and a solution may skip it. GovMarket reports the share of published RECOMMENDED requirements a solution meets, as an additional signal for buyers.
 
 ## Requirement status
 
@@ -208,7 +208,7 @@ Ask in order, and stop at the first yes:
 
 Rules:
 
-1. Every requirement has exactly one interaction type. A requirement that seems to need two usually holds two requirements: one for the exchange, and one for what the system under test does with its result.
+1. Every requirement has exactly one interaction type, except a variation point, which has none (see *Options and conditions*). A requirement that seems to need two usually holds two requirements: one for the exchange, and one for what the system under test does with its result.
 2. A requirement of type `SERVICE_API` names its operation in `api_operation_id`, and that operation exists in `resources/api.yml`.
 3. A requirement of type `CONSUMED_API`, `PROTOCOL`, `DEVICE` or `FILE` whose contract is defined elsewhere names that contract in `contract`: a publication identifier with the operation, role or section, or a document listed in `references.md`.
 4. Every interface in the overview is realised by at least one requirement of the matching type, and every requirement that is not `INTERNAL` realises an interface listed in the overview.
@@ -245,6 +245,51 @@ Illustrative requirements for the Wallet Building Block, one per type.
 | Compliance tests | The type tells the test author which harness the requirement needs: client, stand-in, simulator, reference hardware, sample files or evidence |
 | Versioning | The rules in *Interface changes* (`chapters/versioning_and_change_documentation.md`) apply to `SERVICE_API` requirements. Changes to the contract of a `CONSUMED_API`, `PROTOCOL` or `FILE` requirement are judged by the same question: does an existing solution or counterpart break? |
 | Extensions | A solution that claims only the core never needs a harness for the types used only in extensions |
+
+# Options and conditions
+
+{% hint style="info" %}
+This section describes the mechanism proposed in ARCH-ADR-6 (`ADR/ARCH-ADR-6.md`), which has not yet been decided by the Architecture Committee.
+{% endhint %}
+
+Some requirements let a solution choose how to meet them: "the Wallet accepts credentials of at least one of these kinds". The solution cannot skip the requirement, but it chooses which kinds, and the choice decides which other requirements apply to it.
+
+| Term | Means | Has a `level` | Has an `interaction` |
+|---|---|---|---|
+| **Variation point** | A requirement a solution meets by meeting at least `min` of its options | Yes | No. It is verified by counting the options that pass |
+| **Option** | One of the choices a variation point permits. Named by a `key`, such as `vc`, `bearer` or `pass`. A solution chooses among the options, but cannot decline them all | No. Its obligation comes from the variation point | Yes |
+| **Conditional requirement** | A requirement that applies only to solutions that meet a given option, or claim a given extension | Yes, binding only when the condition holds | Yes |
+
+```yaml
+  - id: '3'
+    key: credential-kinds
+    level: REQUIRED
+    statement: The Wallet accepts credentials of at least one of the kinds vc, bearer and pass.
+    select:
+      min: 1
+  - id: '4'
+    key: vc
+    option_of: credential-kinds
+    interaction: FILE
+    statement: The Wallet accepts a holder-bound verifiable credential, issued to the Holder and bound to them through a key or a claim.
+  - id:
+    status: DRAFT
+    level: REQUIRED
+    applies_when: [pass]
+    interaction: FILE
+    statement: The Wallet verifies the signature and the manifest hashes of a pass before storing it.
+```
+
+Rules:
+
+1. A variation point has at least two options, and a solution meets at least one. A choice a solution may skip entirely is a set of `RECOMMENDED` requirements, or an extension (`chapters/functionalities_and_extensions.md`).
+2. A condition goes into `applies_when`, never into the statement. `applies_when` takes keys of options and ids of extensions.
+3. A conditional requirement sits in the functionality it belongs to by meaning, which need not be the one where the choice is made.
+4. A solution declares the options it meets, by key, in the same conformance declaration as its extensions. A requirement whose condition does not hold is **not applicable**, neither passed nor failed. Only `PUBLISHED` options count towards `min`.
+
+"Option" is a noun here, never the adjective "optional": an option is not something a solution may skip, and it is not an extension.
+
+ARCH-ADR-6 gives the full rules, including narrowing a variation point in an extending specification and how changes to one are versioned.
 
 # In the front matter
 

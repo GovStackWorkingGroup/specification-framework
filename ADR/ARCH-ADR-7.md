@@ -35,7 +35,7 @@ The Wallet Building Block performs the Credential Holder role in the Issuer-Hold
 * **Autonomous:** testable on the wallet alone. For example, keys in a secure environment, holder authentication, consent, removal of a credential, transaction logs.
 * **Bound to the reference architecture:** they need an Issuer or a Verifier that follows a given protocol. For example, requesting credentials over OpenID4VCI, presenting over OpenID4VP, checking a status list or a trust list.
 
-Both kinds belong in the Wallet specification. But if every functionality binds every product, the specification must either make every wallet implement every exchange of the reference architecture, or let a protocol choice decide whether a product is a wallet at all. The Wallet Working Group met the second case directly. Read against its autonomous requirements only, a crypto hardware wallet that holds no issued credential passes almost all of them, and is excluded only by a requirement whose single published alternative is OpenID4VCI (`bb-wallet/ADR/WALLET-TDR-2026-10-3.md` and the proposal above).
+Both kinds belong in the Wallet specification. But if every functionality binds every product, the specification must either make every wallet implement every exchange of the reference architecture, or let a protocol choice decide whether a product is a wallet at all. The Wallet Working Group met the second case directly. Read against its autonomous requirements only, a crypto hardware wallet that holds no issued credential passes almost all of them, and is excluded only by a requirement whose single published option is OpenID4VCI (`bb-wallet/ADR/WALLET-TDR-2026-10-3.md` and the proposal above).
 
 ### What the current model offers, and why it fails here
 
@@ -64,7 +64,7 @@ What is missing is the middle: **a named set of functionalities inside one speci
 * **Option 1:** No new mechanism: mark non-core functionalities `RECOMMENDED`
 * **Option 2:** Separate specifications: each non-core part is its own publication that `extends` the core specification
 * **Option 3:** Core and extension functionalities: a classifier on each functionality, with extensions declared in the specification
-* **Option 4:** Reuse ARCH-ADR-6: model each extension as an alternative of a specification-level variation point with `min: 0`
+* **Option 4:** Reuse ARCH-ADR-6: model each extension as an option of a specification-level variation point with `min: 0`
 
 ## Decision Outcome
 
@@ -77,7 +77,7 @@ The Wallet Working Group recommends **Option 3**. It is the only option that kee
 * **Core**: the functionalities that every conformant solution meets. They are what makes a solution an instance of the Building Block.
 * **Extension**: a named set of one or more functionalities that a solution may claim in addition to the core. A solution that claims an extension meets it in full.
 * **Core functionality** and **extension functionality**: a functionality that belongs to the core, or to one extension.
-* **Conformance declaration**: the list of extensions (and, under ARCH-ADR-6, alternatives) a solution claims. It is supplied with the solution when it is assessed.
+* **Conformance declaration**: the list of extensions (and, under ARCH-ADR-6, options) a solution claims. It is supplied with the solution when it is assessed.
 
 This is the structure of OGC 08-131r3, *The Specification Model — A Standard for Modular Specifications*, which organises a standard into a core and extensions, each a requirements class with a matching conformance class, and defines a profile separately.
 
@@ -148,7 +148,7 @@ Under `requirements/use_semantic_versioning.md`, an extension's requirements fol
 * Every declared extension has at least one functionality.
 * At least one functionality is `CORE`.
 * Every id in `requires` is a declared extension, and there are no cycles.
-* Every id in `applies_when` is an alternative or a declared extension (with ARCH-ADR-6).
+* Every entry in `applies_when` is the key of an option or a declared extension id (with ARCH-ADR-6).
 * Extension ids are unique in the specification and are never reused, as requirement ids are not.
 * Warn when an extension has no `REQUIRED` requirement: it may be better expressed as `RECOMMENDED` requirements in the core.
 
@@ -157,7 +157,7 @@ Under `requirements/use_semantic_versioning.md`, an extension's requirements fol
 * The Specification Framework gains a chapter, *Functionalities and Extensions* (`chapters/functionalities_and_extensions.md`), with the vocabulary, rules and guidance above.
 * The requirement file template in *Structure of Specifications* and `bb-template` gains `conformance` and `extension`. `metadata.yml` gains `extensions`.
 * *Introductory Chapters* and the `bb-template` overview and scope explain the core and each extension: a conformance column in the functionality table, a table of extensions, extensions marked in the functionality map, and a scope that says what conforms to the core and what each extension adds.
-* The glossary distinguishes `extends`, profile, extension and variation point, which sound alike.
+* The glossary distinguishes `extends`, profile, extension, variation point and option, which sound alike.
 * The compliance process and GovMarket take the extensions in a conformance declaration as input. The format of the declaration is defined with the compliance process, outside this ADR, as in ARCH-ADR-6.
 * The namespaces chapter of the GovStack Process defines how an extension is cited, for example as an identifier of the specification plus the extension id. Naming is under revision, so this ADR does not fix the form.
 * The Domain Reference Architecture chapter can map a capability to "Building Block in a role, through extension X" in its Part 3, Capability mapping.
@@ -198,11 +198,11 @@ Confirmed by the Architecture Committee following Architecture Working Group dis
 * Neutral, because "extension" sounds like `extends`; the glossary must keep them apart
 * Bad, because every functionality carries one more field, and `metadata.yml` one more block
 
-### Option 4: Extensions as alternatives of a variation point with `min: 0`
+### Option 4: Extensions as options of a variation point with `min: 0`
 
 * Good, because it adds no new concept beyond ARCH-ADR-6
 * Bad, because it needs ARCH-ADR-6 to allow `min: 0`, which turns a variation point into something a solution can skip, against its definition
-* Bad, because it uses a requirement as a switch: the variation point and its alternatives state no behaviour, so they have no test
+* Bad, because it uses a requirement as a switch: the variation point and its options state no behaviour, so they have no test
 * Bad, because it has no place for the role an extension serves or for dependencies between extensions
 * Bad, because it depends on ARCH-ADR-6 being accepted
 
@@ -215,5 +215,5 @@ Confirmed by the Architecture Committee following Architecture Working Group dis
 * `bb-payments/ADR/ADR-bb-payments-001.md` and `ADR-bb-payments-001-analysis.md`, variant C2
 * `bb-wallet/research/2.0-requirements-reorganization-proposal.md`, *Autonomous and Reference Architecture bound requirements*
 * ARCH-ADR-5, *Separate a requirement's obligation level from its lifecycle status*
-* ARCH-ADR-6 (proposed), *Model alternative and conditional requirements*, `bb-wallet/research/adr-alternative-requirements.md`
+* ARCH-ADR-6 (proposed), *Model options and conditional requirements*, `ADR/ARCH-ADR-6.md`
 * OGC 08-131r3, *The Specification Model — A Standard for Modular Specifications*, Open Geospatial Consortium, 2009

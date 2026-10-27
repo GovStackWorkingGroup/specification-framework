@@ -159,7 +159,7 @@ An extension names the role it serves and the reference architecture that descri
 
 | The need | Use | Not an extension because |
 |---|---|---|
-| Every solution does something, but may do it in one of several ways | A variation point with alternatives (ARCH-ADR-6) | The solution cannot skip it |
+| Every solution does something, but may do it in one of several ways | A variation point with options (ARCH-ADR-6) | The solution cannot skip it |
 | A behaviour improves quality and a solution may skip it | A `RECOMMENDED` requirement | Nothing is claimed; GovMarket reports the share met |
 | A whole specification is narrowed for one context, such as a country | A profile: a separate specification that extends this one | The narrowing is decided by someone other than the Working Group, for one context |
 | The part can be assessed as a component on its own, with its own system under test | A separate Building Block specification | It does not need this Building Block's core |
@@ -201,9 +201,10 @@ Capabilities are informative. Adding, rewording or removing a capability, or cha
 | **extends** | One specification inherits another, and may tighten it. Every Building Block specification extends the cross-functional requirements | A whole specification |
 | **Profile** | A separate specification that extends a Building Block specification and narrows it for one context, such as a national profile | A whole specification |
 | **Extension** | A named set of functionalities inside one Building Block specification, which a solution may claim in addition to the core | Functionalities |
-| **Variation point** | A requirement a solution meets by meeting some of its alternatives (ARCH-ADR-6) | A requirement |
+| **Variation point** | A requirement a solution meets by meeting at least `min` of its options (ARCH-ADR-6) | A requirement |
+| **Option** | One of the choices a variation point permits. A solution must meet at least `min` options, unlike an extension, which it may leave unclaimed (ARCH-ADR-6) | A requirement |
 
-Do not use "optional" for an extension. In GovStack usage, "optional" already means `RECOMMENDED`.
+Do not use "optional" for an extension or for an option. In GovStack usage, "optional" already means `RECOMMENDED`.
 
 # Example: the Wallet Building Block
 
@@ -230,7 +231,7 @@ A complete worked example of the introductory chapters, with this split, is in `
 # References
 
 - ARCH-ADR-5, *Separate a requirement's obligation level from its lifecycle status*
-- ARCH-ADR-6 (proposed), *Model alternative and conditional requirements*
+- ARCH-ADR-6 (proposed), *Model options and conditional requirements*
 - ARCH-ADR-7 (proposed), *Organise a specification's functionalities into a core and extensions*
 - ARCH-TDR-1 (proposed), *Declare capabilities and link functionalities to them*
 - ISO/IEC/IEEE 29148:2018, *Systems and software engineering — Life cycle processes — Requirements engineering*
