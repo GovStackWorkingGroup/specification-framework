@@ -71,7 +71,7 @@ requirements:
     status: DRAFT # DRAFT, WITHDRAWN, CANDIDATE, ACCEPTED, PUBLISHED, DEPRECATED
     level: RECOMMENDED # RECOMMENDED, REQUIRED
     observability: # OBSERVABLE, AUDITABLE
-    mutability: # IMMUTABLE, EXTENSIBLE
+    mutability: # IMMUTABLE, EXTENSIBLE, REPLACEABLE, INAPPLICABLE
     interaction: # SERVICE_API, CONSUMED_API, PROTOCOL, EVENT, USER_INTERFACE, DEVICE, FILE, INTERNAL
     contract: # where the contract is defined, when it is defined elsewhere
     statement: <one sentence>

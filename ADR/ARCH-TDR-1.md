@@ -126,8 +126,8 @@ Capabilities are informative content under *Versioning and Change Documentation*
 * *Introductory Chapters* gains a **Realises** column in the *Functionalities* table, replaces the paragraph that explained in prose which capability each functionality realises with guidance on how functionalities divide a capability, and adds the new checks before publication.
 * *Structure of Specifications* and `bb-template` replace `capability` with `description` and `realises` in the requirement file template, and `bb-template`'s `metadata.yml` gains `capabilities`.
 * The preparatory work guide (`resources/preparatory_work.md`) gives each capability an id, and allows a functionality to realise several.
-* ARCH-ADR-7 (proposed) shows a functionality file with the `capability` field. If both records are accepted, its example reads `description`.
-* The Specification Framework's own requirement files (`requirements/`) use `capability`, and are migrated to `description` and `realises` when this record is accepted.
+* ARCH-ADR-7 (proposed) shows a functionality file with the `description` field, as renamed here.
+* The Specification Framework's own requirement files (`requirements/`) use `description` and `realises`.
 * A Domain Reference Architecture can cite a Building Block's capabilities by id in its Part 3, *Capability mapping*. The Building Block's capabilities never reference the reference architecture.
 * The `publications-compiler` requirements parser implements the checks above.
 

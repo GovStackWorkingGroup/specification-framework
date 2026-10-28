@@ -90,7 +90,7 @@ Every functionality carries a `conformance` classifier. An extension functionali
 ```yaml
 ---
 title: Credential Issuance
-capability: |
+description: |
    The holder obtains credentials from an issuer through the issuance exchange.
 conformance: EXTENSION # [CORE, EXTENSION]
 extension: issuance # id of an extension declared in metadata.yml; only when conformance is EXTENSION
