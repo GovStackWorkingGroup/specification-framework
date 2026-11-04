@@ -16,7 +16,7 @@ informed:
 
 ## Context and Problem Statement
 
-The *Requirement Level Classifiers* section of the Requirements Model (`chapters/requirements_model.md`) gives every requirement exactly one of four keywords:
+The *Requirement Level Classifiers* section of the Requirements chapter (`chapters/requirements.md`) gives every requirement exactly one of four keywords:
 
 | Keyword | What *Requirement Level Classifiers* says it means |
 |---|---|
@@ -31,8 +31,6 @@ The four keywords answer two different questions. `REQUIRED` and `RECOMMENDED` s
 |---|---|---|
 | Obligation (conformance strength) | `REQUIRED`, `RECOMMENDED` | *exclusive* vs *optional requirement* (ISO/IEC 14143-2) |
 | Lifecycle (approval status) | `DRAFT`, …, `DEPRECATED` | *established requirement* (IEEE 730-2014, 3.2) |
-
-The analysis is recorded in `research/defining_a_requirement.md` §10.1, as open decision D8.
 
 ### A draft requirement has an intended obligation
 
@@ -144,7 +142,7 @@ No other transition is permitted. In particular, a numbered requirement never re
 
 ### Confirmation
 
-Confirmed by the Architecture Committee following Architecture Working Group discussion. The outcome is implemented in the *Unique Identifier* and *Requirement Level Classifiers* sections of `chapters/requirements_model.md`, in the requirement file template in `chapters/structure_of_specifications.md` and `bb-template`, and in the `publications-compiler` requirements parser.
+Confirmed by the Architecture Committee following Architecture Working Group discussion. The outcome is implemented in the *Unique Identifier* and *Requirement Level Classifiers* sections of `chapters/requirements.md`, in the requirement file template in `chapters/structure_of_specifications.md` and `bb-template`, and in the `publications-compiler` requirements parser.
 
 ## Pros and Cons of the Options
 
@@ -182,9 +180,7 @@ Confirmed by the Architecture Committee following Architecture Working Group dis
 
 ## More information
 
-* `research/defining_a_requirement.md` §10.1 (orthogonality defect), §8 decisions D8 and D13
-* `chapters/requirements_model.md`, sections *Unique Identifier* and *Requirement Level Classifiers*
-* `research/requirement-id-scheme.md`, on how the next free number is allocated
-* `chapters/crafting_well_formed_requirement_statements.md`, which maps the classifier to *priority* in ISO/IEC/IEEE 29148 and IEEE 1233, and `DRAFT` to the TBD problem in IEEE 830 §4.3.3.1. Both mappings need updating once the classifier is split
+* `chapters/requirements.md`, sections *Unique identifier*, *Requirement level* and *Requirement status*
+* `chapters/requirements.md`, *Writing the statement*, on the obligation carried by `level` rather than by the verb of the statement
 * `publications-compiler/requirements/requirements_parser.md` req-8 and its open questions
 * IEEE 730-2014, 3.2, *established requirement*; ISO/IEC/IEEE 29148:2018, 4.1.22 and 4.1.23; ISO/IEC 14143-2, *exclusive* and *optional requirement*

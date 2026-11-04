@@ -12,20 +12,34 @@ This document specifies the Wallet Building Block, a software component that hol
 
 It is applicable to any software solution claiming conformance to `govstack:spec:bb:wallet`.
 
+A conformant solution meets the core of this document. It may also claim one or both of these extensions, and meets every requirement of each extension it claims:
+
+- Issuance: obtaining credentials from a Credential Issuer through the issuance exchange.
+- Presentation: answering a Credential Verifier's request through the presentation exchange, with holder binding.
+
 ## Relationships
 
 This document extends `govstack:spec:cfr`. A conformant solution meets the requirements of both.
 
-The Wallet Building Block performs the Credential Holder role in `govstack:ra:credentials`.
+The Wallet Building Block performs the Credential Holder role in `govstack:ra:credentials`, in full when it claims both extensions.
 
 ## Covered
 
-- **Credential Intake**: receiving issued and bearer credentials, recognising their format, and checking them before storage
+**Core**
+
+- **Credential Intake**: receiving credentials the Holder supplies, recognising their format, and checking them before storage
 - **Credential Management**: keeping, displaying, deleting, backing up and recovering credentials
 - **Key Management**: generating, protecting and rotating keys bound to credentials, and attesting to them
 - **Holder Consent**: showing the Holder each request and recording their decision before disclosure
-- **Credential Presentation**: answering presentation requests with only the attributes the Holder agreed to disclose
-- The Wallet's side of the issuance, presentation and trust lookup exchanges defined in `govstack:ra:credentials`
+- **Credential Presentation**: presenting a credential with only the attributes the Holder agreed to disclose
+
+**Issuance extension**
+
+- **Credential Issuance**: the Wallet's side of the issuance exchange and of the issuer trust lookup defined in `govstack:ra:credentials`
+
+**Presentation extension**
+
+- **Presentation Exchange**: the Wallet's side of the presentation exchange and of the verifier trust and status lookups defined in `govstack:ra:credentials`
 
 ## Not covered
 
