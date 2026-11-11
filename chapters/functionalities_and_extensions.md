@@ -162,7 +162,7 @@ An extension names the role it serves and the reference architecture that descri
 | Every solution does something, but may do it in one of several ways | A variation point with alternatives (ARCH-ADR-6) | The solution cannot skip it |
 | A behaviour improves quality and a solution may skip it | A `RECOMMENDED` requirement | Nothing is claimed; GovMarket reports the share met |
 | A whole specification is narrowed for one context, such as a country | A profile: a separate specification that extends this one | The narrowing is decided by someone other than the Working Group, for one context |
-| The part can be assessed as a component on its own, with its own system under test | A separate Building Block specification | It does not need this Building Block's core |
+| The part can be assessed as a software component on its own | A separate Building Block specification | It does not need this Building Block's core |
 
 ## Warning signs
 

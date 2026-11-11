@@ -121,7 +121,7 @@ Say what the document specifies, where the boundary of the Building Block sits, 
 - **Where its boundary sits**: what is inside the component, and which neighbouring things are outside it even though they are closely related
 - **How it is assessed**: as a black box, through its interfaces. When some requirements can only be verified by audit rather than by observation, say so in one sentence
 
-The software component inside this boundary is what `chapters/requirements.md` calls the *system under test*, the term ISO/IEC/IEEE 29148 uses for what is assessed. Do not describe the internal architecture of a solution: two conformant solutions may be built in entirely different ways.
+The rest of the specification calls the software inside this boundary the *Building Block software*: it is what is assessed when a solution claims conformance. Do not describe the internal architecture of a solution: two conformant solutions may be built in entirely different ways.
 
 ```markdown
 This document specifies the <name> Building Block, a software component that <what it is>.

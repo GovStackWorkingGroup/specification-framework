@@ -11,11 +11,11 @@ references:
 This chapter is a draft. *Requirement status* describes the model proposed in ARCH-ADR-5 (`ADR/ARCH-ADR-5.md`), which has not yet been decided by the Architecture Committee. The interaction classifier in *Interaction types* is new and has not been discussed by the Architecture Working Group.
 {% endhint %}
 
-The requirements are the normative content of a Building Block specification. A solution is assessed against them, and nothing else in the specification makes a solution conformant or not. This chapter says what a requirement is, how its statement is written, how it is identified, which classifiers it carries, and how to tell what kind of interaction a requirement asks of the system under test.
+The requirements are the normative content of a Building Block specification. A solution is assessed against them, and nothing else in the specification makes a solution conformant or not. This chapter says what a requirement is, how its statement is written, how it is identified, which classifiers it carries, and how to tell what kind of interaction a requirement asks of the Building Block software.
 
 # What a requirement is
 
-A requirement is a single, verifiable statement of something the system under test does or is. Its subject is always the system under test: the Building Block, as delimited in *Subject and applicability* in the scope (`chapters/introductory_chapters.md`). A statement whose subject is a person, an organisation or another system is not a requirement of this specification, because nobody can submit that subject for assessment.
+A requirement is a single, verifiable statement of something the Building Block software does or is. Its subject is always the Building Block software, as delimited in *Subject and applicability* in the scope (`chapters/introductory_chapters.md`). A statement whose subject is a person, an organisation or another system is not a requirement of this specification, because nobody can submit that subject for assessment.
 
 Each requirement belongs to exactly one functionality, and lives in that functionality's file in `requirements/` (`chapters/structure_of_specifications.md`, *Requirement files*). Requirements every Building Block shares, such as transport security or structured logging, are cross-functional requirements. They live in `govstack:spec:cfr` and are inherited, not restated.
 
@@ -23,7 +23,7 @@ Each requirement belongs to exactly one functionality, and lives in that functio
 
 ## Structure
 
-A requirement states a **capability**: what the system under test does, without saying how. The capability may be qualified by a **condition**, a measurable attribute that only has meaning in relation to the capability, and bounded by a **constraint**, a limit imposed from outside, such as an existing interface, a law or a referenced standard (IEEE 1233, 6.1).
+A requirement states a **capability**: what the Building Block software does, without saying how. The capability may be qualified by a **condition**, a measurable attribute that only has meaning in relation to the capability, and bounded by a **constraint**, a limit imposed from outside, such as an existing interface, a law or a referenced standard (IEEE 1233, 6.1).
 
 The statement follows the sentence pattern of ISO/IEC/IEEE 29148, 5.2.4:
 
@@ -60,12 +60,12 @@ A requirement is ready for review when it has every property in this table (ISO/
 |---|---|---|
 | Necessary | Removing it would leave a capability unfulfilled | It realises its functionality, and no other requirement covers it |
 | Appropriate | Its detail matches the level of the Building Block | It names a contract, not a design or a technology |
-| Unambiguous | It can be read in only one way | It uses the terms of `terminology.md` and none of the words above |
+| Unambiguous | It can be read in only one way | It uses the terms of `terminology.yml` and none of the words above |
 | Complete | Nothing outside it is needed to understand it | Conditions and constraints are in the statement or in its `documentation` |
 | Singular | It states one capability, characteristic or constraint | One subject, one action, one object, one interaction type |
 | Feasible | It can be met within known technical limits | The Working Group has seen it met, or can say how it would be |
 | Verifiable | A finite, repeatable procedure can show it is met | Its `observability` is set, and a test or a list of evidence follows from it |
-| Correct | It is something the system under test must do | It does not contradict an `IMMUTABLE` requirement it inherits |
+| Correct | It is something the Building Block software must do | It does not contradict an `IMMUTABLE` requirement it inherits |
 | Conforming | It follows this chapter | Fields, classifiers and sentence pattern as described here |
 | Traceable | Its origin and its uses can be followed | It has an `id`, belongs to a functionality, and names its contract when the contract is defined elsewhere |
 
@@ -178,11 +178,11 @@ An extending requirement cites the requirement it extends, replaces or switches 
 
 # Interaction types
 
-The interaction type says where a tester has to stand to see the requirement met. A requirement that asks the system under test to offer an endpoint is checked by calling it. One that asks it to call another system's API is checked by standing in for that system. One that concerns how the system keeps its data is checked at no boundary at all. Recording this in each requirement tells the reader which contract the requirement depends on, tells the assessor what the test set-up needs, and lets a specification be checked for interfaces that no requirement realises.
+The interaction type says where a tester has to stand to see the requirement met. A requirement that asks the Building Block software to offer an endpoint is checked by calling it. One that asks it to call another system's API is checked by standing in for that system. One that concerns how the system keeps its data is checked at no boundary at all. Recording this in each requirement tells the reader which contract the requirement depends on, tells the assessor what the test set-up needs, and lets a specification be checked for interfaces that no requirement realises.
 
-| Type | The system under test … | Contract usually lives in | A test needs |
+| Type | The Building Block software … | Contract usually lives in | A test needs |
 |---|---|---|---|
-| `SERVICE_API` | offers an API operation that others call | This specification, `resources/api.yml` | A client that calls the system under test |
+| `SERVICE_API` | offers an API operation that others call | This specification, `resources/api.yml` | A client that calls the Building Block software |
 | `CONSUMED_API` | calls an API operation of another Building Block or system | The counterpart's specification | A stand-in for the counterpart that records the calls |
 | `PROTOCOL` | takes a role in a multi-party exchange defined for a domain | A Domain Reference Architecture or an external standard | A simulator of the other roles |
 | `EVENT` | publishes or subscribes to a message | This specification, or the publishing Building Block's | A broker, or a stand-in publisher or subscriber |
@@ -198,17 +198,17 @@ The first seven types are the interface types of the optional *Interfaces* table
 Ask in order, and stop at the first yes:
 
 1. Is the requirement an obligation of a role in an exchange defined by a Domain Reference Architecture or an external standard? Then `PROTOCOL`, even if the exchange is carried over API calls. The protocol is the contract, and the calls are part of it.
-2. Does another party call the system under test? Then `SERVICE_API`.
-3. Does the system under test call another party? Then `CONSUMED_API`.
+2. Does another party call the Building Block software? Then `SERVICE_API`.
+3. Does the Building Block software call another party? Then `CONSUMED_API`.
 4. Does the exchange happen through published messages rather than calls? Then `EVENT`.
 5. Is the other party a person? Then `USER_INTERFACE`.
 6. Is the other party a piece of hardware? Then `DEVICE`.
-7. Does the requirement concern a file or data package that the system under test reads or produces? Then `FILE`.
+7. Does the requirement concern a file or data package that the Building Block software reads or produces? Then `FILE`.
 8. Otherwise, `INTERNAL`.
 
 Rules:
 
-1. Every requirement has exactly one interaction type. A requirement that seems to need two usually holds two requirements: one for the exchange, and one for what the system under test does with its result.
+1. Every requirement has exactly one interaction type. A requirement that seems to need two usually holds two requirements: one for the exchange, and one for what the Building Block software does with its result.
 2. A requirement of type `SERVICE_API` names its operation in `api_operation_id`, and that operation exists in `resources/api.yml`.
 3. A requirement of type `CONSUMED_API`, `PROTOCOL`, `DEVICE` or `FILE` whose contract is defined elsewhere names that contract in `contract`: a publication identifier with the operation, role or section, or a document listed in `references.md`.
 4. When the Technical Overview has an *Interfaces* table, every interface in it is realised by at least one requirement of the matching type, and every requirement that is not `INTERNAL` realises an interface listed in it.
@@ -219,7 +219,7 @@ Guidance:
 - A file exchanged over a network, for example uploaded through an API operation, is two requirements: one `SERVICE_API` or `CONSUMED_API` for the transfer, and one `FILE` for the format. The format can change without the operation changing, and the reverse
 - `INTERNAL` does not mean `AUDITABLE`. Persistence across a restart is internal, but a tester can see it by restarting the system and reading the credential back. Choose `observability` separately
 - `USER_INTERFACE` requirements state what a person must be shown or asked, not how the screen looks. Layout, wording and accessibility of the screen belong to the cross-functional requirements or to the deployment
-- `DEVICE` is for hardware the system under test interacts with. Hardware reached through an operating system service, such as a platform key store, is still `DEVICE` when the requirement depends on the hardware's properties, and `INTERNAL` when it does not
+- `DEVICE` is for hardware the Building Block software interacts with. Hardware reached through an operating system service, such as a platform key store, is still `DEVICE` when the requirement depends on the hardware's properties, and `INTERNAL` when it does not
 - When a protocol is realised by an extension functionality, its `PROTOCOL` requirements all sit in that extension (`chapters/functionalities_and_extensions.md`)
 
 ## Examples

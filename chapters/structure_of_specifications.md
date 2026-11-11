@@ -20,7 +20,7 @@ treeView
       purpose.md
       scope.md
       technical_overview.md
-      terminology.md
+      terminology.yml
       references.md
   requirements/
       functionality-1.md
@@ -49,7 +49,7 @@ The `introduction/` directory opens the specification. It tells a reader why the
 | `purpose.md` | The value the Building Block provides, the capabilities it offers, and its place in the Digital Service Systems and reference architectures it operates in |
 | `scope.md` | What this document specifies, where the boundary of the Building Block sits and what conforms to it, what it extends, what it covers, and what it does not cover, with the owner of each excluded item |
 | `technical_overview.md` | The market assessment that led to the functionalities, the functionalities and how they divide into a core and extensions, and, optionally, the actors around the Building Block and the interfaces that cross its boundary |
-| `terminology.md` | Terms used in a non-obvious sense, and terms shared with adjacent specifications |
+| `terminology.yml` | Terms used in a non-obvious sense, and terms shared with adjacent specifications |
 | `references.md` | Every external document the specification depends on |
 
 Readers meet the files in the order Purpose, Scope, Technical Overview. `purpose.md` and `scope.md` are written for a wide, non-technical audience such as decision-makers and buyers; `technical_overview.md` is written for teams that build, implement or assess a solution, and comes last so that other readers can stop before it. Authors usually write the Technical Overview before the Scope, because the scope is derived from it. The functionalities named in the Technical Overview are the files in `requirements/`, with the same names.
