@@ -15,7 +15,7 @@ The requirements are the normative content of a Building Block specification. A 
 
 # What a requirement is
 
-A requirement is a single, verifiable statement of something the system under test does or is. Its subject is always the system under test: the Building Block, as delimited in *System under test* in the overview (`chapters/introductory_chapters.md`). A statement whose subject is a person, an organisation or another system is not a requirement of this specification, because nobody can submit that subject for assessment.
+A requirement is a single, verifiable statement of something the system under test does or is. Its subject is always the system under test: the Building Block, as delimited in *Subject and applicability* in the scope (`chapters/introductory_chapters.md`). A statement whose subject is a person, an organisation or another system is not a requirement of this specification, because nobody can submit that subject for assessment.
 
 Each requirement belongs to exactly one functionality, and lives in that functionality's file in `requirements/` (`chapters/structure_of_specifications.md`, *Requirement files*). Requirements every Building Block shares, such as transport security or structured logging, are cross-functional requirements. They live in `govstack:spec:cfr` and are inherited, not restated.
 
@@ -191,7 +191,7 @@ The interaction type says where a tester has to stand to see the requirement met
 | `FILE` | reads or writes a file or data package in a defined format | This specification, or an external standard for the format | Sample files, and a validator for the files produced |
 | `INTERNAL` | has a characteristic that does not cross any boundary | This specification | Indirect observation, or evidence artefacts |
 
-The first seven types are the interface types of *Interfaces* in the overview (`chapters/introductory_chapters.md`). A requirement of any type except `INTERNAL` realises one of the interfaces listed there.
+The first seven types are the interface types of the optional *Interfaces* table in the Technical Overview (`chapters/introductory_chapters.md`). When the table is present, a requirement of any type except `INTERNAL` realises one of the interfaces listed there.
 
 ## Deciding the type
 
@@ -211,7 +211,7 @@ Rules:
 1. Every requirement has exactly one interaction type. A requirement that seems to need two usually holds two requirements: one for the exchange, and one for what the system under test does with its result.
 2. A requirement of type `SERVICE_API` names its operation in `api_operation_id`, and that operation exists in `resources/api.yml`.
 3. A requirement of type `CONSUMED_API`, `PROTOCOL`, `DEVICE` or `FILE` whose contract is defined elsewhere names that contract in `contract`: a publication identifier with the operation, role or section, or a document listed in `references.md`.
-4. Every interface in the overview is realised by at least one requirement of the matching type, and every requirement that is not `INTERNAL` realises an interface listed in the overview.
+4. When the Technical Overview has an *Interfaces* table, every interface in it is realised by at least one requirement of the matching type, and every requirement that is not `INTERNAL` realises an interface listed in it.
 5. Interfaces inherited from the cross-functional requirements, such as logging and monitoring, are not given an interaction type here. They belong to the requirements of `govstack:spec:cfr`.
 
 Guidance:
@@ -241,7 +241,7 @@ Illustrative requirements for the Wallet Building Block, one per type.
 
 | Where | Use |
 |---|---|
-| *Interfaces* in the overview | Each interface is realised by requirements of its type. A row with none is missing its requirements |
+| *Interfaces* in the Technical Overview, when present | Each interface is realised by requirements of its type. A row with none is missing its requirements |
 | Compliance tests | The type tells the test author which harness the requirement needs: client, stand-in, simulator, reference hardware, sample files or evidence |
 | Versioning | The rules in *Interface changes* (`chapters/versioning_and_change_documentation.md`) apply to `SERVICE_API` requirements. Changes to the contract of a `CONSUMED_API`, `PROTOCOL` or `FILE` requirement are judged by the same question: does an existing solution or counterpart break? |
 | Extensions | A solution that claims only the core never needs a harness for the types used only in extensions |

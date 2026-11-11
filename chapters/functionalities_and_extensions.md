@@ -10,7 +10,7 @@ A Building Block specification is organised by functionalities, and each functio
 
 # Capabilities
 
-A capability is an outcome the Building Block makes possible for its beneficiaries: "Credential Custody", "Selective Disclosure", "Holder Control". Capabilities are named in the *Purpose* of the overview, for a reader deciding whether the Building Block is relevant to them (`chapters/introductory_chapters.md`, *Value*).
+A capability is an outcome the Building Block makes possible for its beneficiaries: "Credential Custody", "Selective Disclosure", "Holder Control". Capabilities are named in the *Purpose*, for a reader deciding whether the Building Block is relevant to them (`chapters/introductory_chapters.md`, *Value*).
 
 A capability states **what**, never **how**. It names no product, vendor, protocol or technology, and it carries no requirements. Capabilities are informative: a solution does not claim a capability and is not assessed against one. It is assessed against the functionalities that realise them.
 
@@ -29,7 +29,7 @@ capabilities:
 | Field | Content |
 |---|---|
 | `id` | A short identifier, unique in the specification and never reused |
-| `title` | A noun phrase, used in the *Purpose* of the overview |
+| `title` | A noun phrase, used in the *Purpose* |
 | `description` | One sentence: the outcome, from the point of view of the beneficiary |
 
 ## Capabilities and functionalities
@@ -53,13 +53,13 @@ Rules:
 1. Every capability is realised by at least one functionality.
 2. Every functionality realises at least one capability. A functionality that realises none serves no outcome the *Purpose* names: either the *Purpose* is missing a capability, or the functionality belongs elsewhere.
 3. A capability that at least one core functionality realises is provided by every conformant solution. A capability that only extension functionalities realise is provided only by solutions that claim one of those extensions, and the *Purpose* says so.
-4. When the core and an extension both realise a capability, the *Description* says what a solution that claims the extension provides beyond the core.
+4. When the core and an extension both realise a capability, the *Technical Overview* says what a solution that claims the extension provides beyond the core.
 
 A Domain Reference Architecture has capabilities of its own, in its capability map, and maps each one to a Building Block in a role (`govstack-process/chapters/reference_architectures.md`, Part 3). That mapping may cite the capabilities of a Building Block specification by their ids. The relationship runs one way, as for extensions: a Building Block's capabilities never reference a reference architecture.
 
 # Functionalities
 
-A functionality is a service the Building Block provides to an actor outside it, realised by a set of requirements. It is the unit a specification is organised by: each functionality has its own file in `requirements/`, and the functionalities named in the overview are those files, with the same names (`chapters/structure_of_specifications.md`).
+A functionality is a service the Building Block provides to an actor outside it, realised by a set of requirements. It is the unit a specification is organised by: each functionality has its own file in `requirements/`, and the functionalities named in the Technical Overview are those files, with the same names (`chapters/structure_of_specifications.md`).
 
 This follows the "feature" organisation of requirements in ISO/IEC/IEEE 29148: a feature is a service the system provides externally, which may need a sequence of inputs to produce its result. A functionality is such a feature, and the sequence of inputs and responses that realises it is its workflow, described in the body of its file.
 
@@ -67,8 +67,8 @@ A functionality file holds:
 
 | Part | Where | Content |
 |---|---|---|
-| Title | front matter, `title` | The name of the functionality, as in the overview |
-| Description | front matter, `description` | What the functionality provides, from the point of view of the business. No requirements language. The *Functionalities* table of the overview repeats it |
+| Title | front matter, `title` | The name of the functionality, as in the Technical Overview |
+| Description | front matter, `description` | What the functionality provides, from the point of view of the business. No requirements language. The *Functionalities* table of the Technical Overview repeats it |
 | Realises | front matter, `realises` | The ids of the capabilities, declared in `metadata.yml`, that the functionality realises |
 | Conformance | front matter, `conformance` and `extension` | Whether the functionality is in the core or in an extension, and which one |
 | Requirements | front matter, `requirements` | The requirements that realise the functionality |
@@ -125,7 +125,7 @@ extensions:
 | Field | Content |
 |---|---|
 | `id` | A short identifier, unique in the specification and never reused |
-| `title` | The name used in the overview, the scope and GovMarket |
+| `title` | The name used in the Technical Overview, the scope and GovMarket |
 | `description` | One sentence: what a solution that claims the extension can do that the core alone cannot |
 | `role` | The role the Building Block performs through the extension, and towards whom. Optional when the extension serves no particular role |
 | `reference_architecture` | The Domain Reference Architecture that describes that role. Optional |
