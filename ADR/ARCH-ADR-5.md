@@ -20,12 +20,12 @@ The *Requirement Level Classifiers* section of the Requirements chapter (`chapte
 
 | Keyword | What *Requirement Level Classifiers* says it means |
 |---|---|
-| `REQUIRED` | every conformant solution must satisfy it; failing one disqualifies the product |
-| `RECOMMENDED` | improves quality but is optional; GovMarket reports the share a solution meets |
+| `REQUIRED` | every conformant software solution must satisfy it; failing one disqualifies the product |
+| `RECOMMENDED` | improves quality but is optional; GovMarket reports the share a software solution meets |
 | `DRAFT` | a proposal in public view that still needs evidence or consensus; it reserves an identifier, and no compliance test fails if it is absent |
 | `DEPRECATED` | a retired rule whose identifier persists for audit and is never reused |
 
-The four keywords answer two different questions. `REQUIRED` and `RECOMMENDED` say **how strongly a conformant solution is bound** by the requirement. `DRAFT` and `DEPRECATED` say **where the requirement stands in its approval lifecycle**. The classifier mixes these two independent dimensions in one enumeration:
+The four keywords answer two different questions. `REQUIRED` and `RECOMMENDED` say **how strongly a conformant software solution is bound** by the requirement. `DRAFT` and `DEPRECATED` say **where the requirement stands in its approval lifecycle**. The classifier mixes these two independent dimensions in one enumeration:
 
 | Dimension | Values | Canonical anchor |
 |---|---|---|

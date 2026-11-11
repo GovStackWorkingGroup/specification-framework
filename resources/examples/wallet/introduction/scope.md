@@ -12,14 +12,14 @@ This document specifies the Wallet Building Block, a software component that hol
 
 It is applicable to any software solution claiming conformance to `govstack:spec:bb:wallet`.
 
-A conformant solution meets the core of this document. It may also claim one or both of these extensions, and meets every requirement of each extension it claims:
+A conformant software solution meets the core of this document. It may also claim one or both of these extensions, and meets every requirement of each extension it claims:
 
 - Issuance: obtaining credentials from a Credential Issuer through the issuance exchange.
 - Presentation: answering a Credential Verifier's request through the presentation exchange, with holder binding.
 
 ## Relationships
 
-This document extends `govstack:spec:cfr`. A conformant solution meets the requirements of both.
+This document extends `govstack:spec:cfr`. A conformant software solution meets the requirements of both.
 
 The Wallet Building Block performs the Credential Holder role in `govstack:ra:credentials`, in full when it claims both extensions.
 

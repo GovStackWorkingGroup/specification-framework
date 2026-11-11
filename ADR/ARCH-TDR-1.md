@@ -24,7 +24,7 @@ Nothing in the specification makes that rule checkable:
 * A functionality file does not say which capability it realises. The overview is asked to explain it in a free-text paragraph after the functionality table.
 * The functionality file has a front-matter field called `capability`, which holds a description of the functionality itself, not a reference to a capability of the *Purpose*. The same word names two different things.
 
-So a capability can be named in the *Purpose* that no functionality realises, a functionality can exist that serves no named capability, and neither a reviewer nor the compiler can tell. Capabilities are the part of the specification a decision-maker reads; if they are not tied to what is assessed, they can promise more than a conformant solution delivers.
+So a capability can be named in the *Purpose* that no functionality realises, a functionality can exist that serves no named capability, and neither a reviewer nor the compiler can tell. Capabilities are the part of the specification a decision-maker reads; if they are not tied to what is assessed, they can promise more than a conformant software solution delivers.
 
 The question is how to make capabilities useful: whether to tie them to the functionalities, and how, or to make them the unit that holds requirements in place of functionalities.
 
@@ -101,13 +101,13 @@ requirements:
 
 1. Every capability is realised by at least one functionality.
 2. Every functionality realises at least one capability.
-3. A capability that at least one core functionality realises is provided by every conformant solution. A capability that only extension functionalities realise is provided only by solutions that claim one of those extensions, and the *Purpose* says so.
-4. When the core and an extension both realise a capability, the *Description* says what a solution that claims the extension provides beyond the core.
+3. A capability that at least one core functionality realises is provided by every conformant software solution. A capability that only extension functionalities realise is provided only by software solutions that claim one of those extensions, and the *Purpose* says so.
+4. When the core and an extension both realise a capability, the *Description* says what a software solution that claims the extension provides beyond the core.
 5. Capability ids are unique in the specification and never reused.
 
 ### Conformance and versioning
 
-Capabilities do not take part in conformance. A solution is assessed against the functionalities in the core and in the extensions it claims, as before. GovMarket may show the capabilities a solution provides, derived from its claimed extensions by rule 3, but never as a score.
+Capabilities do not take part in conformance. A software solution is assessed against the functionalities in the core and in the extensions it claims, as before. GovMarket may show the capabilities a software solution provides, derived from its claimed extensions by rule 3, but never as a score.
 
 Capabilities are informative content under *Versioning and Change Documentation*. Adding, rewording or removing a capability, or changing the functionalities that realise it, is on its own a **patch** change.
 
@@ -166,7 +166,7 @@ Confirmed by the Architecture Committee following Architecture Working Group dis
 * Good, because the link is structural and checkable in both directions, by the compiler and by a reviewer
 * Good, because the unit of conformance stays the functionality, and ARCH-ADR-7 is unaffected
 * Good, because capabilities stay outcomes, written for the reader of the *Purpose*, and can span the core and extensions
-* Good, because which capabilities a core-only solution provides becomes derivable, not asserted
+* Good, because which capabilities a core-only software solution provides becomes derivable, not asserted
 * Good, because "capability" gets one meaning
 * Good, because existing specifications stay valid, with a warning
 * Neutral, because `metadata.yml` gains one more block, next to `extensions`
