@@ -8,7 +8,10 @@ toc:
     - references.md # to update format
   chapters:
     - structure_of_specifications.md
+    - specification_maturity.md
     - introductory_chapters.md
     - functionalities_and_extensions.md
     - requirements.md
+    - operation_cards.md
+    - conformance.md
   resources:
