@@ -30,7 +30,7 @@ Here's a list of audience examples from the GovStack Architecture document, chap
 - Government adopter
 - Procurement officer
 - Donor or funding organisation
-- Solution vendor or implementer
+- Software solution vendor or implementer
 - Software architect
 - GovMarket compliance assessor
 - GovStack specification developer

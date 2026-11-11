@@ -11,7 +11,7 @@ references:
 This chapter is a draft. *Requirement status* describes the model proposed in ARCH-ADR-5 (`ADR/ARCH-ADR-5.md`), which has not yet been decided by the Architecture Committee. The interaction classifier in *Interaction types* is new and has not been discussed by the Architecture Working Group.
 {% endhint %}
 
-The requirements are the normative content of a Building Block specification. A solution is assessed against them, and nothing else in the specification makes a solution conformant or not. This chapter says what a requirement is, how its statement is written, how it is identified, which classifiers it carries, and how to tell what kind of interaction a requirement asks of the system under test.
+The requirements are the normative content of a Building Block specification. A software solution is assessed against them, and nothing else in the specification makes a software solution conformant or not. This chapter says what a requirement is, how its statement is written, how it is identified, which classifiers it carries, and how to tell what kind of interaction a requirement asks of the system under test.
 
 # What a requirement is
 
@@ -35,7 +35,7 @@ Only the subject and the action are always present. Conditions and constraints t
 
 ## Obligation
 
-The obligation of a requirement is carried by its `level` classifier, not by the verb in its statement. GovMarket and the compliance tooling read the classifier. Write the statement in the plain present tense, "The Wallet keeps …", or with an RFC 2119 keyword, but never rely on the keyword alone to say whether the requirement is mandatory. Where a sentence in the `documentation` needs its own obligation, such as "a solution MAY additionally …", use the RFC 2119 keywords in capitals.
+The obligation of a requirement is carried by its `level` classifier, not by the verb in its statement. GovMarket and the compliance tooling read the classifier. Write the statement in the plain present tense, "The Wallet keeps …", or with an RFC 2119 keyword, but never rely on the keyword alone to say whether the requirement is mandatory. Where a sentence in the `documentation` needs its own obligation, such as "a software solution MAY additionally …", use the RFC 2119 keywords in capitals.
 
 ## Words to avoid
 
@@ -77,7 +77,7 @@ The requirements of a specification are also checked as a set. Together with the
 - **Two obligations in one.** "The Wallet stores and encrypts credentials" is two requirements, which may have different levels and different tests
 - **A goal instead of a requirement.** "The Wallet is secure" has no pass or fail. Either state what makes it so, or leave it to the cross-functional requirements
 - **Restating an inherited requirement.** A cross-functional requirement is inherited through `extends`. Restate it only to tighten an `EXTENSIBLE` one, and cite it when you do
-- **Naming a product.** "The Wallet uses OpenIAM" binds every solution to a vendor. Name the contract the product implements
+- **Naming a product.** "The Wallet uses OpenIAM" binds every software solution to a vendor. Name the contract the product implements
 
 # Unique identifier
 
@@ -103,7 +103,7 @@ Every requirement carries the following fields in the front matter of its functi
 |---|---|---|---|
 | `id` | A number | none until accepted | Which requirement, see *Unique identifier* |
 | `status` | DRAFT, CANDIDATE, ACCEPTED, WITHDRAWN, PUBLISHED, DEPRECATED | DRAFT | Where it stands in its life cycle |
-| `level` | REQUIRED, RECOMMENDED | RECOMMENDED | Whether a solution fails without it |
+| `level` | REQUIRED, RECOMMENDED | RECOMMENDED | Whether a software solution fails without it |
 | `observability` | OBSERVABLE, AUDITABLE | AUDITABLE | Whether it is verified from outside the running system, or by inspecting evidence |
 | `mutability` | IMMUTABLE, EXTENSIBLE, REPLACEABLE, INAPPLICABLE | REPLACEABLE | What an extending specification may do with it |
 | `interaction` | SERVICE_API, CONSUMED_API, PROTOCOL, EVENT, USER_INTERFACE, DEVICE, FILE, INTERNAL | none | Where it is exercised: across which boundary, or at none |
@@ -112,11 +112,11 @@ Each classifier takes exactly one value at a time. A requirement without an expl
 
 ## Requirement level
 
-The level says how strongly a conformant solution is bound.
+The level says how strongly a conformant software solution is bound.
 
-**REQUIRED** - every conformant solution meets the requirement exactly as written. A solution that fails a single published REQUIRED requirement is not GovStack compliant.
+**REQUIRED** - every conformant software solution meets the requirement exactly as written. A software solution that fails a single published REQUIRED requirement is not GovStack compliant.
 
-**RECOMMENDED** - the requirement improves a solution but is optional. GovMarket reports the share of published RECOMMENDED requirements a solution meets, as an additional signal for buyers.
+**RECOMMENDED** - the requirement improves a software solution but is optional. GovMarket reports the share of published RECOMMENDED requirements a software solution meets, as an additional signal for buyers.
 
 ## Requirement status
 
@@ -243,8 +243,8 @@ Illustrative requirements for the Wallet Building Block, one per type.
 |---|---|
 | *Interfaces* in the overview | Each interface is realised by requirements of its type. A row with none is missing its requirements |
 | Compliance tests | The type tells the test author which harness the requirement needs: client, stand-in, simulator, reference hardware, sample files or evidence |
-| Versioning | The rules in *Interface changes* (`chapters/versioning_and_change_documentation.md`) apply to `SERVICE_API` requirements. Changes to the contract of a `CONSUMED_API`, `PROTOCOL` or `FILE` requirement are judged by the same question: does an existing solution or counterpart break? |
-| Extensions | A solution that claims only the core never needs a harness for the types used only in extensions |
+| Versioning | The rules in *Interface changes* (`chapters/versioning_and_change_documentation.md`) apply to `SERVICE_API` requirements. Changes to the contract of a `CONSUMED_API`, `PROTOCOL` or `FILE` requirement are judged by the same question: does an existing software solution or counterpart break? |
+| Extensions | A software solution that claims only the core never needs a harness for the types used only in extensions |
 
 # In the front matter
 

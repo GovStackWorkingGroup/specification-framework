@@ -6,13 +6,13 @@ title: Functionalities and Extensions
 This chapter describes the mechanisms proposed in ARCH-ADR-7 (`ADR/ARCH-ADR-7.md`) for core and extensions, and in ARCH-TDR-1 (`ADR/ARCH-TDR-1.md`) for capabilities. Neither has yet been decided by the Architecture Committee.
 {% endhint %}
 
-A Building Block specification is organised by functionalities, and each functionality realises one or more capabilities. This chapter says what a capability is, what a functionality is, how the two are linked, and how a specification sorts its functionalities into a **core**, which every conformant solution meets, and **extensions**, which a solution may claim in addition to the core.
+A Building Block specification is organised by functionalities, and each functionality realises one or more capabilities. This chapter says what a capability is, what a functionality is, how the two are linked, and how a specification sorts its functionalities into a **core**, which every conformant software solution meets, and **extensions**, which a software solution may claim in addition to the core.
 
 # Capabilities
 
 A capability is an outcome the Building Block makes possible for its beneficiaries: "Credential Custody", "Selective Disclosure", "Holder Control". Capabilities are named in the *Purpose* of the overview, for a reader deciding whether the Building Block is relevant to them (`chapters/introductory_chapters.md`, *Value*).
 
-A capability states **what**, never **how**. It names no product, vendor, protocol or technology, and it carries no requirements. Capabilities are informative: a solution does not claim a capability and is not assessed against one. It is assessed against the functionalities that realise them.
+A capability states **what**, never **how**. It names no product, vendor, protocol or technology, and it carries no requirements. Capabilities are informative: a software solution does not claim a capability and is not assessed against one. It is assessed against the functionalities that realise them.
 
 Each capability is declared once, in `metadata.yml`:
 
@@ -38,7 +38,7 @@ Capabilities and functionalities answer different questions, for different reade
 
 | | Capability | Functionality |
 |---|---|---|
-| Answers | What the Building Block makes possible | What a conformant solution does, and for which actor |
+| Answers | What the Building Block makes possible | What a conformant software solution does, and for which actor |
 | Written for | A decision-maker or buyer reading the *Purpose* | An implementer or assessor reading the requirements |
 | Carries requirements | No | Yes, in its file in `requirements/` |
 | Core or extension | Neither. It follows from the functionalities that realise it | Exactly one of the two |
@@ -52,8 +52,8 @@ Rules:
 
 1. Every capability is realised by at least one functionality.
 2. Every functionality realises at least one capability. A functionality that realises none serves no outcome the *Purpose* names: either the *Purpose* is missing a capability, or the functionality belongs elsewhere.
-3. A capability that at least one core functionality realises is provided by every conformant solution. A capability that only extension functionalities realise is provided only by solutions that claim one of those extensions, and the *Purpose* says so.
-4. When the core and an extension both realise a capability, the *Description* says what a solution that claims the extension provides beyond the core.
+3. A capability that at least one core functionality realises is provided by every conformant software solution. A capability that only extension functionalities realise is provided only by software solutions that claim one of those extensions, and the *Purpose* says so.
+4. When the core and an extension both realise a capability, the *Description* says what a software solution that claims the extension provides beyond the core.
 
 A Domain Reference Architecture has capabilities of its own, in its capability map, and maps each one to a Building Block in a role (`govstack-process/chapters/reference_architectures.md`, Part 3). That mapping may cite the capabilities of a Building Block specification by their ids. The relationship runs one way, as for extensions: a Building Block's capabilities never reference a reference architecture.
 
@@ -82,8 +82,8 @@ Every functionality carries one classifier for conformance:
 
 | Value | Meaning |
 |---|---|
-| `CORE` | Every conformant solution meets this functionality |
-| `EXTENSION` | A solution meets this functionality if it claims the extension the functionality belongs to |
+| `CORE` | Every conformant software solution meets this functionality |
+| `EXTENSION` | A software solution meets this functionality if it claims the extension the functionality belongs to |
 
 ```yaml
 ---
@@ -102,13 +102,13 @@ requirements:
 
 ## The core
 
-The core is what makes a solution an instance of the Building Block. A solution that meets the core is a useful, conformant product on its own, even if it claims no extension.
+The core is what makes a software solution an instance of the Building Block. A software solution that meets the core is a useful, conformant product on its own, even if it claims no extension.
 
 The core of a specification is never empty, and never depends on an extension.
 
 ## Extensions
 
-An extension is a named set of one or more functionalities that a solution may claim in addition to the core. A solution that claims an extension meets every `REQUIRED` requirement in it, as it does for the core. An extension is therefore all or nothing: a solution cannot claim half of one.
+An extension is a named set of one or more functionalities that a software solution may claim in addition to the core. A software solution that claims an extension meets every `REQUIRED` requirement in it, as it does for the core. An extension is therefore all or nothing: a software solution cannot claim half of one.
 
 Each extension is declared once, in `metadata.yml`:
 
@@ -126,18 +126,18 @@ extensions:
 |---|---|
 | `id` | A short identifier, unique in the specification and never reused |
 | `title` | The name used in the overview, the scope and GovMarket |
-| `description` | One sentence: what a solution that claims the extension can do that the core alone cannot |
+| `description` | One sentence: what a software solution that claims the extension can do that the core alone cannot |
 | `role` | The role the Building Block performs through the extension, and towards whom. Optional when the extension serves no particular role |
 | `reference_architecture` | The Domain Reference Architecture that describes that role. Optional |
-| `requires` | Other extensions a solution must also claim when it claims this one |
+| `requires` | Other extensions a software solution must also claim when it claims this one |
 
 Rules:
 
 1. A functionality is either core or in exactly one extension. Its requirements are not split between the two.
 2. An extension may add to the behaviour of a core functionality when it is claimed. It may not weaken or replace a core requirement.
 3. An extension may require other extensions. The core never depends on an extension, and there are no cycles.
-4. A variation point (ARCH-ADR-6) may sit in an extension. It then binds only the solutions that claim the extension.
-5. With ARCH-ADR-6, `applies_when` may name an extension id, so that a requirement in a core functionality applies only to solutions that claim the extension. Use it when the requirement belongs in the core functionality by meaning, for example "the wallet logs the verifier's identity for each presentation" in a transaction log that is core. Without ARCH-ADR-6, write such a requirement in a functionality of the extension.
+4. A variation point (ARCH-ADR-6) may sit in an extension. It then binds only the software solutions that claim the extension.
+5. With ARCH-ADR-6, `applies_when` may name an extension id, so that a requirement in a core functionality applies only to software solutions that claim the extension. Use it when the requirement belongs in the core functionality by meaning, for example "the wallet logs the verifier's identity for each presentation" in a transaction log that is core. Without ARCH-ADR-6, write such a requirement in a functionality of the extension.
 
 # Deciding what is core and what is an extension
 
@@ -151,7 +151,7 @@ Make a functionality an extension when one of these holds:
 | **It is an obligation towards a role in a domain.** The functionality exists to work with a counterpart that follows the protocol of a particular domain, and not every deployment has that counterpart | A wallet's exchange with an Issuer that follows the issuance protocol of a credentials reference architecture |
 | **It depends on infrastructure that not every deployment has.** | Checking issuers against a trust registry that a country may not operate |
 
-The second reason follows from how reference architectures work. A Domain Reference Architecture carries no requirements. The obligations a Building Block has towards a role in it belong in the Building Block specification (`govstack-process/chapters/reference_architectures.md`, Part 5). When those obligations are not part of what makes a solution an instance of the Building Block, they are an extension. This keeps the Building Block autonomous: a solution can conform to the core without any counterpart following a domain's protocol.
+The second reason follows from how reference architectures work. A Domain Reference Architecture carries no requirements. The obligations a Building Block has towards a role in it belong in the Building Block specification (`govstack-process/chapters/reference_architectures.md`, Part 5). When those obligations are not part of what makes a software solution an instance of the Building Block, they are an extension. This keeps the Building Block autonomous: a software solution can conform to the core without any counterpart following a domain's protocol.
 
 An extension names the role it serves and the reference architecture that describes the role, for the reader. Its requirements cite the standards they use directly, and are complete without the reference architecture. The relationship still runs one way: a reference architecture references the specification, never the reverse.
 
@@ -159,8 +159,8 @@ An extension names the role it serves and the reference architecture that descri
 
 | The need | Use | Not an extension because |
 |---|---|---|
-| Every solution does something, but may do it in one of several ways | A variation point with alternatives (ARCH-ADR-6) | The solution cannot skip it |
-| A behaviour improves quality and a solution may skip it | A `RECOMMENDED` requirement | Nothing is claimed; GovMarket reports the share met |
+| Every software solution does something, but may do it in one of several ways | A variation point with alternatives (ARCH-ADR-6) | The software solution cannot skip it |
+| A behaviour improves quality and a software solution may skip it | A `RECOMMENDED` requirement | Nothing is claimed; GovMarket reports the share met |
 | A whole specification is narrowed for one context, such as a country | A profile: a separate specification that extends this one | The narrowing is decided by someone other than the Working Group, for one context |
 | The part can be assessed as a component on its own, with its own system under test | A separate Building Block specification | It does not need this Building Block's core |
 
@@ -168,31 +168,31 @@ An extension names the role it serves and the reference architecture that descri
 
 - **Every product would claim the extension.** It is core in disguise. Move it to the core.
 - **The extension has no `REQUIRED` requirement.** Claiming it guarantees nothing. Write its requirements as `RECOMMENDED` requirements in the core instead.
-- **The core cannot stand alone.** A solution that meets only the core would not be useful. A functionality the core needs has been placed in an extension.
+- **The core cannot stand alone.** A software solution that meets only the core would not be useful. A functionality the core needs has been placed in an extension.
 - **The extension can be assessed without the core.** It may be a separate Building Block.
 - **Extensions multiply with each combination.** Two extensions that differ only in how they do the same thing are a variation point inside one extension.
 
 # Conformance
 
-- Every conformant solution meets the core.
-- A solution declares the extensions it claims, in its conformance declaration. For each claimed extension, and each extension it requires, the solution meets every `REQUIRED` requirement.
+- Every conformant software solution meets the core.
+- A software solution declares the extensions it claims, in its conformance declaration. For each claimed extension, and each extension it requires, the software solution meets every `REQUIRED` requirement.
 - The requirements of an extension that is not claimed are **not applicable**, neither passed nor failed. A `RECOMMENDED` requirement in an unclaimed extension is left out of the share GovMarket reports.
-- GovMarket shows the claimed extensions as facts about the solution, not as a score: "Wallet 2.0: core, Issuance, Presentation". A buyer can filter on them, and cite them in a procurement.
+- GovMarket shows the claimed extensions as facts about the software solution, not as a score: "Wallet 2.0: core, Issuance, Presentation". A buyer can filter on them, and cite them in a procurement.
 - An extension takes part in compliance through its `PUBLISHED` requirements (ARCH-ADR-5). An extension can be introduced with `DRAFT` requirements, so that implementations can experiment with it before it binds anything.
 
 # Versioning
 
-An extension's requirements follow the rules of *Versioning and Change Documentation*, judged against the solutions that claim the extension. Changes to the extensions themselves are classified as follows:
+An extension's requirements follow the rules of *Versioning and Change Documentation*, judged against the software solutions that claim the extension. Changes to the extensions themselves are classified as follows:
 
 | Change | Release | Reason |
 |---|---|---|
 | Adding an extension | minor | No existing claim changes |
 | Moving a functionality from the core into an extension | major | Every citation of the specification loses a guarantee |
-| Moving a functionality from an extension into the core | major | Every solution gains obligations |
-| Deprecating an extension | major | Solutions that claim it lose their claim |
-| Adding an extension to another one's `requires` | major | Solutions that claim the first must now claim the second |
+| Moving a functionality from an extension into the core | major | Every software solution gains obligations |
+| Deprecating an extension | major | Software solutions that claim it lose their claim |
+| Adding an extension to another one's `requires` | major | Software solutions that claim the first must now claim the second |
 
-Capabilities are informative. Adding, rewording or removing a capability, or changing the functionalities that realise it, is on its own a **patch** change: no solution's conformance changes. A capability id is never reused, so a citation of a capability in a reference architecture never comes to mean something else.
+Capabilities are informative. Adding, rewording or removing a capability, or changing the functionalities that realise it, is on its own a **patch** change: no software solution's conformance changes. A capability id is never reused, so a citation of a capability in a reference architecture never comes to mean something else.
 
 # Terms that sound alike
 
@@ -200,8 +200,8 @@ Capabilities are informative. Adding, rewording or removing a capability, or cha
 |---|---|---|
 | **extends** | One specification inherits another, and may tighten it. Every Building Block specification extends the cross-functional requirements | A whole specification |
 | **Profile** | A separate specification that extends a Building Block specification and narrows it for one context, such as a national profile | A whole specification |
-| **Extension** | A named set of functionalities inside one Building Block specification, which a solution may claim in addition to the core | Functionalities |
-| **Variation point** | A requirement a solution meets by meeting some of its alternatives (ARCH-ADR-6) | A requirement |
+| **Extension** | A named set of functionalities inside one Building Block specification, which a software solution may claim in addition to the core | Functionalities |
+| **Variation point** | A requirement a software solution meets by meeting some of its alternatives (ARCH-ADR-6) | A requirement |
 
 Do not use "optional" for an extension. In GovStack usage, "optional" already means `RECOMMENDED`.
 
