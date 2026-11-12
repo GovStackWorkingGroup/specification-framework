@@ -10,6 +10,10 @@ title: Scope
 
 This document specifies the Wallet Building Block, a software component that holds credentials on behalf of one person, together with the keys bound to them, and presents them at that person's direction.
 
+Its boundary includes everything the person installs or is provided with to hold and present credentials: the application they interact with and any service it relies on to store credentials or keys on their behalf. It excludes the systems of Issuers, Verifiers and trust registries, even when a single organisation provides both a wallet and an issuing service.
+
+The Wallet is assessed as a black box, through an exchange with an emulated Issuer or Verifier, or through the user interface. Key protection and the deletion of stored credentials cannot be fully observed from outside, and the requirements that cover them are verified by audit.
+
 It is applicable to any software solution claiming conformance to `govstack:spec:bb:wallet`.
 
 A conformant solution meets the core of this document. It may also claim one or both of these extensions, and meets every requirement of each extension it claims:

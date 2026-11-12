@@ -17,9 +17,10 @@ treeView
   ADR/
   assets/
   introduction/
-      overview.md
+      purpose.md
       scope.md
-      terminology.md
+      technical_overview.md
+      terminology.yml
       references.md
   requirements/
       functionality-1.md
@@ -41,16 +42,17 @@ A specification declares its capabilities in metadata.yml, under `capabilities`,
 
 ## Introduction files
 
-The `introduction/` directory opens the specification. It tells a reader why the Building Block exists, what a conformant solution is, and what this document covers. Each kind of content has its own file, so that a reader looking for the scope of a specification always finds it in the same place.
+The `introduction/` directory opens the specification. It tells a reader why the Building Block exists, what this document covers, and what a conformant solution is. Each kind of content has its own file, so that a reader looking for the scope of a specification always finds it in the same place.
 
 | File | Holds |
 |---|---|
-| `overview.md` | **Purpose**: the value the Building Block provides, and its place in the Digital Service Systems and reference architectures it operates in. **Description**: the system under test, its functionalities, the actors around it and the interfaces that cross its boundary |
-| `scope.md` | What this document specifies and what conforms to it, what it extends, what it covers, and what it does not cover, with the owner of each excluded item |
-| `terminology.md` | Terms used in a non-obvious sense, and terms shared with adjacent specifications |
+| `purpose.md` | The value the Building Block provides, the capabilities it offers, and its place in the Digital Service Systems and reference architectures it operates in |
+| `scope.md` | What this document specifies, where the boundary of the Building Block sits and what conforms to it, what it extends, what it covers, and what it does not cover, with the owner of each excluded item |
+| `technical_overview.md` | The market assessment that led to the functionalities, the functionalities and how they divide into a core and extensions, and, optionally, the actors around the Building Block and the interfaces that cross its boundary |
+| `terminology.yml` | Terms used in a non-obvious sense, and terms shared with adjacent specifications |
 | `references.md` | Every external document the specification depends on |
 
-`overview.md` and `scope.md` work as a pair: the overview describes the Building Block, and the scope turns that description into the boundary of the document. The functionalities named in the overview are the files in `requirements/`, with the same names.
+Readers meet the files in the order Purpose, Scope, Technical Overview. `purpose.md` and `scope.md` are written for a wide, non-technical audience such as decision-makers and buyers; `technical_overview.md` is written for teams that build, implement or assess a solution, and comes last so that other readers can stop before it. Authors usually write the Technical Overview before the Scope, because the scope is derived from it. The functionalities named in the Technical Overview are the files in `requirements/`, with the same names.
 
 See `chapters/introductory_chapters.md` for guidance on writing each section, and `resources/examples/wallet/introduction/` for a worked example.
 
