@@ -1,0 +1,37 @@
+---
+name: Wallet Building Block Specification
+abstract: Requirements for software solutions that hold credentials issued to a person and present them at the holder's direction.
+url: https://specs.govstack.global/wallet
+repository: https://github.com/GovStackWorkingGroup/bb-wallet
+urn: govstack:spec:bb:wallet
+owner_group: govstack:wg:cfid
+versions:
+  - version: 2.0-draft
+    url_suffix: /wallet/2.0-draft
+    latest: true
+    release_date:
+    short_description:
+capabilities:
+  - id: custody
+    title: Credential Custody
+    description: A person keeps the credentials issued to them and can use them whenever they need to.
+  - id: disclosure
+    title: Selective Disclosure
+    description: A person shares only the attributes of a credential that a party needs to see.
+  - id: control
+    title: Holder Control
+    description: A person decides which credentials are kept, used and shared, and with whom.
+extensions:
+  - id: issuance
+    title: Issuance
+    description: Obtaining credentials from an Issuer through the issuance exchange.
+    role: Credential Holder, towards the Credential Issuer
+    reference_architecture: govstack:ra:credentials
+    requires: []
+  - id: presentation
+    title: Presentation
+    description: Answering a Verifier's request through the presentation exchange, with holder binding.
+    role: Credential Holder, towards the Credential Verifier
+    reference_architecture: govstack:ra:credentials
+    requires: []
+maturity: 1

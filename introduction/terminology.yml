@@ -12,3 +12,31 @@
     designation: capability
     description: |
         expression of the  ability of a system, product, or process to meet current or projected business goals
+- entry:
+    designation: software solution
+    description: |
+      a software product, or a deployment of one, that is assessed against GovStack specifications.
+- entry:
+    designation: specification maturity
+    description: |
+      how far a GovStack specification is developed, on a scale from 0 (none) to 4 (test scenarios); see chapters/specification_maturity.md.
+- entry:
+    designation: requirement conformance class
+    description: |
+      a named set of requirements that a software solution claims to meet as a whole: Compatible Software or Building Block Software; see chapters/conformance.md.
+- entry:
+    designation: Compatible Software
+    description: |
+      the requirement conformance class of a software solution that meets every REQUIRED cross-functional requirement, without being an instance of a Building Block.
+- entry:
+    designation: Building Block Software
+    description: |
+      the requirement conformance class of a software solution that is Compatible Software and meets every REQUIRED requirement of a Building Block's core and of each extension it claims.
+- entry:
+    designation: API conformance class
+    description: |
+      a named set of API checks that a software solution claims to pass as a whole, in addition to its requirement conformance class: API Ruleset conformance or API operations conformance; see chapters/conformance.md.
+- entry:
+    designation: assurance level
+    description: |
+      how strongly a single result of a software solution is evidenced, from 0 (not assessed) to 3 (automatically tested).

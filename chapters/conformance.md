@@ -9,74 +9,61 @@ references:
   - OGC 08-131r3, The Specification Model — A Standard for Modular Specifications, Open Geospatial Consortium, 2009
 ---
 
-A software solution is assessed against the requirements of GovStack specifications, and against nothing else (`chapters/requirements.md`). This chapter says which sets of requirements a software solution can claim, how strongly each result is evidenced, what the API checks add, and how GovStack's marketplace presents the outcome to buyers.
+A software solution is assessed against the requirements of GovStack specifications, and against nothing else (`chapters/requirements.md`). This chapter answers three questions in turn: what a software solution can claim, how strongly each part of the claim is evidenced, and how GovStack's marketplace presents the result to buyers.
 
 | Term | Describes | Values |
 |---|---|---|
-| Conformance class | The set of requirements a software solution claims to meet | Integration Software, Building Block Software |
-| Assurance level | How strongly a result is evidenced | 0 to 3 for requirements, 0 to 2 for API checks |
-| Maturity | How far a specification is developed | See *Specification Maturity* (`chapters/specification_maturity.md`) |
+| Requirement conformance class | Which requirements a software solution meets | Compatible Software, Building Block Software |
+| API conformance class | How far a software solution's API follows GovStack's API rules, and maps to a Building Block's contract | API Ruleset conformance, API operations conformance |
+| Assurance level | How strongly a single result is evidenced | 0 to 3 |
+| Specification maturity | How far a specification is developed | See *Specification Maturity* (`chapters/specification_maturity.md`) |
 
-A conformance class is what a software solution claims. An assurance level is how well the claim is backed. Maturity is a property of the specification, and it limits which assurance levels are possible.
+A software solution claims one requirement conformance class, and may claim one API conformance class in addition. Both are claims about a set of results, and the chapter describes them first. The assurance level of each result then says how well the claim is backed, and the maturity of the specification limits which assurance levels are possible.
 
-# Conformance classes
+# Requirement conformance class
 
-A conformance class is a named set of requirements that a software solution claims as a whole. The term follows the OGC Specification Model, on which the core and extensions of `chapters/functionalities_and_extensions.md` are also based. There are two classes, and the second builds on the first.
+A requirement conformance class is a named set of requirements that a software solution claims to meet as a whole. The term follows the OGC Specification Model, on which the core and extensions of `chapters/functionalities_and_extensions.md` are also based. There are two classes, and the second builds on the first. Every software solution listed on GovStack's marketplace holds one of them.
 
 | Class | Claimed by | The software solution meets |
 |---|---|---|
-| **Integration Software** | Any software solution that is to work in a GovStack stack, whether or not it is an instance of a Building Block | Every `REQUIRED` published requirement of the cross-functional requirements, `govstack:spec:cfr` |
-| **Building Block Software** | A software solution that claims to be an instance of a Building Block, in a named version | The Integration Software class, and every `REQUIRED` published requirement of the Building Block's core and of each extension the software solution claims, including cross-functional requirements as the Building Block tightens them |
+| **Compatible Software** | A software solution that is to work in a GovStack stack without being an instance of a Building Block, such as a sector application that uses Building Blocks | Every `REQUIRED` published requirement of the cross-functional requirements, `govstack:spec:cfr` |
+| **Building Block Software** | A software solution that claims to be an instance of a Building Block, in a named version | The Compatible Software class, and every `REQUIRED` published requirement of the Building Block's core and of each extension the software solution claims |
 
 Rules:
 
-1. Only `PUBLISHED` requirements take part (ARCH-ADR-5). `DRAFT` and `CANDIDATE` requirements of a release are not assessed.
-2. A software solution that fails one `REQUIRED` requirement of a class does not hold that class.
-3. The share of `RECOMMENDED` requirements met is reported, and does not decide the class.
-4. Requirements of an extension the software solution does not claim are not applicable: neither passed nor failed, and left out of the shares reported (`chapters/functionalities_and_extensions.md`, *Conformance*).
-5. A software solution may hold the Building Block Software class for several Building Blocks. It holds the Integration Software class once.
+1. Only `PUBLISHED` requirements take part (ARCH-ADR-5). Requirements with another status are not assessed.
+2. Every requirement of the class is met at assurance level 1 or higher (see *Assurance levels*). Higher levels are optional, and GovStack's marketplace shows them.
+3. A software solution that does not meet one `REQUIRED` requirement of a class does not hold that class.
+4. The share of `RECOMMENDED` requirements met is reported, and does not decide the class.
+5. A software solution of the Building Block Software class declares the extensions it claims. For each claimed extension, and each extension that one requires, it meets every `REQUIRED` requirement.
+6. The requirements of an extension that is not claimed are not applicable: neither passed nor failed, and left out of the shares reported.
+7. A cross-functional requirement whose condition does not hold for a software solution, such as an API rule where the software solution offers no API, is not applicable in the same way. The condition is part of the requirement's statement or `documentation` (`chapters/requirements.md`, *Structure*).
+8. A software solution may hold the Building Block Software class for several Building Blocks. It holds the Compatible Software class once.
 
-# Assurance of requirement results
+# API conformance class
 
-Every requirement result carries one assurance level. The levels test the same thing with stronger evidence, so a result has exactly one level, and a higher level includes everything a lower one shows.
+The requirement conformance class says what a software solution does. The API conformance class says how far integrators and AI agents can rely on its API. An API conformance class is a named set of API checks that a software solution claims to pass as a whole. There are two classes, and the second builds on the first. Unlike a requirement conformance class, an API conformance class is optional: it is not a condition for being listed on GovStack's marketplace, which shows it next to the requirement conformance class.
 
-| Assurance | Procedure | Evidence |
+| Class | Claimed by | The software solution meets |
 |---|---|---|
-| 0 Not assessed | — | None |
-| 1 Self-declared | The vendor marks the requirement as met or not met, and attaches proof: a screenshot or log file for an `OBSERVABLE` requirement, the evidence listed in the requirement for an `AUDITABLE` one | A supplier's declaration (ISO/IEC 17050-1), checked for completeness by the GovStack team |
-| 2 Manually tested | The vendor receives the steps and input data of the test scenarios, runs them on its own test instance, and enters the results. The testing application compares them with the expected results | Reproducible results against a published procedure |
-| 3 Automatically tested | The vendor provides the endpoint of its test instance. The testing application runs the test scenarios and attaches the log to the compliance report | Results produced and recorded by GovStack |
+| **API Ruleset conformance** | A software solution of either requirement conformance class that offers an API | Every `REQUIRED` rule of the API Ruleset of the cross-functional requirements. Every one of these rules that the lint ruleset checks is met at assurance level 3 |
+| **API operations conformance** | A software solution of the Building Block Software class, when the Building Block's specification has its own contract at maturity 2 or higher | The API Ruleset conformance class, and a mapping of every operation of the contract required for its claim, checked at assurance level 3 |
 
-Self-declaration is the default, and the only level available for every requirement. Higher levels are optional for a vendor, and possible only where the specification provides what they need:
+Rules:
 
-| Assurance | Possible for | Needs from the specification |
-|---|---|---|
-| 1 Self-declared | Every requirement | Requirement maturity 1; for an `AUDITABLE` requirement, the evidence list of requirement maturity 2 |
-| 2 Manually tested | `OBSERVABLE` requirements | Requirement maturity 3: test scenarios |
-| 3 Automatically tested | `OBSERVABLE` requirements that a script can check | Requirement maturity 3; for a `SERVICE_API` requirement also API maturity 3, whose examples serve as fixtures |
+1. Both classes are checked on the OpenAPI document that a software solution publishes. The API Ruleset requires every software solution that offers an API to publish one.
+2. The API Ruleset is one set of rules for Building Block contracts and for the APIs of software solutions. A contract at specification maturity 2 passes the same lint ruleset that checks a software solution.
+3. At assurance level 3, both classes are checked by linting: a static analysis of the published OpenAPI document. Linting checks the interface as described, not the behaviour of the running software solution. The behaviour is the subject of the requirements and their test scenarios.
 
-The interaction type of a requirement tells the test author which harness an automated test needs: a client, a stand-in for a counterpart, a simulator, reference hardware or sample files (`chapters/requirements.md`, *Interaction types*). A requirement of type `USER_INTERFACE` is usually tested manually.
+## API Ruleset conformance
 
-When a test scenario does not exist, or cannot be run, the requirement falls back to self-declaration. As the Working Groups add scenarios, more requirements can be tested at higher levels, without any change to what the requirements demand.
+The API Ruleset sets the common rules for APIs: naming, versioning, data formats, errors, pagination and security. Each rule is a cross-functional requirement with its own `level`. A software solution that holds a requirement conformance class therefore already meets every `REQUIRED` rule, at least by self-declaration. API Ruleset conformance adds stronger evidence: every `REQUIRED` rule that the lint ruleset checks is met at assurance level 3. A rule that the lint cannot check, such as hiding implementation details, stays at the assurance level it has.
 
-# API checks
+This class shows that a software solution's API follows the common conventions, so that an integrator or an AI agent that knows one GovStack API can call this one without learning new conventions.
 
-Two checks examine the OpenAPI document that a software solution publishes. They test different things, and each is reported on its own.
+## API operations conformance
 
-| Check | Tests | Against | Applies to |
-|---|---|---|---|
-| **API style** | Whether the API follows the API design rules | The lint ruleset of `govstack:spec:cfr` | Both conformance classes |
-| **Operation coverage** | Whether the software solution offers an operation for every operation of the Building Block | The operation index of the Building Block specification | The Building Block Software class, when the specification has API maturity 1 or higher |
-
-Both checks need the software solution to publish an OpenAPI document. The cross-functional requirements make this an obligation of every software solution that offers an API.
-
-## API style
-
-Each rule of the lint ruleset carries the `level` of the cross-functional requirement it checks. A rule for a `REQUIRED` requirement reports an error, and a rule for a `RECOMMENDED` requirement reports a warning. The check passes when there is no error. The share of warning rules met is reported, as for `RECOMMENDED` requirements.
-
-## Operation coverage
-
-A software solution keeps its own API design: its own paths, field names and versioning. It marks in its OpenAPI document which of its operations implements which operation of the Building Block:
+A software solution keeps its own paths and operation identifiers. It marks in its OpenAPI document which of its operations implements which operation of the Building Block's contract, with the extension field `x-govstack-operation` defined in the API Ruleset:
 
 ```yaml
 paths:
@@ -84,42 +71,58 @@ paths:
     get:
       operationId: getItems
       x-govstack-operation: listCredentials
-      x-govstack-effect: READ
 ```
 
-The check compares these marks with the operation index of the specification (`chapters/operation_cards.md`, *The operation index*):
+The lint check compares these marks with the contract in `resources/api.yml`:
 
-- Every `REQUIRED` operation appears at least once. The check fails if one is missing.
-- Every mark names an operation that exists. Typing errors and invented operations are reported.
-- The effect of each mark matches the effect in the index. An operation that changes something cannot be marked `READ`.
-- The share of `RECOMMENDED` operations covered is reported.
+- Every operation required for the claim appears at least once. An operation is required when a `REQUIRED` requirement of the core, or of a claimed extension, names it in `api_operation_id`.
+- Every mark names an operation that exists in the contract. Typing errors and invented operations are reported.
+- The share of the other operations of the contract that are mapped is reported.
 
-The check proves that the vendor has declared, publicly and precisely, which of its operations fulfils which operation of the Building Block, and that none is missing. It does not prove that the operation behaves as its card describes. That is the work of the `SERVICE_API` requirements that name the operation, assessed as in *Assurance of requirement results*. The marks make that assessment easier: test instructions can name the software solution's own endpoint, and an agent can find the same operation in every conformant software solution without configuration for each one.
+The mapping shows broadly which of the software solution's operations serves the purpose of each operation of the contract, and that none required is missing. It does not show that requests and responses match the contract, nor that an operation behaves as the contract describes. On the strength of the mapping alone, an integrator still needs an adapter to reach functional interoperability. Evidence that an operation takes the requests and gives the responses of the contract, and behaves as required, comes from the `SERVICE_API` requirements that name it, assessed as in *Assurance levels*.
 
-## Assurance of API checks
+The marks make that assessment easier: a test scenario can be run against the software solution's own endpoint, and an AI agent can find the same operation in every conformant software solution.
 
-| Assurance | Procedure |
-|---|---|
-| 0 Not assessed | — |
-| 1 Self-declared | The vendor declares that its API follows the design rules, or that it covers the operations |
-| 2 Automatically linted | The testing application runs the check on the software solution's published OpenAPI document |
+A specification that reaches maturity 2 by referencing a domain standard has no contract of its own to map against. Its software solutions cannot hold API operations conformance; the standard's own conformance suite applies instead.
 
-Each check carries its own assurance level. The API checks are reported next to the conformance class. They do not decide it.
+# Assurance levels
+
+Every result carries one assurance level: the result for a requirement, for an API rule, or for the operation mapping. The levels test the same thing with stronger evidence, so a result has exactly one level, and a higher level includes everything a lower one shows.
+
+| Assurance | Procedure | Evidence |
+|---|---|---|
+| 0 Not assessed | — | None |
+| 1 Self-declared | The vendor marks the requirement as met or not met, and attaches proof: a screenshot or log file for an `OBSERVABLE` requirement, the evidence listed in the requirement for an `AUDITABLE` one | A supplier's declaration (ISO/IEC 17050-1), checked for completeness by the GovStack team |
+| 2 Manually tested | The vendor receives the test scenarios of the requirement with their steps and input data, runs them on its own test instance, and enters the results. The testing application compares them with the expected results. The GovStack team repeats a sample of the scenarios | Reproducible results against a published procedure |
+| 3 Automatically tested | The testing application runs the test against the vendor's test instance, or, for the API conformance classes, lints the vendor's published OpenAPI document. It attaches the log to the compliance report | Results produced and recorded by GovStack |
+
+What each level needs:
+
+| Assurance | Possible for | Needs from the specification |
+|---|---|---|
+| 1 Self-declared | Every requirement | Specification maturity 1 |
+| 2 Manually tested | A requirement with at least one test scenario | The requirement's scenarios in `resources/tests/` |
+| 3 Automatically tested | A requirement whose outcome a script can check | The requirement's scenarios; for a `SERVICE_API` requirement also the contract of specification maturity 2. For an API rule, a check in the lint ruleset; for the operation mapping, the contract |
+
+A result can reach a higher assurance level as soon as its requirement has what that level needs, even before the specification reaches maturity 4. Where nothing more exists, the result stays at self-declaration. As the Working Groups add scenarios and contracts, more requirements can be tested at higher levels, without any change to what the requirements demand.
+
+The interaction type of a requirement tells the test author which harness an automated test needs: a client, a stand-in for a counterpart, a simulator, reference hardware or sample files (`chapters/requirements.md`, *Interaction types*). A requirement of type `USER_INTERFACE` is usually tested manually.
 
 # GovStack's marketplace
 
-GovStack's marketplace lists software solutions by conformance class:
+GovStack's marketplace lists software solutions by requirement conformance class:
 
-- **Integration Software:** software solutions that hold the Integration Software class and no Building Block Software class.
+- **Compatible Software:** software solutions that hold the Compatible Software class and no Building Block Software class.
 - **Building Block Software:** software solutions that hold the Building Block Software class, listed under each Building Block and version, with the extensions they claim.
 
-Each listed software solution shows four markers.
+The claimed extensions are shown as facts about the software solution, not as a score: "Wallet 2.0: core, Issuance, Presentation". A buyer can filter on them, and cite them in a procurement.
+
+Each listed software solution shows three markers.
 
 | Marker | Shows | Example |
 |---|---|---|
-| Requirements met | All `REQUIRED` requirements of the class met, and the share of `RECOMMENDED` ones | REQUIRED: all · RECOMMENDED: 64 % · Extensions: Issuance |
-| Requirement assurance | How many results stand at each assurance level | 18 automatically tested · 25 manually tested · 9 self-declared |
-| API checks met | The result of each API check | API style: passed, 37 of 40 recommended rules · Operation coverage: 12 of 12 required, 3 of 5 recommended |
-| API check assurance | The assurance level of each API check | API style: automatically linted · Operation coverage: automatically linted |
+| Requirements met | All `REQUIRED` requirements of the class met, and the share of `RECOMMENDED` ones | REQUIRED: all · RECOMMENDED: 64 % |
+| Requirement assurance | The share of `REQUIRED` results tested manually or automatically. The count per assurance level is on the detail page | 83 % of REQUIRED results tested |
+| API conformance class | The class held, if any; otherwise the share of linted `REQUIRED` API rules met at assurance level 3 | API operations conformance |
 
-Each Building Block list also shows the maturity of the specification, so that a buyer can tell what conformance means for that Building Block. At API maturity 1 it means that the software solution follows the API style and behaviour, and covers the operations. From API maturity 2 it means that the software solution implements a common contract.
+Each Building Block list also shows the maturity of the specification, so that a buyer can tell what conformance means for that Building Block. Below maturity 2 it means that a software solution meets the requirements in its own API design. From maturity 2, its required operations must also take the requests and give the responses of a common contract, under the software solution's own paths; the requirement assurance marker shows how well that is evidenced.

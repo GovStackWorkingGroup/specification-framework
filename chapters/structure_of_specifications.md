@@ -27,6 +27,7 @@ treeView
       functionality-2.md
   resources/
       api.yml
+      mock/
       skills.md
       tests/
   metadata.yml
@@ -38,11 +39,11 @@ treeView
 
 metadata.yml, authors.yml and toc.yml are files necessary for the compilation of a specification. Further explanation can be read at `govstack:process` on its Compiling Specifications chapter.
 
-A specification declares its capabilities in metadata.yml, under `capabilities`, and its extensions, if it has any, under `extensions`. See `chapters/functionalities_and_extensions.md`.
+A specification declares its capabilities in metadata.yml, under `capabilities`, and its extensions, if it has any, under `extensions`. See `chapters/functionalities_and_extensions.md`. It declares its maturity under `maturity`. See `chapters/specification_maturity.md`.
 
 ## Introduction files
 
-The `introduction/` directory opens the specification. It tells a reader why the Building Block exists, what this document covers, and what a conformant solution is. Each kind of content has its own file, so that a reader looking for the scope of a specification always finds it in the same place.
+The `introduction/` directory opens the specification. It tells a reader why the Building Block exists, what this document covers, and what a conformant software solution is. Each kind of content has its own file, so that a reader looking for the scope of a specification always finds it in the same place.
 
 | File | Holds |
 |---|---|
@@ -52,7 +53,7 @@ The `introduction/` directory opens the specification. It tells a reader why the
 | `terminology.yml` | Terms used in a non-obvious sense, and terms shared with adjacent specifications |
 | `references.md` | Every external document the specification depends on |
 
-Readers meet the files in the order Purpose, Scope, Technical Overview. `purpose.md` and `scope.md` are written for a wide, non-technical audience such as decision-makers and buyers; `technical_overview.md` is written for teams that build, implement or assess a solution, and comes last so that other readers can stop before it. Authors usually write the Technical Overview before the Scope, because the scope is derived from it. The functionalities named in the Technical Overview are the files in `requirements/`, with the same names.
+Readers meet the files in the order Purpose, Scope, Technical Overview. `purpose.md` and `scope.md` are written for a wide, non-technical audience such as decision-makers and buyers; `technical_overview.md` is written for teams that build, implement or assess a software solution, and comes last so that other readers can stop before it. Authors usually write the Technical Overview before the Scope, because the scope is derived from it. The functionalities named in the Technical Overview are the files in `requirements/`, with the same names.
 
 See `chapters/introductory_chapters.md` for guidance on writing each section, and `resources/examples/wallet/introduction/` for a worked example.
 
@@ -85,4 +86,4 @@ requirements:
 
 `realises` lists the capabilities the functionality realises. Every functionality realises at least one, and every capability declared in metadata.yml is realised by at least one functionality.
 
-`conformance` says whether the functionality is part of the core, which every conformant solution meets, or of an extension, which a solution may claim in addition to the core. It defaults to `CORE`. See `chapters/functionalities_and_extensions.md`.
+`conformance` says whether the functionality is part of the core, which every conformant software solution meets, or of an extension, which a software solution may claim in addition to the core. It defaults to `CORE`. See `chapters/functionalities_and_extensions.md`.

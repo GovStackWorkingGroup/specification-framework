@@ -11,7 +11,7 @@ references:
 This chapter is a draft. *Requirement status* describes the model proposed in ARCH-ADR-5 (`ADR/ARCH-ADR-5.md`), which has not yet been decided by the Architecture Committee. The interaction classifier in *Interaction types* is new and has not been discussed by the Architecture Working Group.
 {% endhint %}
 
-The requirements are the normative content of a Building Block specification. A solution is assessed against them, and nothing else in the specification makes a solution conformant or not. This chapter says what a requirement is, how its statement is written, how it is identified, which classifiers it carries, and how to tell what kind of interaction a requirement asks of the Building Block software.
+The requirements are the normative content of a Building Block specification. A software solution is assessed against them, and nothing else in the specification makes a software solution conformant or not. This chapter says what a requirement is, how its statement is written, how it is identified, which classifiers it carries, and how to tell what kind of interaction a requirement asks of the Building Block software.
 
 # What a requirement is
 
@@ -35,7 +35,7 @@ Only the subject and the action are always present. Conditions and constraints t
 
 ## Obligation
 
-The obligation of a requirement is carried by its `level` classifier, not by the verb in its statement. GovMarket and the compliance tooling read the classifier. Write the statement in the plain present tense, "The Wallet keeps …", or with an RFC 2119 keyword, but never rely on the keyword alone to say whether the requirement is mandatory. Where a sentence in the `documentation` needs its own obligation, such as "a solution MAY additionally …", use the RFC 2119 keywords in capitals.
+The obligation of a requirement is carried by its `level` classifier, not by the verb in its statement. GovStack's marketplace and the compliance tooling read the classifier. Write the statement in the plain present tense, "The Wallet keeps …", or with an RFC 2119 keyword, but never rely on the keyword alone to say whether the requirement is mandatory. Where a sentence in the `documentation` needs its own obligation, such as "a software solution MAY additionally …", use the RFC 2119 keywords in capitals.
 
 ## Words to avoid
 
@@ -77,7 +77,7 @@ The requirements of a specification are also checked as a set. Together with the
 - **Two obligations in one.** "The Wallet stores and encrypts credentials" is two requirements, which may have different levels and different tests
 - **A goal instead of a requirement.** "The Wallet is secure" has no pass or fail. Either state what makes it so, or leave it to the cross-functional requirements
 - **Restating an inherited requirement.** A cross-functional requirement is inherited through `extends`. Restate it only to tighten an `EXTENSIBLE` one, and cite it when you do
-- **Naming a product.** "The Wallet uses OpenIAM" binds every solution to a vendor. Name the contract the product implements
+- **Naming a product.** "The Wallet uses OpenIAM" binds every software solution to a vendor. Name the contract the product implements
 
 # Unique identifier
 
@@ -103,7 +103,7 @@ Every requirement carries the following fields in the front matter of its functi
 |---|---|---|---|
 | `id` | A number | none until accepted | Which requirement, see *Unique identifier* |
 | `status` | DRAFT, CANDIDATE, ACCEPTED, WITHDRAWN, PUBLISHED, DEPRECATED | DRAFT | Where it stands in its life cycle |
-| `level` | REQUIRED, RECOMMENDED | RECOMMENDED | Whether a solution fails without it |
+| `level` | REQUIRED, RECOMMENDED | RECOMMENDED | Whether a software solution fails without it |
 | `observability` | OBSERVABLE, AUDITABLE | AUDITABLE | Whether it is verified from outside the running system, or by inspecting evidence |
 | `mutability` | IMMUTABLE, EXTENSIBLE, REPLACEABLE, INAPPLICABLE | REPLACEABLE | What an extending specification may do with it |
 | `interaction` | SERVICE_API, CONSUMED_API, PROTOCOL, EVENT, USER_INTERFACE, DEVICE, FILE, INTERNAL | none | Where it is exercised: across which boundary, or at none |
@@ -112,11 +112,11 @@ Each classifier takes exactly one value at a time. A requirement without an expl
 
 ## Requirement level
 
-The level says how strongly a conformant solution is bound.
+The level says how strongly a conformant software solution is bound.
 
-**REQUIRED** - every conformant solution meets the requirement exactly as written. A solution that fails a single published REQUIRED requirement is not GovStack compliant.
+**REQUIRED** - every conformant software solution meets the requirement exactly as written. A software solution that does not meet a single published REQUIRED requirement does not hold its requirement conformance class (`chapters/conformance.md`).
 
-**RECOMMENDED** - the requirement improves a solution but is optional. GovMarket reports the share of published RECOMMENDED requirements a solution meets, as an additional signal for buyers.
+**RECOMMENDED** - the requirement improves a software solution but is optional. GovStack's marketplace reports the share of published RECOMMENDED requirements a software solution meets, as an additional signal for buyers.
 
 ## Requirement status
 
@@ -124,14 +124,14 @@ The status says where the requirement stands in its approval life cycle. It is i
 
 Two events divide the life cycle. **Acceptance** gives the requirement its number. **Publication**, the first release that contains it, makes the record permanent.
 
-| Status | Numbered | Takes part in compliance | Meaning |
+| Status | Numbered | Takes part in conformance | Meaning |
 |---|---|---|---|
 | `DRAFT` | No | No | A proposal still being written. Statement and classifiers may change freely |
 | `CANDIDATE` | No | No | A proposal the authors consider complete, submitted to the Working Group for review. Implementations may experiment against it |
 | `ACCEPTED` | Yes | No | Approved by the Working Group as well formed and as stating what stakeholders need. Merged, but not yet in a released version |
 | `WITHDRAWN` | If it was accepted | No | Abandoned before publication. If it had a number, the number is skipped for good |
 | `PUBLISHED` | Yes | Yes | In a released version of the specification |
-| `DEPRECATED` | Yes | No | Published once, and no longer applies. It keeps its number, statement and level, so that an audit of a past compliance claim can see what was demanded |
+| `DEPRECATED` | Yes | No | Published once, and no longer applies. It keeps its number, statement and level, so that an audit of a past conformance claim can see what was demanded |
 
 | From | To | When |
 |---|---|---|
@@ -150,15 +150,17 @@ No other transition is permitted. A numbered requirement never returns to `DRAFT
 
 ## Observability
 
-The observability says how compliance with the requirement is confirmed. A Building Block is assessed as a black box wherever possible.
+The observability says how conformance to the requirement is confirmed. A Building Block is assessed as a black box wherever possible.
 
-**OBSERVABLE** - compliance can be verified by interacting with the running system, without access to its source code, configuration or infrastructure: through API calls, protocol exchanges or behavioural tests. An observable requirement is verified in one of three ways, in order of preference:
+**OBSERVABLE** - conformance can be verified by interacting with the running system, without access to its source code, configuration or infrastructure: through API calls, protocol exchanges or behavioural tests. An observable requirement is verified in one of three ways, in order of preference:
 
 - **Automatically testable.** A script or compliance tool checks it.
 - **Manually testable.** A documented procedure with a clear pass or fail outcome, which anyone following the steps reproduces.
 - **Operationally observable.** Evidence or behaviour observed at run time, where the outcome may not be binary or exactly reproducible.
 
-**AUDITABLE** - compliance cannot be determined from external behaviour alone, and requires inspecting architecture documentation, source code, deployment configuration, access control policies or third-party audit reports. Each AUDITABLE requirement lists in its `documentation` the evidence a vendor produces, so that the assessment stays deterministic even when it is manual.
+The three ways lead to different assurance levels (`chapters/conformance.md`, *Assurance levels*): an automatically tested result reaches level 3, a manually tested result level 2, and an operationally observed result is self-declared with its evidence, at level 1.
+
+**AUDITABLE** - conformance cannot be determined from external behaviour alone, and requires inspecting architecture documentation, source code, deployment configuration, access control policies or third-party audit reports. Each AUDITABLE requirement lists in its `documentation` the evidence a vendor produces, so that the assessment stays deterministic even when it is manual.
 
 Prefer an observable formulation where one exists. "The Wallet keeps credentials across a restart" is observable; "The Wallet stores credentials in a database" is not, and it also names a design.
 
@@ -182,7 +184,7 @@ The interaction type says where a tester has to stand to see the requirement met
 
 | Type | The Building Block software … | Contract usually lives in | A test needs |
 |---|---|---|---|
-| `SERVICE_API` | offers an API operation that others call | This specification, `resources/api.yml` | A client that calls the Building Block software |
+| `SERVICE_API` | offers an API operation that others call | This specification: its requirements, and from specification maturity 2 `resources/api.yml` | A client that calls the Building Block software |
 | `CONSUMED_API` | calls an API operation of another Building Block or system | The counterpart's specification | A stand-in for the counterpart that records the calls |
 | `PROTOCOL` | takes a role in a multi-party exchange defined for a domain | A Domain Reference Architecture or an external standard | A simulator of the other roles |
 | `EVENT` | publishes or subscribes to a message | This specification, or the publishing Building Block's | A broker, or a stand-in publisher or subscriber |
@@ -209,7 +211,7 @@ Ask in order, and stop at the first yes:
 Rules:
 
 1. Every requirement has exactly one interaction type. A requirement that seems to need two usually holds two requirements: one for the exchange, and one for what the Building Block software does with its result.
-2. A requirement of type `SERVICE_API` names its operation in `api_operation_id`, and that operation exists in `resources/api.yml`.
+2. From specification maturity 2 (`chapters/specification_maturity.md`), a requirement of type `SERVICE_API` names its operation in `api_operation_id`, and that operation exists in `resources/api.yml`.
 3. A requirement of type `CONSUMED_API`, `PROTOCOL`, `DEVICE` or `FILE` whose contract is defined elsewhere names that contract in `contract`: a publication identifier with the operation, role or section, or a document listed in `references.md`.
 4. When the Technical Overview has an *Interfaces* table, every interface in it is realised by at least one requirement of the matching type, and every requirement that is not `INTERNAL` realises an interface listed in it.
 5. Interfaces inherited from the cross-functional requirements, such as logging and monitoring, are not given an interaction type here. They belong to the requirements of `govstack:spec:cfr`.
@@ -243,8 +245,8 @@ Illustrative requirements for the Wallet Building Block, one per type.
 |---|---|
 | *Interfaces* in the Technical Overview, when present | Each interface is realised by requirements of its type. A row with none is missing its requirements |
 | Compliance tests | The type tells the test author which harness the requirement needs: client, stand-in, simulator, reference hardware, sample files or evidence |
-| Versioning | The rules in *Interface changes* (`chapters/versioning_and_change_documentation.md`) apply to `SERVICE_API` requirements. Changes to the contract of a `CONSUMED_API`, `PROTOCOL` or `FILE` requirement are judged by the same question: does an existing solution or counterpart break? |
-| Extensions | A solution that claims only the core never needs a harness for the types used only in extensions |
+| Versioning | The rules in *Interface changes* (`chapters/versioning_and_change_documentation.md`) apply to `SERVICE_API` requirements. Changes to the contract of a `CONSUMED_API`, `PROTOCOL` or `FILE` requirement are judged by the same question: does an existing software solution or counterpart break? |
+| Extensions | A software solution that claims only the core never needs a harness for the types used only in extensions |
 
 # In the front matter
 
