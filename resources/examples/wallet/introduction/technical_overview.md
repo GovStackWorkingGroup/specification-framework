@@ -1,65 +1,22 @@
 ---
-title: Overview
+title: Technical Overview
 ---
 
 <!-- Worked example for chapters/introductory_chapters.md. Illustrative: the Credentials Reference Architecture (govstack:ra:credentials) and the requirement file names are examples, not published artefacts. -->
 
-# Overview
+# Technical Overview
 
-## Purpose
+## Market assessment
 
-### Value
+The Working Group surveyed three kinds of software that hold credentials for a person: national and regional identity wallets, such as those built under the European Digital Identity framework; single-purpose applications that hold one kind of credential, such as mobile driving licences and the health certificate applications deployed during the COVID-19 pandemic; and general-purpose verifiable credential wallets from open-source projects. It also reviewed the previous version of this specification, `govstack:spec:bb:wallet` 1.2.
 
-The Wallet Building Block exists so that a person can hold the credentials issued to them, and present them to anyone who needs to check them, without the issuer and the checking party having to integrate with each other.
+It examined the standards and protocols these systems use: the W3C Verifiable Credentials Data Model and SD-JWT VC for credential formats and selective disclosure, ISO/IEC 18013-5 for presentation in proximity, and OpenID for Verifiable Credential Issuance and OpenID for Verifiable Presentations for remote exchanges.
 
-Today a licence, a qualification or an entitlement is issued by one system and checked by others, each in its own way. A person proves the same fact again and again, on paper or through a portal, and every institution that accepts a credential builds a new integration with every institution that issues one. The Wallet provides **Credential Custody**, **Selective Disclosure** and **Holder Control**, so that a credential issued once can be presented anywhere it is accepted, and the person decides what is shared each time.
+Every system surveyed takes credentials in, keeps them and the keys bound to them, asks the Holder before disclosing anything, and presents what the Holder agreed to. These became the core functionalities. The systems differ most in how they obtain credentials and how they answer Verifiers. A health certificate application imports a signed code and shows it for scanning, with no protocol between it and the Issuer or Verifier; an identity wallet runs full issuance and presentation exchanges. That difference is why Credential Issuance and Presentation Exchange are extensions. Several protocols compete for each exchange, so this specification leaves the choice of protocol to `govstack:ra:credentials` and specifies only the Wallet's side of it.
 
-A common specification matters here for two reasons. The first is **choice**: a person chooses their own wallet, and a government cannot require every resident to use the same software. Unless every wallet behaves the same way at its interfaces, every verifier must support every wallet product separately. The second is **interoperability**: issuers, holders and verifiers are run by parties that do not control each other's systems, and they can only work together through an agreed exchange.
+The survey also drew the edges of the Building Block. Hardware wallets for cryptocurrency keys hold keys but no credential issued by someone else, so key custody on its own does not make a Wallet. Three functionalities that some surveyed systems bundle with a wallet are placed elsewhere: issuing credentials belongs to the Issuer, operating a trust registry to the Trust Registry Operator, and managing an organisation's records of consent to process personal data to the Consent Building Block. The scope names their owners.
 
-### Place in larger systems
-
-The Wallet operates within the GovStack Architecture, and every conformant Wallet meets the GovStack cross-functional requirements.
-
-In the Credentials Reference Architecture (`govstack:ra:credentials`) the Wallet performs the **Credential Holder** role. Every conformant Wallet holds and presents credentials. The exchanges with Issuers and Verifiers that the role involves are in two extensions, Issuance and Presentation, so only a Wallet that claims them performs the role in full. Three other roles complete the system: the **Credential Issuer**, which issues credentials; the **Credential Verifier**, which requests and checks them; and the **Trust Registry Operator**, which publishes the trust anchors and status information that let the Holder and the Verifier decide whether to trust an Issuer and whether a credential is still valid.
-
-The Wallet is a feature Building Block: no other Building Block depends on it. It commonly works with:
-
-- the **Identity** Building Block, whose identity proofing an Issuer relies on before issuing a credential to a person;
-- the **Digital Registries** Building Block, which commonly holds the data an Issuer puts into a credential.
-
-Neither exchanges information with the Wallet directly. Both sit behind the Issuer.
-
-```mermaid
-flowchart LR
-  subgraph RA["Credentials Reference Architecture (govstack:ra:credentials)"]
-    direction LR
-    Issuer["Credential Issuer"]
-    Wallet["Credential Holder<br/><b>Wallet Building Block</b>"]
-    Verifier["Credential Verifier"]
-    Registry["Trust Registry Operator"]
-    Issuer -- "issues credentials" --> Wallet
-    Wallet -- "presents credentials" --> Verifier
-    Registry -. "trust anchors, status" .-> Wallet
-    Registry -. "trust anchors, status" .-> Verifier
-  end
-  Identity["Identity BB"] -. "identity proofing" .-> Issuer
-  Registries["Digital Registries BB"] -. "credential data" .-> Issuer
-  Person(("Holder<br/>(a person)")) --- Wallet
-```
-
-*Figure 1: the Wallet in the Credential Holder role.*
-
-## Description
-
-### System under test
-
-The system under test is a software component that holds credentials on behalf of one person, together with the keys bound to them, and presents them at that person's direction.
-
-Its boundary includes everything the person installs or is provided with to hold and present credentials: the application they interact with and any service it relies on to store credentials or keys on their behalf. It excludes the systems of Issuers, Verifiers and trust registries, even when a single organisation provides both a wallet and an issuing service.
-
-The Wallet is assessed as a black box. Every functionality is observable through an exchange with an emulated Issuer or Verifier, or through the user interface. Key protection and the deletion of stored credentials cannot be fully observed from outside, and the requirements that cover them are verified by audit.
-
-### Functionalities
+## Functionalities
 
 | Functionality | Realises | Conformance | Description | Requirements |
 |---|---|---|---|---|
@@ -73,7 +30,7 @@ The Wallet is assessed as a black box. Every functionality is observable through
 
 Every capability is realised by at least one core functionality, so every conformant Wallet provides all three. **Credential Custody** is divided between taking credentials in (Credential Intake, and Credential Issuance in the Issuance extension) and keeping them (Credential Management). **Selective Disclosure** rests on Key Management, which binds a credential to its Holder, and on Credential Presentation; the Presentation extension adds remote presentation with proof of that binding. **Holder Control** is Holder Consent, together with the Holder's power to delete credentials in Credential Management.
 
-#### Core and extensions
+### Core and extensions
 
 The core is what makes a product a Wallet: it holds credentials signed by an issuer other than the Holder, protects them and the keys bound to them, and presents them at the Holder's direction. A Wallet that meets only the core can take in a credential the Holder supplies and show it to a Verifier for scanning, with no Issuer or Verifier following any particular protocol. A product that holds keys but no issued credential, such as a crypto hardware wallet, does not meet the core.
 
@@ -84,8 +41,6 @@ The core is what makes a product a Wallet: it holds credentials signed by an iss
 
 Both exchanges are extensions because they are obligations towards roles of the credentials domain, and they depend on a trust registry that not every deployment operates. A Wallet built for a credentials ecosystem claims both. A Wallet that imports credentials from printed codes and presents them to online services claims Presentation only.
 
-Three functionalities a reader might expect are placed elsewhere: issuing credentials belongs to the Issuer, operating a trust registry to the Trust Registry Operator, and managing an organisation's records of consent to process personal data to the Consent Building Block. See the scope for their owners.
-
 ```mermaid
 flowchart LR
   Person(["Holder<br/>(person)"])
@@ -93,7 +48,7 @@ flowchart LR
   Verifier[["Credential Verifier"]]
   Registry[["Trust Registry"]]
 
-  subgraph SUT["Wallet Building Block (system under test)"]
+  subgraph BB["Wallet Building Block"]
     direction TB
     subgraph Core["Core"]
       Intake["Credential Intake"]
@@ -128,9 +83,9 @@ flowchart LR
   Exchange -. "verifier trust check, status" .-> Registry
 ```
 
-*Figure 2: functionality map, with the core and two extensions.*
+*Figure 1: functionality map, with the core and two extensions.*
 
-### Actors
+## Actors
 
 | Actor | Kind | Boundary | Reaches the Wallet through | Specified where |
 |---|---|---|---|---|
@@ -139,7 +94,7 @@ flowchart LR
 | Credential Verifier | System | Outside | Credential Presentation; Presentation Exchange (Presentation extension) | `govstack:ra:credentials` |
 | Trust Registry | System | Outside | Credential Issuance, Presentation Exchange | `govstack:ra:credentials` |
 
-### Interfaces
+## Interfaces
 
 | Interface | Counterpart | Direction | Functionality | Type | Contract defined in |
 |---|---|---|---|---|---|

@@ -27,7 +27,7 @@ Semantic Versioning was written for software, where the version number makes a p
 - the compliance tests derived from those requirements
 - the specifications it extends, and the versions it extends them at
 
-Everything else is **informative**: the overview, the scope, explanatory text, diagrams, examples and workflows that no requirement refers to. Informative content can change in any release, and on its own it only ever justifies a patch release.
+Everything else is **informative**: the purpose, the scope, the technical overview, explanatory text, diagrams, examples and workflows that no requirement refers to. Informative content can change in any release, and on its own it only ever justifies a patch release.
 
 The normative content binds two kinds of party, and within one major version the specification makes a promise to each:
 
@@ -108,7 +108,7 @@ A **patch** change corrects the specification without changing what any solution
 - correcting an example, diagram or description that contradicted the normative text, so that it agrees with it
 - correcting a requirement's `type` (`FUNCTIONAL`, `WEBSERVICE`, `INTERFACE`) where the statement is unchanged
 - adding, changing or withdrawing requirements that are not yet published (`DRAFT`, `CANDIDATE`, `ACCEPTED`, `WITHDRAWN`). They take no part in conformance. See question 6 at the end
-- changing informative content: the overview, the scope, terminology, references, explanatory text
+- changing informative content: the purpose, the scope, the technical overview, terminology, references, explanatory text
 - updating a link or a reference to an external document, where the version of the external document the specification relies on does not change. Moving to a different version of a referenced standard is classified by its effect, like any other change
 - moving to a new patch version of an extended specification
 
@@ -230,7 +230,7 @@ Each entry:
 - links the pull request or decision record behind the change
 - is written for an implementer or a buyer, not for the Working Group: what changed and what it means, not how the text was edited
 
-Changes to informative content can be summarised in one entry, such as "Rewrote the overview". Changes to unpublished requirements are not listed until they are published.
+Changes to informative content can be summarised in one entry, such as "Rewrote the technical overview". Changes to unpublished requirements are not listed until they are published.
 
 An illustrative example, for a fictitious release of the Wallet specification:
 

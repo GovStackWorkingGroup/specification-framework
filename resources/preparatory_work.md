@@ -15,11 +15,29 @@ Fill in the tables as the conversations happen, and keep this document with the 
 | 1. Audience | Who the specification is written for | Calibrates every chapter |
 | 2. Groundwork reading | What already exists, and what we take from it | `introduction/references.md` |
 | 3. Use cases and workflows | Where the Building Block appears in real services | Workflows in `requirements/` |
-| 4. Capabilities and functionalities | What the Building Block provides, and how it is organised | `introduction/overview.md`, one `requirements/` file per functionality |
-| 5. Actors and interfaces | Who and what the Building Block deals with | `introduction/overview.md`, `resources/tests/` |
+| 4. Capabilities and functionalities | What the Building Block provides, and how it is organised | `introduction/purpose.md` (capabilities), `introduction/technical_overview.md` (functionalities), one `requirements/` file per functionality |
+| 5. Actors and interfaces | Who and what the Building Block deals with | `introduction/technical_overview.md`, `resources/tests/` |
 | 6. Boundary | What this specification leaves to others | `introduction/scope.md` |
 | 7. Scope statement | The draft scope | `introduction/scope.md` |
 | 8. Terminology | The terms to define | `introduction/terminology.yml` |
+
+## Reading order and writing order
+
+Readers meet the introductory chapters (`chapters/introductory_chapters.md`) in the order Purpose, Scope, Technical Overview. Purpose and Scope are for the wider public, and a non-technical reader can stop before the Technical Overview without missing anything they need.
+
+Authors write in a different order. Write the Purpose first, then the Technical Overview, and the Scope last, because almost every statement in the scope is derived from one of the other two:
+
+| Source | Becomes, in `scope.md` |
+|---|---|
+| The boundary decided in section 6, *Boundary* | The subject, boundary and applicability statements |
+| *Place in larger systems*, in `purpose.md` | The extension and relationship statements |
+| *Functionalities*, in `technical_overview.md` | The **Covered** list, one entry per functionality, with the same names |
+| *Core and extensions*, in `technical_overview.md` | The conformance statement, and the **Covered** list grouped into the core and each extension |
+| Functionalities considered in the *Market assessment* and placed elsewhere | **Not covered** entries, with the owner of each |
+| *Actors* marked *Outside*, when the actor table is present | **Not covered** entries, with the publication in **Specified where** as owner |
+| *Interfaces* whose contract is defined elsewhere, when the interface table is present | **Covered**: this Building Block's side of the interface. **Not covered**: the counterpart's behaviour |
+
+When the Purpose or the Technical Overview changes, review the scope against this table.
 
 # 1. Audience
 
@@ -86,7 +104,7 @@ Aim for scenarios that differ: a different country, a different sector, a differ
 
 Turn the marked steps into the shape of the specification.
 
-**Capabilities** say what the Building Block makes possible, as outcomes. Name each one with a noun phrase ("Credential Custody", not "stores credentials"), and name no technology. Give each a short id. Capabilities are declared in `metadata.yml` and appear in the Purpose of `overview.md`.
+**Capabilities** say what the Building Block makes possible, as outcomes. Name each one with a noun phrase ("Credential Custody", not "stores credentials"), and name no technology. Give each a short id. Capabilities are declared in `metadata.yml` and appear in `purpose.md`.
 
 | Id | Capability | Outcome, for whom |
 |---|---|---|
@@ -142,7 +160,7 @@ Building Block specifications are technical. Legal and organisational matters be
 
 # 7. Scope statement
 
-Draft the scope from sections 4 to 6, using the skeleton in `chapters/introductory_chapters.md`. It should answer "what does this document cover, and what does it leave to others", and a reader should be able to settle a scope question by reading it.
+Draft the scope from sections 4 to 6, using the skeleton in `chapters/introductory_chapters.md` and the table in *Reading order and writing order*. It should answer "what does this document cover, and what does it leave to others", and a reader should be able to settle a scope question by reading it.
 
 <!-- Draft here. -->
 
