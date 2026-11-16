@@ -11,7 +11,7 @@ references:
 
 A Building Block specification is written by volunteers who know their domain, and not every Working Group can specify everything at once. This chapter lets a specification grow in steps. Specification maturity says how far a specification is developed, on one scale from 0 to 4. Each level adds artefacts to the levels below it, so nothing is written twice.
 
-Maturity describes the **specification**, not a software solution. What a software solution claims is its *requirement conformance class* and, optionally, its *API conformance class*. How strongly each result is evidenced is its *assurance level*. All three are described in *Conformance* (`chapters/conformance.md`).
+Maturity describes the **specification**, not a software solution. What a software solution claims is its *functional conformance class* and, optionally, its *API conformance class*. How strongly each result is evidenced is its *assurance level*. All three are described in *Conformance* (`chapters/conformance.md`).
 
 Always write "specification maturity 2", or "maturity 2" where the context is clear. On its own, "level" means the `level` classifier of a requirement, `REQUIRED` or `RECOMMENDED` (`chapters/requirements.md`).
 
