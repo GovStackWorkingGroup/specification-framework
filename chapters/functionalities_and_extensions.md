@@ -174,7 +174,7 @@ An extension names the role it serves and the reference architecture that descri
 
 # Conformance
 
-A software solution of the Building Block Software requirement conformance class meets the core, and every `REQUIRED` requirement of each extension it claims and of each extension that one requires. The requirements of an extension that is not claimed are not applicable, neither passed nor failed. *Conformance* (`chapters/conformance.md`) gives the full rules, and how GovStack's marketplace shows the claimed extensions.
+A software solution of the Building Block Software functional conformance class meets the core, and every `REQUIRED` requirement of each extension it claims and of each extension that one requires. The requirements of an extension that is not claimed are not applicable, neither passed nor failed. *Conformance* (`chapters/conformance.md`) gives the full rules, and how GovStack's marketplace shows the claimed extensions.
 
 An extension takes part in conformance through its `PUBLISHED` requirements (ARCH-ADR-5). An extension can be introduced with `DRAFT` requirements, so that implementations can experiment with it before it binds anything.
 

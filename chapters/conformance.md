@@ -13,16 +13,16 @@ A software solution is assessed against the requirements of GovStack specificati
 
 | Term | Describes | Values |
 |---|---|---|
-| Requirement conformance class | Which requirements a software solution meets | Compatible Software, Building Block Software |
+| Functional conformance class | Which requirements a software solution meets | Compatible Software, Building Block Software |
 | API conformance class | How far a software solution's API follows GovStack's API rules, and maps to a Building Block's contract | API Ruleset conformance, API operations conformance |
 | Assurance level | How strongly a single result is evidenced | 0 to 3 |
 | Specification maturity | How far a specification is developed | See *Specification Maturity* (`chapters/specification_maturity.md`) |
 
-A software solution claims one requirement conformance class, and may claim one API conformance class in addition. Both are claims about a set of results, and the chapter describes them first. The assurance level of each result then says how well the claim is backed, and the maturity of the specification limits which assurance levels are possible.
+A software solution claims one functional conformance class, and may claim one API conformance class in addition. Both are claims about a set of results, and the chapter describes them first. The assurance level of each result then says how well the claim is backed, and the maturity of the specification limits which assurance levels are possible.
 
-# Requirement conformance class
+# Functional conformance class
 
-A requirement conformance class is a named set of requirements that a software solution claims to meet as a whole. The term follows the OGC Specification Model, on which the core and extensions of `chapters/functionalities_and_extensions.md` are also based. There are two classes, and the second builds on the first. Every software solution listed on GovStack's marketplace holds one of them.
+A functional conformance class is a named set of requirements that a software solution claims to meet as a whole. The term follows the OGC Specification Model, on which the core and extensions of `chapters/functionalities_and_extensions.md` are also based. There are two classes, and the second builds on the first. Every software solution listed on GovStack's marketplace holds one of them.
 
 | Class | Claimed by | The software solution meets |
 |---|---|---|
@@ -42,11 +42,11 @@ Rules:
 
 # API conformance class
 
-The requirement conformance class says what a software solution does. The API conformance class says how far integrators and AI agents can rely on its API. An API conformance class is a named set of API checks that a software solution claims to pass as a whole. There are two classes, and the second builds on the first. Unlike a requirement conformance class, an API conformance class is optional: it is not a condition for being listed on GovStack's marketplace, which shows it next to the requirement conformance class.
+The functional conformance class says what a software solution does. The API conformance class says how far integrators and AI agents can rely on its API. An API conformance class is a named set of API checks that a software solution claims to pass as a whole. There are two classes, and the second builds on the first. Unlike a functional conformance class, an API conformance class is optional: it is not a condition for being listed on GovStack's marketplace, which shows it next to the functional conformance class.
 
 | Class | Claimed by | The software solution meets |
 |---|---|---|
-| **API Ruleset conformance** | A software solution of either requirement conformance class that offers an API | Every `REQUIRED` rule of the API Ruleset of the cross-functional requirements. Every one of these rules that the lint ruleset checks is met at assurance level 3 |
+| **API Ruleset conformance** | A software solution of either functional conformance class that offers an API | Every `REQUIRED` rule of the API Ruleset of the cross-functional requirements. Every one of these rules that the lint ruleset checks is met at assurance level 3 |
 | **API operations conformance** | A software solution of the Building Block Software class, when the Building Block's specification has its own contract at maturity 2 or higher | The API Ruleset conformance class, and a mapping of every operation of the contract required for its claim, checked at assurance level 3 |
 
 Rules:
@@ -57,7 +57,7 @@ Rules:
 
 ## API Ruleset conformance
 
-The API Ruleset sets the common rules for APIs: naming, versioning, data formats, errors, pagination and security. Each rule is a cross-functional requirement with its own `level`. A software solution that holds a requirement conformance class therefore already meets every `REQUIRED` rule, at least by self-declaration. API Ruleset conformance adds stronger evidence: every `REQUIRED` rule that the lint ruleset checks is met at assurance level 3. A rule that the lint cannot check, such as hiding implementation details, stays at the assurance level it has.
+The API Ruleset sets the common rules for APIs: naming, versioning, data formats, errors, pagination and security. Each rule is a cross-functional requirement with its own `level`. A software solution that holds a functional conformance class therefore already meets every `REQUIRED` rule, at least by self-declaration. API Ruleset conformance adds stronger evidence: every `REQUIRED` rule that the lint ruleset checks is met at assurance level 3. A rule that the lint cannot check, such as hiding implementation details, stays at the assurance level it has.
 
 This class shows that a software solution's API follows the common conventions, so that an integrator or an AI agent that knows one GovStack API can call this one without learning new conventions.
 
@@ -110,7 +110,7 @@ The interaction type of a requirement tells the test author which harness an aut
 
 # GovStack's marketplace
 
-GovStack's marketplace lists software solutions by requirement conformance class:
+GovStack's marketplace lists software solutions by functional conformance class:
 
 - **Compatible Software:** software solutions that hold the Compatible Software class and no Building Block Software class.
 - **Building Block Software:** software solutions that hold the Building Block Software class, listed under each Building Block and version, with the extensions they claim.

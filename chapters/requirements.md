@@ -114,7 +114,7 @@ Each classifier takes exactly one value at a time. A requirement without an expl
 
 The level says how strongly a conformant software solution is bound.
 
-**REQUIRED** - every conformant software solution meets the requirement exactly as written. A software solution that does not meet a single published REQUIRED requirement does not hold its requirement conformance class (`chapters/conformance.md`).
+**REQUIRED** - every conformant software solution meets the requirement exactly as written. A software solution that does not meet a single published REQUIRED requirement does not hold its functional conformance class (`chapters/conformance.md`).
 
 **RECOMMENDED** - the requirement improves a software solution but is optional. GovStack's marketplace reports the share of published RECOMMENDED requirements a software solution meets, as an additional signal for buyers.
 
