@@ -46,18 +46,18 @@ The functional conformance class says what a software solution does. The API con
 
 | Class | Claimed by | The software solution meets |
 |---|---|---|
-| **API Ruleset conformance** | A software solution of either functional conformance class that offers an API | Every `REQUIRED` rule of the API Ruleset of the cross-functional requirements. Every one of these rules that the lint ruleset checks is met at assurance level 3 |
-| **API operations conformance** | A software solution of the Building Block Software class, when the Building Block's specification has its own contract at maturity 2 or higher | The API Ruleset conformance class, and a mapping of every operation of the contract required for its claim, checked at assurance level 3 |
+| **API Ruleset conformance** | A software solution of either functional conformance class that offers an API | Every `REQUIRED` rule of the API Ruleset of the cross-functional requirements. Every one of these rules that the lint ruleset checks is met at assurance level 2 |
+| **API operations conformance** | A software solution of the Building Block Software class, when the Building Block's specification has its own contract at maturity 2 or higher | The API Ruleset conformance class, and a mapping of every operation of the contract required for its claim, checked at assurance level 2 |
 
 Rules:
 
 1. Both classes are checked on the OpenAPI document that a software solution publishes. The API Ruleset requires every software solution that offers an API to publish one.
 2. The API Ruleset is one set of rules for Building Block contracts and for the APIs of software solutions. A contract at specification maturity 2 passes the same lint ruleset that checks a software solution.
-3. At assurance level 3, both classes are checked by linting: a static analysis of the published OpenAPI document. Linting checks the interface as described, not the behaviour of the running software solution. The behaviour is the subject of the requirements and their test scenarios.
+3. At assurance level 2, both classes are checked by linting: a static analysis of the published OpenAPI document. Linting checks the interface as described, not the behaviour of the running software solution. The behaviour is the subject of the requirements and their test scenarios.
 
 ## API Ruleset conformance
 
-The API Ruleset sets the common rules for APIs: naming, versioning, data formats, errors, pagination and security. Each rule is a cross-functional requirement with its own `level`. A software solution that holds a functional conformance class therefore already meets every `REQUIRED` rule, at least by self-declaration. API Ruleset conformance adds stronger evidence: every `REQUIRED` rule that the lint ruleset checks is met at assurance level 3. A rule that the lint cannot check, such as hiding implementation details, stays at the assurance level it has.
+The API Ruleset sets the common rules for APIs: naming, versioning, data formats, errors, pagination and security. Each rule is a cross-functional requirement with its own `level`. A software solution that holds a functional conformance class therefore already meets every `REQUIRED` rule, at least by self-declaration. API Ruleset conformance adds stronger evidence: every `REQUIRED` rule that the lint ruleset checks is met at assurance level 2. A rule that the lint cannot check, such as hiding implementation details, stays at the assurance level it has.
 
 This class shows that a software solution's API follows the common conventions, so that an integrator or an AI agent that knows one GovStack API can call this one without learning new conventions.
 
@@ -123,6 +123,6 @@ Each listed software solution shows three markers.
 |---|---|---|
 | Requirements met | All `REQUIRED` requirements of the class met, and the share of `RECOMMENDED` ones | REQUIRED: all · RECOMMENDED: 64 % |
 | Requirement assurance | The share of `REQUIRED` results tested manually or automatically. The count per assurance level is on the detail page | 83 % of REQUIRED results tested |
-| API conformance class | The class held, if any; otherwise the share of linted `REQUIRED` API rules met at assurance level 3 | API operations conformance |
+| API conformance class | The class held, if any; otherwise the share of linted `REQUIRED` API rules met at assurance level 2 | API operations conformance |
 
 Each Building Block list also shows the maturity of the specification, so that a buyer can tell what conformance means for that Building Block. Below maturity 2 it means that a software solution meets the requirements in its own API design. From maturity 2, its required operations must also take the requests and give the responses of a common contract, under the software solution's own paths; the requirement assurance marker shows how well that is evidenced.
