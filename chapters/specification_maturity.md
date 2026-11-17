@@ -76,7 +76,6 @@ The standard's own schema is referenced, never copied.
 
 - The contract passes the lint ruleset of the API Ruleset.
 - Every `SERVICE_API` requirement names an operation that exists in the contract, and every operation is named by at least one requirement.
-- The contract has been checked against at least two existing software solutions, where they exist, to confirm they could implement it.
 - A domain expert of the Working Group has signed off the operation descriptions.
 
 # Maturity 3: API examples and mock
