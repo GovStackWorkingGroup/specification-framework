@@ -3,10 +3,6 @@ title: Conformance
 status: draft
 authors:
   - name: Nico Lueck
-references:
-  - ISO/IEC 17000:2020, Conformity assessment — Vocabulary and general principles
-  - ISO/IEC 17050-1:2010, Conformity assessment — Supplier's declaration of conformity — Part 1 General requirements
-  - OGC 08-131r3, The Specification Model — A Standard for Modular Specifications, Open Geospatial Consortium, 2009
 ---
 
 A software solution is assessed against the requirements of GovStack specifications, and against nothing else (`chapters/requirements.md`). This chapter answers three questions in turn: what a software solution can claim, how strongly each part of the claim is evidenced, and how GovStack's marketplace presents the result to buyers.
@@ -22,7 +18,7 @@ A software solution claims one functional conformance class, and may claim one A
 
 # Functional conformance class
 
-A functional conformance class is a named set of requirements that a software solution claims to meet as a whole. The term follows the OGC Specification Model, on which the core and extensions of `chapters/functionalities_and_extensions.md` are also based. There are two classes, and the second builds on the first. Every software solution listed on GovStack's marketplace holds one of them.
+A functional conformance class is a named set of requirements that a software solution claims to meet as a whole. There are two classes, and the second builds on the first. Every software solution listed on GovStack's marketplace holds one of them.
 
 | Class | Claimed by | The software solution meets |
 |---|---|---|
