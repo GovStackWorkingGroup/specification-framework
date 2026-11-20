@@ -4,7 +4,7 @@ toc:
     - foreword.md
     - overview.md
     - scope.md # to update references to terminology as a document
-    - terminology.md # to complete table
+    - terminology.yml # to complete table
     - references.md # to update format
   chapters:
     - structure_of_specifications.md
