@@ -42,7 +42,7 @@ A specification declares its capabilities in metadata.yml, under `capabilities`,
 
 ## Introduction files
 
-The `introduction/` directory opens the specification. It tells a reader why the Building Block exists, what this document covers, and what a conformant solution is. Each kind of content has its own file, so that a reader looking for the scope of a specification always finds it in the same place.
+The `introduction/` directory opens the specification. It tells a reader why the Building Block exists, what this document covers, and what a conformant software solution is. Each kind of content has its own file, so that a reader looking for the scope of a specification always finds it in the same place.
 
 | File | Holds |
 |---|---|
@@ -85,4 +85,4 @@ requirements:
 
 `realises` lists the capabilities the functionality realises. Every functionality realises at least one, and every capability declared in metadata.yml is realised by at least one functionality.
 
-`conformance` says whether the functionality is part of the core, which every conformant solution meets, or of an extension, which a solution may claim in addition to the core. It defaults to `CORE`. See `chapters/functionalities_and_extensions.md`.
+`conformance` says whether the functionality is part of the core, which every conformant software solution meets, or of an extension, which a software solution may claim in addition to the core. It defaults to `CORE`. See `chapters/functionalities_and_extensions.md`.

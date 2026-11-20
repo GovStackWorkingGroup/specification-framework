@@ -18,7 +18,7 @@ informed:
 
 ## Context and Problem Statement
 
-A Building Block specification is organised by functionalities, one file each in `requirements/` (`chapters/structure_of_specifications.md`). Today every functionality applies to every conformant solution. GovMarket lists a solution only if it meets 100% of the `REQUIRED` requirements of the specification, so every `REQUIRED` requirement in every functionality binds every product.
+A Building Block specification is organised by functionalities, one file each in `requirements/` (`chapters/structure_of_specifications.md`). Today every functionality applies to every conformant software solution. GovMarket lists a software solution only if it meets 100% of the `REQUIRED` requirements of the specification, so every `REQUIRED` requirement in every functionality binds every product.
 
 Two Working Groups have found that this does not match their domains.
 
@@ -45,14 +45,14 @@ Both kinds belong in the Wallet specification. But if every functionality binds 
 | `RECOMMENDED` | One requirement | Says the requirement may be skipped, and turns a whole capability into a quality score. A product that claims a capability must meet all of it, which `RECOMMENDED` cannot express |
 | Variation points and conditional requirements (ARCH-ADR-6, proposed) | One requirement and the requirements that depend on it | Expresses "at least one of" inside a functionality. It has no unit for "these functionalities, as a whole, are claimed or not", and a variation point has `min` of at least 1, so it cannot be skipped |
 
-What is missing is the middle: **a named set of functionalities inside one specification that a solution claims or does not claim, and must meet in full when it claims it.**
+What is missing is the middle: **a named set of functionalities inside one specification that a software solution claims or does not claim, and must meet in full when it claims it.**
 
 ## Decision Drivers
 
-* Building Blocks are autonomous. A solution must be able to conform without any counterpart following the protocol of a particular domain
+* Building Blocks are autonomous. A software solution must be able to conform without any counterpart following the protocol of a particular domain
 * Domain Reference Architectures carry no requirements. A Building Block's obligations towards a domain role must have a place in the Building Block specification
 * Not every conformant product offers every capability of a Building Block, and some capabilities make sense only in some deployments
-* GovMarket's rule must keep its meaning: whatever a solution claims, it meets 100% of the `REQUIRED` requirements of
+* GovMarket's rule must keep its meaning: whatever a software solution claims, it meets 100% of the `REQUIRED` requirements of
 * A buyer must be able to cite precisely what they procure, in one identifier per Building Block
 * One Working Group, one specification, one release cycle: the parts of a Building Block should not need separate publications
 * The model should fit ARCH-ADR-5 (status and level) and ARCH-ADR-6 (variation points and conditional requirements), and work if ARCH-ADR-6 is not accepted
@@ -70,14 +70,14 @@ What is missing is the middle: **a named set of functionalities inside one speci
 
 *To be completed by the Architecture Committee.*
 
-The Wallet Working Group recommends **Option 3**. It is the only option that keeps a Building Block in one publication, lets a buyer cite exactly what they procure, and keeps GovMarket's 100% rule meaningful for everything a solution claims. It also gives obligations towards a domain role a defined place, which the Domain Reference Architecture chapter already requires and the framework does not yet provide.
+The Wallet Working Group recommends **Option 3**. It is the only option that keeps a Building Block in one publication, lets a buyer cite exactly what they procure, and keeps GovMarket's 100% rule meaningful for everything a software solution claims. It also gives obligations towards a domain role a defined place, which the Domain Reference Architecture chapter already requires and the framework does not yet provide.
 
 ### Vocabulary
 
-* **Core**: the functionalities that every conformant solution meets. They are what makes a solution an instance of the Building Block.
-* **Extension**: a named set of one or more functionalities that a solution may claim in addition to the core. A solution that claims an extension meets it in full.
+* **Core**: the functionalities that every conformant software solution meets. They are what makes a software solution an instance of the Building Block.
+* **Extension**: a named set of one or more functionalities that a software solution may claim in addition to the core. A software solution that claims an extension meets it in full.
 * **Core functionality** and **extension functionality**: a functionality that belongs to the core, or to one extension.
-* **Conformance declaration**: the list of extensions (and, under ARCH-ADR-6, alternatives) a solution claims. It is supplied with the solution when it is assessed.
+* **Conformance declaration**: the list of extensions (and, under ARCH-ADR-6, alternatives) a software solution claims. It is supplied with the software solution when it is assessed.
 
 This is the structure of OGC 08-131r3, *The Specification Model — A Standard for Modular Specifications*, which organises a standard into a core and extensions, each a requirements class with a matching conformance class, and defines a profile separately.
 
@@ -119,27 +119,27 @@ extensions:
 
 1. A specification has a core of at least one functionality. A specification without extensions is all core, which is every specification today.
 2. A functionality is either core or in exactly one extension. Requirements are not split between the two within one file.
-3. The core must stand alone: a solution that meets only the core is a useful, conformant instance of the Building Block.
+3. The core must stand alone: a software solution that meets only the core is a useful, conformant instance of the Building Block.
 4. An extension may add to the behaviour of a core functionality, for example by requiring more of it when the extension is claimed. It may not weaken or replace a core requirement.
 5. An extension may require other extensions (`requires`). The core never depends on an extension.
 6. Under ARCH-ADR-6, `applies_when` may name an extension id, so that a requirement in a core functionality applies only when the extension is claimed. Without ARCH-ADR-6, such a requirement is written in a functionality of the extension.
-7. A variation point may sit in an extension. It then binds only solutions that claim the extension.
+7. A variation point may sit in an extension. It then binds only software solutions that claim the extension.
 
 ### Conformance
 
-* Every conformant solution meets the core.
-* A solution's conformance declaration lists the extensions it claims. A claimed extension fails if any of its `REQUIRED` requirements, or of the extensions it requires, is not met.
+* Every conformant software solution meets the core.
+* A software solution's conformance declaration lists the extensions it claims. A claimed extension fails if any of its `REQUIRED` requirements, or of the extensions it requires, is not met.
 * The requirements of an extension that is not claimed are reported as **not applicable**, neither passed nor failed. A `RECOMMENDED` requirement in an unclaimed extension is left out of the share GovMarket reports.
-* GovMarket shows the claimed extensions as facts about the solution ("Wallet 2.0: core, Issuance, Presentation"), not as a score. A procurer can filter on them.
+* GovMarket shows the claimed extensions as facts about the software solution ("Wallet 2.0: core, Issuance, Presentation"), not as a score. A procurer can filter on them.
 * An extension takes part in compliance through its `PUBLISHED` requirements (ARCH-ADR-5). An extension whose requirements are all `DRAFT` can be declared and tested, but conformance to it means nothing yet.
 
 ### Versioning
 
-Under `requirements/use_semantic_versioning.md`, an extension's requirements follow the same rules as the core's, judged against the solutions that claim the extension. In addition:
+Under `requirements/use_semantic_versioning.md`, an extension's requirements follow the same rules as the core's, judged against the software solutions that claim the extension. In addition:
 
 * Adding an extension does not change any existing claim: **minor**.
 * Moving a functionality from the core into an extension removes a guarantee from every citation of the specification: **major**.
-* Moving a functionality from an extension into the core adds obligations to every solution: **major**.
+* Moving a functionality from an extension into the core adds obligations to every software solution: **major**.
 * Deprecating an extension, or adding a dependency between extensions: **major**.
 
 ### Compiler checks
@@ -172,7 +172,7 @@ Confirmed by the Architecture Committee following Architecture Working Group dis
 ### Option 1: Mark non-core functionalities `RECOMMENDED`
 
 * Good, because no text, template or tooling changes
-* Bad, because a solution that claims a capability is not held to all of it: it can meet half of an extension and still score
+* Bad, because a software solution that claims a capability is not held to all of it: it can meet half of an extension and still score
 * Bad, because it turns the presence of a capability into a quality score, which is not what the Working Groups mean
 * Bad, because it cannot express that a part of the Building Block is `REQUIRED` once claimed
 * Bad, because a buyer cannot cite "this Building Block, with this capability"
@@ -189,7 +189,7 @@ Confirmed by the Architecture Committee following Architecture Working Group dis
 ### Option 3: Core and extension functionalities
 
 * Good, because the Building Block stays one publication, with one version and one identifier
-* Good, because a claim is all or nothing, so GovMarket's 100% rule keeps its meaning for everything a solution claims
+* Good, because a claim is all or nothing, so GovMarket's 100% rule keeps its meaning for everything a software solution claims
 * Good, because a buyer can cite exactly what they procure: the specification, its version and the extensions
 * Good, because obligations towards a domain role get a defined place, as the Domain Reference Architecture chapter requires
 * Good, because the functionality is already the unit of organisation, so one classifier is enough
@@ -201,7 +201,7 @@ Confirmed by the Architecture Committee following Architecture Working Group dis
 ### Option 4: Extensions as alternatives of a variation point with `min: 0`
 
 * Good, because it adds no new concept beyond ARCH-ADR-6
-* Bad, because it needs ARCH-ADR-6 to allow `min: 0`, which turns a variation point into something a solution can skip, against its definition
+* Bad, because it needs ARCH-ADR-6 to allow `min: 0`, which turns a variation point into something a software solution can skip, against its definition
 * Bad, because it uses a requirement as a switch: the variation point and its alternatives state no behaviour, so they have no test
 * Bad, because it has no place for the role an extension serves or for dependencies between extensions
 * Bad, because it depends on ARCH-ADR-6 being accepted

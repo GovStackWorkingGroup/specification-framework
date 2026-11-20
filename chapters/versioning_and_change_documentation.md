@@ -33,15 +33,15 @@ The normative content binds two kinds of party, and within one major version the
 
 | Party | Who they are | What the specification promises them within a major version |
 |---|---|---|
-| **Implementers** | Those who build solutions and claim conformance | A solution that conforms to an earlier version also conforms to every later version |
-| **Dependents** | Those who rely on a conformant solution behaving as specified: the integrators who build services on top of a solution, the specifications that extend this one, the procurement documents and laws that cite its requirements, and GovMarket, which reports conformance to buyers | Anything they were entitled to rely on in an earlier version still holds in every later version |
+| **Implementers** | Those who build software solutions and claim conformance | A software solution that conforms to an earlier version also conforms to every later version |
+| **Dependents** | Those who rely on a conformant software solution behaving as specified: the integrators who build services on top of a software solution, the specifications that extend this one, the procurement documents and laws that cite its requirements, and GovMarket, which reports conformance to buyers | Anything they were entitled to rely on in an earlier version still holds in every later version |
 
 A software API usually only has to protect its callers. A specification also has to protect implementers, because it describes what they must build, and they have no control over what it demands. A change that breaks **either** promise therefore starts a new major version. The three parts of the number then mean:
 
 | Part | Meaning for implementers | Meaning for dependents |
 |---|---|---|
-| **MAJOR** | A conformant solution may no longer conform. Read the migration note | Something you relied on may have changed. Read the migration note |
-| **MINOR** | Your solution still conforms. There are new or changed RECOMMENDED requirements, or announced deprecations, that you may want to act on | Nothing you relied on has changed. There may be new optional capabilities to look for |
+| **MAJOR** | A conformant software solution may no longer conform. Read the migration note | Something you relied on may have changed. Read the migration note |
+| **MINOR** | Your software solution still conforms. There are new or changed RECOMMENDED requirements, or announced deprecations, that you may want to act on | Nothing you relied on has changed. There may be new optional capabilities to look for |
 | **PATCH** | Nothing to do | Nothing to do |
 
 One consequence is worth stating plainly, because procurement depends on it: **within a major version, the set of REQUIRED obligations does not change.** Conformance to Wallet 2.0.0 and conformance to Wallet 2.7.3 are the same pass or fail result; the minor versions differ only in RECOMMENDED content, which affects the coverage GovMarket reports and not the conformance verdict. A buyer can therefore require "conformance to Wallet 2" and know what they are asking for.
@@ -57,28 +57,28 @@ Each change is classified by asking these questions in order:
 ```mermaid
 flowchart TD
   A[Does the change touch normative content?] -- No --> P[PATCH]
-  A -- Yes --> B[Could a solution that conformed to the last release fail to conform now?]
+  A -- Yes --> B[Could a software solution that conformed to the last release fail to conform now?]
   B -- Yes --> M[MAJOR]
   B -- No --> C[Could a dependent lose something it was entitled to rely on?]
   C -- Yes --> M
-  C -- No --> D[Does it change what a solution does, may do, or how it is verified?]
+  C -- No --> D[Does it change what a software solution does, may do, or how it is verified?]
   D -- Yes --> N[MINOR]
   D -- No --> P
 ```
 
-The last question catches normative edits that change nothing a solution does: correcting a typo in a requirement statement, or fixing an example in `api.yml` that contradicted its schema. Those are patch changes even though they touch normative files.
+The last question catches normative edits that change nothing a software solution does: correcting a typo in a requirement statement, or fixing an example in `api.yml` that contradicted its schema. Those are patch changes even though they touch normative files.
 
-When the Working Group is unsure which side of a line a change falls on, it takes the more significant release type. A minor release that turns out to break a solution costs more than a major release that turns out to have been unnecessary.
+When the Working Group is unsure which side of a line a change falls on, it takes the more significant release type. A minor release that turns out to break a software solution costs more than a major release that turns out to have been unnecessary.
 
 ## Breaking changes
 
-A change is **breaking** if it adds an obligation that a conformant solution may not meet, or removes or weakens a guarantee a dependent may rely on. Tightening and loosening are both breaking, because each one hurts a different side. Breaking changes include:
+A change is **breaking** if it adds an obligation that a conformant software solution may not meet, or removes or weakens a guarantee a dependent may rely on. Tightening and loosening are both breaking, because each one hurts a different side. Breaking changes include:
 
-- **Adding a REQUIRED requirement.** Every solution that conformed before must now do something new
-- **Promoting a requirement from RECOMMENDED to REQUIRED.** Solutions that did not implement it no longer conform
-- **Demoting a requirement from REQUIRED to RECOMMENDED.** Solutions still conform, but a dependent that relied on every conformant solution offering the behaviour can no longer rely on it
+- **Adding a REQUIRED requirement.** Every software solution that conformed before must now do something new
+- **Promoting a requirement from RECOMMENDED to REQUIRED.** Software solutions that did not implement it no longer conform
+- **Demoting a requirement from REQUIRED to RECOMMENDED.** Software solutions still conform, but a dependent that relied on every conformant software solution offering the behaviour can no longer rely on it
 - **Retiring a REQUIRED requirement** (`PUBLISHED` to `DEPRECATED`). For the same reason as demotion
-- **Changing the intent of a REQUIRED requirement**, whether it narrows what a solution may do (implementers break) or broadens it (dependents break). "The solution returns credentials in JSON" changed to "in JSON or CBOR" is breaking: an integrator that only reads JSON stops working with some conformant solutions
+- **Changing the intent of a REQUIRED requirement**, whether it narrows what a software solution may do (implementers break) or broadens it (dependents break). "The software solution returns credentials in JSON" changed to "in JSON or CBOR" is breaking: an integrator that only reads JSON stops working with some conformant software solutions
 - **Changing an interface a REQUIRED requirement refers to** in a way listed as breaking in [Interface changes](#interface-changes)
 - **Restricting the mutability of a requirement**, such as `REPLACEABLE` to `EXTENSIBLE` or `EXTENSIBLE` to `IMMUTABLE`. Extending specifications that replaced or switched off the rule are no longer valid
 - **Changing the intent of an `IMMUTABLE` requirement**, at any level. `chapters/requirements.md` already forbids this within a major version
@@ -89,22 +89,22 @@ A change is **breaking** if it adds an obligation that a conformant solution may
 
 A change is **non-breaking** if it changes normative content but keeps both promises. These are minor changes:
 
-- **Adding a RECOMMENDED requirement.** No solution loses conformance, and no dependent could have relied on a requirement that did not exist
-- **Changing the intent of a RECOMMENDED requirement.** Conformance is unaffected. GovMarket recomputes the coverage it reports, and the changelog says which solutions may be affected
+- **Adding a RECOMMENDED requirement.** No software solution loses conformance, and no dependent could have relied on a requirement that did not exist
+- **Changing the intent of a RECOMMENDED requirement.** Conformance is unaffected. GovMarket recomputes the coverage it reports, and the changelog says which software solutions may be affected
 - **Retiring a RECOMMENDED requirement.** Dependents could never rely on an optional requirement being met
 - **Reinstating a deprecated requirement as RECOMMENDED**
 - **Loosening the mutability of a requirement**, such as `IMMUTABLE` to `EXTENSIBLE` or `EXTENSIBLE` to `REPLACEABLE`. Every existing extending specification stays valid, and an extended rule must still pass its base behaviour, so dependents keep what they relied on
-- **Changing how a requirement is verified** (`OBSERVABLE` to `AUDITABLE` or back) without changing what it demands. GovMarket re-verifies the requirement for solutions already listed, and the changelog says so. See question 4 at the end
+- **Changing how a requirement is verified** (`OBSERVABLE` to `AUDITABLE` or back) without changing what it demands. GovMarket re-verifies the requirement for software solutions already listed, and the changelog says so. See question 4 at the end
 - **Announcing a deprecation.** A requirement that will be retired in the next major version is marked as such in the changelog while it remains in force. See [Deprecate first, retire later](#deprecate-first-retire-later)
 - **Changing an interface** in a way listed as non-breaking in [Interface changes](#interface-changes)
 - **Moving to a new minor version of an extended specification**, since it brings in new RECOMMENDED requirements
 
 ## Patch changes
 
-A **patch** change corrects the specification without changing what any solution does, may do, or how it is verified. Patch changes include:
+A **patch** change corrects the specification without changing what any software solution does, may do, or how it is verified. Patch changes include:
 
 - correcting spelling, grammar and formatting, in normative and informative text alike
-- rewording a requirement statement for clarity, where every solution that met the old wording meets the new one and the other way round. If the rewording admits or excludes any behaviour, it is not a clarification, and it is classified as a change of intent
+- rewording a requirement statement for clarity, where every software solution that met the old wording meets the new one and the other way round. If the rewording admits or excludes any behaviour, it is not a clarification, and it is classified as a change of intent
 - correcting an example, diagram or description that contradicted the normative text, so that it agrees with it
 - correcting a requirement's `type` (`FUNCTIONAL`, `WEBSERVICE`, `INTERFACE`) where the statement is unchanged
 - adding, changing or withdrawing requirements that are not yet published (`DRAFT`, `CANDIDATE`, `ACCEPTED`, `WITHDRAWN`). They take no part in conformance. See question 6 at the end
@@ -135,24 +135,24 @@ A requirement with no explicit classifier takes the default given in `chapters/r
 
 ## Interface changes
 
-Interfaces in `resources/api.yml` are part of the normative content when a requirement refers to them. Because a specification binds both sides, an interface change has to be checked twice: against solutions that implement the interface, and against clients that call it. The rules below apply to interfaces referred to by a REQUIRED requirement. Changes to interfaces referred to only by RECOMMENDED requirements are minor, unless the interface is also used by a REQUIRED one.
+Interfaces in `resources/api.yml` are part of the normative content when a requirement refers to them. Because a specification binds both sides, an interface change has to be checked twice: against software solutions that implement the interface, and against clients that call it. The rules below apply to interfaces referred to by a REQUIRED requirement. Changes to interfaces referred to only by RECOMMENDED requirements are minor, unless the interface is also used by a REQUIRED one.
 
 | Change | Release | Why |
 |---|---|---|
 | Add an operation | as for the requirement that introduces it | |
 | Remove or rename an operation, path, parameter or field | MAJOR | clients break |
 | Change the type or format of a field | MAJOR | both sides break |
-| Add a request field that solutions must act on | MAJOR | existing solutions ignore it |
-| Add an optional request field that solutions may ignore | MINOR | |
+| Add a request field that software solutions must act on | MAJOR | existing software solutions ignore it |
+| Add an optional request field that software solutions may ignore | MINOR | |
 | Make an optional request field required | MAJOR | existing clients do not send it |
-| Make a required request field optional | MAJOR | existing solutions may reject requests without it |
-| Add a response field that solutions must return | MAJOR | existing solutions do not return it |
+| Make a required request field optional | MAJOR | existing software solutions may reject requests without it |
+| Add a response field that software solutions must return | MAJOR | existing software solutions do not return it |
 | Add an optional response field | MINOR, if clients are required to ignore fields they do not know; otherwise MAJOR | |
 | Make a required response field optional | MAJOR | clients that read it break |
-| Add a value to a value set the solution must accept | MAJOR | existing solutions reject it |
-| Add a value to a value set the solution may return | MINOR, if the value set is declared open; otherwise MAJOR | clients that only handle the listed values break |
+| Add a value to a value set the software solution must accept | MAJOR | existing software solutions reject it |
+| Add a value to a value set the software solution may return | MINOR, if the value set is declared open; otherwise MAJOR | clients that only handle the listed values break |
 | Tighten validation of a request (pattern, length, range) | MAJOR | existing clients may send values now rejected |
-| Loosen validation of a request | MAJOR | existing solutions may reject values now allowed |
+| Loosen validation of a request | MAJOR | existing software solutions may reject values now allowed |
 | Correct a description, summary or example to match the schema | PATCH | |
 
 Two of these rows depend on a rule the specification may or may not state: that clients ignore response fields they do not know, and that a value set is open to new values. Stating these rules in the first major version of a specification turns several later breaking changes into minor ones. See question 3 at the end.
@@ -161,7 +161,7 @@ Two of these rows depend on a rule the specification may or may not state: that 
 
 Tests are derived from requirements, and the requirement text governs. A test is never the place to change what a specification demands.
 
-- **Correcting a test so that it agrees with its requirement** is a patch change. If the correction makes a solution fail that used to pass, that solution never met the requirement, but the changelog must say so in plain terms, because its listing on GovMarket may change
+- **Correcting a test so that it agrees with its requirement** is a patch change. If the correction makes a software solution fail that used to pass, that software solution never met the requirement, but the changelog must say so in plain terms, because its listing on GovMarket may change
 - **Adding a test for a requirement that had none** is a patch change, on the same reasoning
 - **A test that cannot be made to agree with its requirement** means the requirement is wrong. The requirement is changed, and the change is classified as a change to the requirement
 
@@ -183,7 +183,7 @@ Under these rules, any change to a REQUIRED obligation is a major release. That 
 
 ## Recommend first, require later
 
-A new obligation enters the specification as a RECOMMENDED requirement in a minor release. Implementers can adopt it, GovMarket reports who has, and the Working Group learns whether it is practical. In the next major release the Working Group promotes it to REQUIRED, with evidence that solutions can meet it. Requirements written this way are rarely reworked after they become mandatory.
+A new obligation enters the specification as a RECOMMENDED requirement in a minor release. Implementers can adopt it, GovMarket reports who has, and the Working Group learns whether it is practical. In the next major release the Working Group promotes it to REQUIRED, with evidence that software solutions can meet it. Requirements written this way are rarely reworked after they become mandatory.
 
 ## Deprecate first, retire later
 
@@ -195,7 +195,7 @@ Each major release costs every implementer and every dependent a migration. A Wo
 
 ## Pre-releases and initial development
 
-- **Pre-releases** carry a suffix: `3.0.0-draft.1` for a working draft open to comment, `3.0.0-rc.1` for a release candidate. A pre-release makes no promise, and no solution can claim conformance to one. The `1.0-draft` currently in this specification's `metadata.yml` is not a valid version under this scheme, and would become `1.0.0-draft.1`
+- **Pre-releases** carry a suffix: `3.0.0-draft.1` for a working draft open to comment, `3.0.0-rc.1` for a release candidate. A pre-release makes no promise, and no software solution can claim conformance to one. The `1.0-draft` currently in this specification's `metadata.yml` is not a valid version under this scheme, and would become `1.0.0-draft.1`
 - **Versions below 1.0.0** mark a specification in initial development. Semantic Versioning makes no compatibility promise below 1.0.0, and neither does GovStack. A specification should reach 1.0.0 before GovMarket lists conformance against it
 - **Legacy versions** in the `YYQN` scheme are not compared with semantic versions. The first semantic version of a legacy specification is a major release, as `requirements/use_semantic_versioning.md` already provides
 
@@ -240,10 +240,10 @@ An illustrative example, for a fictitious release of the Wallet specification:
 ## [2.1.0] - 2026-11-30
 
 ### Added
-- req-23 (RECOMMENDED): the solution exports a holder's credentials in a portable format. Will be proposed as REQUIRED in 3.0.0. (#142)
+- req-23 (RECOMMENDED): the software solution exports a holder's credentials in a portable format. Will be proposed as REQUIRED in 3.0.0. (#142)
 
 ### Changed
-- req-15 (RECOMMENDED): the backup must now be encrypted at rest. Solutions with unencrypted backups lose coverage for req-15 on GovMarket. (#139)
+- req-15 (RECOMMENDED): the backup must now be encrypted at rest. Software solutions with unencrypted backups lose coverage for req-15 on GovMarket. (#139)
 - `listCredentials` operation: added the optional response field `expiresAt`. Clients ignore fields they do not know. (#140)
 
 ### Deprecated
@@ -251,7 +251,7 @@ An illustrative example, for a fictitious release of the Wallet specification:
 
 ### Fixed
 - req-12 (REQUIRED): the example response contradicted the schema and has been corrected. (#137)
-- Test for req-9 now checks the status code the requirement names. Solutions that returned 200 instead of 201 will now fail it. (#138)
+- Test for req-9 now checks the status code the requirement names. Software solutions that returned 200 instead of 201 will now fail it. (#138)
 ```
 
 ## Migration notes
@@ -286,19 +286,19 @@ This proposal departs from `requirements/use_semantic_versioning.md` in these pl
 | The current text says | This proposal says | Why |
 |---|---|---|
 | A minor increment can add new "OPTIONAL or RECOMMENDED rules" | A minor increment can add RECOMMENDED requirements, and states that adding a REQUIRED requirement is major | `OPTIONAL` is not a classifier, and the current text does not say what adding a REQUIRED rule is |
-| "Extensions to an existing enumerated value set" are minor | It depends on whether the solution accepts or returns the values, and whether the set is declared open | A new value a solution must accept breaks existing solutions; a new value it may return breaks existing clients |
-| "Clarifications that broaden but do not narrow acceptable behaviour" are minor | Broadening the intent of a REQUIRED requirement is major | Broadening breaks dependents, who could rely on the narrower behaviour from every conformant solution |
-| Patches "update references to external standards" | Updating a link is a patch; moving to another version of a standard is classified by its effect | A new version of a referenced standard can change what a solution must do |
+| "Extensions to an existing enumerated value set" are minor | It depends on whether the software solution accepts or returns the values, and whether the set is declared open | A new value a software solution must accept breaks existing software solutions; a new value it may return breaks existing clients |
+| "Clarifications that broaden but do not narrow acceptable behaviour" are minor | Broadening the intent of a REQUIRED requirement is major | Broadening breaks dependents, who could rely on the narrower behaviour from every conformant software solution |
+| Patches "update references to external standards" | Updating a link is a patch; moving to another version of a standard is classified by its effect | A new version of a referenced standard can change what a software solution must do |
 | Any classifier change requires a version bump | Each classifier change has a defined release type | So that two Working Groups make the same call |
 | (not addressed) | Within a major version, the set of REQUIRED obligations is fixed | It follows from the two promises, and is what procurement needs |
 
 # Questions for the Architecture Working Group
 
-1. **Two-sided compatibility.** This proposal treats a change as breaking if it hurts implementers *or* dependents, so relaxing a REQUIRED obligation is a major change. The alternative is to protect implementers only: a solution that conformed keeps conforming, and relaxations become minor. That gives fewer major releases, but conformance to "Wallet 2" would then mean different things in different minor versions. Which does the Working Group want?
+1. **Two-sided compatibility.** This proposal treats a change as breaking if it hurts implementers *or* dependents, so relaxing a REQUIRED obligation is a major change. The alternative is to protect implementers only: a software solution that conformed keeps conforming, and relaxations become minor. That gives fewer major releases, but conformance to "Wallet 2" would then mean different things in different minor versions. Which does the Working Group want?
 2. **New REQUIRED requirements.** Is the Working Group prepared to treat every new REQUIRED requirement as a major release, relying on *recommend first, require later* to keep major releases rare?
 3. **Tolerant clients and open value sets.** Should the cross-functional requirements oblige every client to ignore response fields it does not recognise, and should value sets be open by default? Either would turn several breaking interface changes into minor ones, across every Building Block.
-4. **Observability changes.** Moving a requirement from `OBSERVABLE` to `AUDITABLE` does not change what a solution must do, but it changes the evidence a vendor must produce. Is that minor, as proposed, or major?
+4. **Observability changes.** Moving a requirement from `OBSERVABLE` to `AUDITABLE` does not change what a software solution must do, but it changes the evidence a vendor must produce. Is that minor, as proposed, or major?
 5. **Release cadence.** Should there be a minimum interval between major releases of a specification, or a minimum number of minor releases between a deprecation announcement and the retirement?
 6. **Unpublished requirements in releases.** Under ARCH-ADR-5, a release may contain `DRAFT` or `CANDIDATE` requirements to invite experimentation. This proposal treats changes to them as patch changes. Should introducing a significant body of draft requirements be signalled with a minor release instead?
-7. **Changes to RECOMMENDED requirements.** Changing the intent of a RECOMMENDED requirement is minor here, because conformance is unaffected. An integrator that relies on a particular solution implementing it is still affected. Is the changelog warning enough, or should these be major too?
+7. **Changes to RECOMMENDED requirements.** Changing the intent of a RECOMMENDED requirement is minor here, because conformance is unaffected. An integrator that relies on a particular software solution implementing it is still affected. Is the changelog warning enough, or should these be major too?
 8. **Where the changelog lives.** This proposal places `CHANGELOG.md` at the repository root. The repository outline in `chapters/structure_of_specifications.md` would need to include it, and `requirements/keeping_changelog.md` would carry the rule as a requirement of this specification.

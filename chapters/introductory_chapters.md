@@ -55,7 +55,8 @@ Guidance:
 - A capability states **what**, never **how**. Name no product, vendor, protocol or technology
 - Declare each capability in `metadata.yml`, under `capabilities`, with the title used here (see `chapters/functionalities_and_extensions.md`, *Capabilities*)
 - Every capability must be realised by at least one functionality in the Technical Overview, through the functionality's `realises` field. A capability nothing realises is either aspirational or misplaced
-- When a capability is realised only by an extension, say so. A reader must not assume that every conformant solution provides it
+- When a capability is realised only by an extension, say so. A reader must not assume that every conformant software 
+provides it
 - Name the beneficiaries without describing their behaviour. Behaviour belongs to the actor table
 - One to three paragraphs. A long *Value* section is a symptom of an undecided scope
 
@@ -80,7 +81,7 @@ A Building Block is never the whole system. It is a component of a **Digital Ser
 Describe:
 
 - **The reference architectures it operates in.** Every Building Block operates within the GovStack Architecture, and inherits its cross-functional requirements. Name each **Domain Reference Architecture** in which the Building Block performs a role, and name the role. Where no Domain Reference Architecture exists for the domain, say so, and describe the domain context in the Building Block's own terms. That gap is worth reporting to the Architecture Working Group
-- **Which part of the specification performs each role.** The obligations a Building Block has towards a role are in this specification, never in the reference architecture. When they are in an extension, say so: only a solution that claims the extension performs the role in full
+- **Which part of the specification performs each role.** The obligations a Building Block has towards a role are in this specification, never in the reference architecture. When they are in an extension, say so: only a software solution that claims the extension performs the role in full
 - **The other roles in those systems**, and which of them the Building Block exchanges information with. Name roles, not products: "Credential Issuer", not a vendor's issuance platform
 - **The Building Blocks it commonly works with**, and for what. A Building Block that sends messages, for example, is commonly invoked by a Workflow Building Block
 - **Whether it is foundational or a feature Building Block**, when that helps the reader understand how much depends on it
@@ -131,10 +132,10 @@ Its boundary includes <what is inside>. It excludes <closely related things outs
 It is applicable to any software solution claiming conformance to <publication identifier>.
 ```
 
-When the specification has extensions, add a conformance statement: what every conformant solution meets, and what a solution adds by claiming each extension.
+When the specification has extensions, add a conformance statement: what every conformant software solution meets, and what a software solution adds by claiming each extension.
 
 ```markdown
-A conformant solution meets the core of this document. It may also claim one or more of these
+A conformant software solution meets the core of this document. It may also claim one or more of these
 extensions, and meets every requirement of each extension it claims:
 
 - <Extension>: <what it adds>. Requires <other extension>, if any.
@@ -145,7 +146,7 @@ extensions, and meets every requirement of each extension it claims:
 State what the specification extends, and the reference architectures in which it performs a role.
 
 ```markdown
-This document extends <cross-functional requirements identifier>. A conformant solution meets the
+This document extends <cross-functional requirements identifier>. A conformant software solution meets the
 requirements of both.
 
 The <name> Building Block performs the <role> role in <Domain Reference Architecture identifier>.
@@ -211,7 +212,7 @@ Name the Working Group that owns the specification, and where change requests go
 
 # Technical Overview
 
-The `technical_overview.md` file identifies what a conformant solution is, before the requirements say what it must do. It is written for teams building, implementing or assessing a solution, and it assumes the reader has read the Purpose and the Scope.
+The `technical_overview.md` file identifies what a conformant software solution is, before the requirements say what it must do. It is written for teams building, implementing or assessing a software solution, and it assumes the reader has read the Purpose and the Scope.
 
 It has two required sections, *Market assessment* and *Functionalities*, and two optional ones, *Actors* and *Interfaces*. When the optional sections are present, the diagrams and tables should agree with each other: every actor in the functionality map appears in the actor table, and every arrow that crosses the boundary appears in the interface table.
 
@@ -231,7 +232,7 @@ Keep it short: one to four paragraphs, and a table of sources when there are mor
 
 ## Functionalities
 
-List the functionalities the specification is organised by, with one sentence each. Each functionality has its own file in `requirements/`, and the names here match the file titles exactly. The **Description** column repeats the `description` field of the file. The **Realises** column names the capabilities from the *Value* section of the Purpose that the functionality realises, and matches its `realises` field. The **Conformance** column says whether the functionality is in the core, which every conformant solution meets, or in an extension, which a solution may claim in addition to the core. It matches the `conformance` and `extension` fields of the functionality's file (see `chapters/functionalities_and_extensions.md`).
+List the functionalities the specification is organised by, with one sentence each. Each functionality has its own file in `requirements/`, and the names here match the file titles exactly. The **Description** column repeats the `description` field of the file. The **Realises** column names the capabilities from the *Value* section of the Purpose that the functionality realises, and matches its `realises` field. The **Conformance** column says whether the functionality is in the core, which every conformant software solution meets, or in an extension, which a software solution may claim in addition to the core. It matches the `conformance` and `extension` fields of the functionality's file (see `chapters/functionalities_and_extensions.md`).
 
 | Functionality | Realises | Conformance | Description | Requirements |
 |---|---|---|---|---|
@@ -242,13 +243,13 @@ List the functionalities the specification is organised by, with one sentence ea
 | Credential Issuance | Credential Custody | Issuance extension | Obtaining credentials from a Credential Issuer through the issuance exchange | `requirements/credential-issuance.md` |
 | Presentation Exchange | Selective Disclosure | Presentation extension | Answering a Credential Verifier's request through the presentation exchange | `requirements/presentation-exchange.md` |
 
-Then explain how the functionalities divide the capabilities. Where several functionalities realise one capability, say how they divide it, and when some of them are in an extension, what a solution that claims the extension provides beyond the core. Why these functionalities were chosen is already in the *Market assessment*; do not repeat it here.
+Then explain how the functionalities divide the capabilities. Where several functionalities realise one capability, say how they divide it, and when some of them are in an extension, what a software solution that claims the extension provides beyond the core. Why these functionalities were chosen is already in the *Market assessment*; do not repeat it here.
 
 ### Core and extensions
 
 When the specification has extensions, explain how its functionalities divide between the core and the extensions. A specification without extensions says so in one sentence, and skips the rest of this section.
 
-Explain the **core** first, and why it stands alone: what a solution that meets only the core can do, and why that is enough to make it an instance of the Building Block. A reader who knows what the core guarantees knows what every conformant solution guarantees.
+Explain the **core** first, and why it stands alone: what a software solution that meets only the core can do, and why that is enough to make it an instance of the Building Block. A reader who knows what the core guarantees knows what every conformant software solution guarantees.
 
 Then list the **extensions**, one row each:
 
@@ -260,12 +261,12 @@ Then list the **extensions**, one row each:
 Guidance:
 
 - The extensions listed here match the `extensions` declared in `metadata.yml`, with the same titles
-- **Adds** says what a solution that claims the extension can do that the core alone cannot. Write it for a buyer deciding whether to require the extension
+- **Adds** says what a software solution that claims the extension can do that the core alone cannot. Write it for a buyer deciding whether to require the extension
 - **Role served** names the role the Building Block performs through the extension, and the Domain Reference Architecture that describes it. Leave it empty when the extension serves no particular role
 - Explain **why each extension is not core**: some conformant products legitimately lack it, it is an obligation towards a domain role that not every deployment has, or it depends on infrastructure that not every deployment has
 - Say which combinations you expect. A buyer reads this to know what to ask for: "a wallet for a credentials ecosystem claims both extensions"
 
-Include a **functionality map**: the functionalities inside the boundary of the Building Block, the actors outside it, and how each actor reaches each functionality. Draw each extension as a group inside the boundary, so that a reader sees which actors only a solution that claims the extension deals with. This is the diagram a reader returns to while reading the requirements.
+Include a **functionality map**: the functionalities inside the boundary of the Building Block, the actors outside it, and how each actor reaches each functionality. Draw each extension as a group inside the boundary, so that a reader sees which actors only a software solution that claims the extension deals with. This is the diagram a reader returns to while reading the requirements.
 
 ```mermaid
 flowchart LR
@@ -326,7 +327,7 @@ Guidance:
 - **Specified where** names the publication that defines the actor's behaviour: a Domain Reference Architecture, another Building Block specification, an external standard, or "not specified". An actor outside the boundary is never specified by this document. Only its interface with the Building Block is
 - Use the role names of the Domain Reference Architecture where one exists, so that readers can move between the two publications without translating
 - Every actor marked *Outside* reappears in the out-of-scope list in `scope.md`, with its owner
-- When an actor reaches the Building Block only through an extension, name the extension. A solution that claims only the core never deals with that actor
+- When an actor reaches the Building Block only through an extension, name the extension. A software solution that claims only the core never deals with that actor
 
 ## Interfaces (optional)
 
@@ -356,7 +357,7 @@ Types worth distinguishing:
 Guidance:
 
 - Every interface in this table is realised by at least one requirement, whose `interaction` classifier matches the type of the interface (`chapters/requirements.md`). An interface no requirement realises is either missing its requirement or does not belong in the table
-- A protocol defined for a domain is usually realised by an extension functionality, because it is an obligation towards a role that not every deployment has. If such an interface is realised by a core functionality, explain in *Core and extensions* why every conformant solution needs it
+- A protocol defined for a domain is usually realised by an extension functionality, because it is an obligation towards a role that not every deployment has. If such an interface is realised by a core functionality, explain in *Core and extensions* why every conformant software solution needs it
 - Interfaces every Building Block shares, such as logging, monitoring and deployment, are inherited from the cross-functional requirements and are not listed. List one only where this Building Block adds to the inherited contract
 - Exchanges between deployments across a network go through an Information Mediator in the GovStack Architecture. Record the logical counterpart, not the mediator, unless the Building Block depends on a mediation feature specifically
 - Name the contract, not the technology. Where a protocol is named, it is named in the requirement or in the reference architecture the table points to
@@ -370,7 +371,7 @@ Guidance:
 - [ ] The Market assessment says what was surveyed and why it led to the functionalities listed
 - [ ] Every functionality in the Technical Overview has a file in `requirements/`, with the same name
 - [ ] The **Conformance** column of every functionality matches the `conformance` and `extension` fields of its file, and the extensions listed match those declared in `metadata.yml`
-- [ ] A solution that meets only the core is a useful instance of the Building Block, and the Technical Overview says why
+- [ ] A software solution that meets only the core is a useful instance of the Building Block, and the Technical Overview says why
 - [ ] Every extension has at least one `REQUIRED` requirement, and appears in the conformance statement and in **Covered** in `scope.md`
 - [ ] When the actor and interface tables are present, every actor in the functionality map appears in the actor table, and every arrow crossing the boundary appears in the interface table
 - [ ] When the interface table is present, every interface is realised by at least one requirement
