@@ -44,7 +44,7 @@ A software API usually only has to protect its callers. A specification also has
 | **MINOR** | Your software solution still conforms. There are new or changed RECOMMENDED requirements, or announced deprecations, that you may want to act on | Nothing you relied on has changed. There may be new optional capabilities to look for |
 | **PATCH** | Nothing to do | Nothing to do |
 
-One consequence is worth stating plainly, because procurement depends on it: **within a major version, the set of REQUIRED obligations does not change.** Conformance to Wallet 2.0.0 and conformance to Wallet 2.7.3 are the same pass or fail result; the minor versions differ only in RECOMMENDED content, which affects the coverage GovMarket reports and not the conformance verdict. A buyer can therefore require "conformance to Wallet 2" and know what they are asking for.
+One consequence is worth stating plainly, because procurement depends on it: **within a major version, the set of REQUIRED obligations does not change.** Conformance to Example 2.0.0 and conformance to Example 2.7.3 are the same pass or fail result; the minor versions differ only in RECOMMENDED content, which affects the coverage GovMarket reports and not the conformance verdict. A buyer can therefore require "conformance to Example 2" and know what they are asking for.
 
 # Deciding the release type
 
@@ -78,7 +78,7 @@ A change is **breaking** if it adds an obligation that a conformant software sol
 - **Promoting a requirement from RECOMMENDED to REQUIRED.** Software solutions that did not implement it no longer conform
 - **Demoting a requirement from REQUIRED to RECOMMENDED.** Software solutions still conform, but a dependent that relied on every conformant software solution offering the behaviour can no longer rely on it
 - **Retiring a REQUIRED requirement** (`PUBLISHED` to `DEPRECATED`). For the same reason as demotion
-- **Changing the intent of a REQUIRED requirement**, whether it narrows what a software solution may do (implementers break) or broadens it (dependents break). "The software solution returns credentials in JSON" changed to "in JSON or CBOR" is breaking: an integrator that only reads JSON stops working with some conformant software solutions
+- **Changing the intent of a REQUIRED requirement**, whether it narrows what a software solution may do (implementers break) or broadens it (dependents break). "The software solution returns items in JSON" changed to "in JSON or CBOR" is breaking: an integrator that only reads JSON stops working with some conformant software solutions
 - **Changing an interface a REQUIRED requirement refers to** in a way listed as breaking in [Interface changes](#interface-changes)
 - **Restricting the mutability of a requirement**, such as `REPLACEABLE` to `EXTENSIBLE` or `EXTENSIBLE` to `IMMUTABLE`. Extending specifications that replaced or switched off the rule are no longer valid
 - **Changing the intent of an `IMMUTABLE` requirement**, at any level. `chapters/requirements.md` already forbids this within a major version
@@ -179,7 +179,7 @@ An extending specification is not forced to adopt a new release of what it exten
 
 # Managing breaking changes
 
-Under these rules, any change to a REQUIRED obligation is a major release. That is deliberate: it is what lets a buyer cite "Wallet 2" and know what they get. It also means Working Groups need a way to evolve a specification without releasing a new major version for every improvement. Three practices provide it.
+Under these rules, any change to a REQUIRED obligation is a major release. That is deliberate: it is what lets a buyer cite "Example 2" and know what they get. It also means Working Groups need a way to evolve a specification without releasing a new major version for every improvement. Three practices provide it.
 
 ## Recommend first, require later
 
@@ -232,7 +232,7 @@ Each entry:
 
 Changes to informative content can be summarised in one entry, such as "Rewrote the technical overview". Changes to unpublished requirements are not listed until they are published.
 
-An illustrative example, for a fictitious release of the Wallet specification:
+An illustrative example, for a release of the abstract Example Building Block specification (`resources/abstract_example.md`):
 
 ```markdown
 ## [Unreleased]
@@ -240,11 +240,11 @@ An illustrative example, for a fictitious release of the Wallet specification:
 ## [2.1.0] - 2026-11-30
 
 ### Added
-- req-23 (RECOMMENDED): the software solution exports a holder's credentials in a portable format. Will be proposed as REQUIRED in 3.0.0. (#142)
+- req-23 (RECOMMENDED): the software solution exports the items it holds in a portable format. Will be proposed as REQUIRED in 3.0.0. (#142)
 
 ### Changed
 - req-15 (RECOMMENDED): the backup must now be encrypted at rest. Software solutions with unencrypted backups lose coverage for req-15 on GovMarket. (#139)
-- `listCredentials` operation: added the optional response field `expiresAt`. Clients ignore fields they do not know. (#140)
+- `listItems` operation: added the optional response field `expiresAt`. Clients ignore fields they do not know. (#140)
 
 ### Deprecated
 - req-7 (REQUIRED): the proprietary export endpoint. Will be retired in 3.0.0 and replaced by req-23. (#142)
@@ -294,7 +294,7 @@ This proposal departs from `requirements/use_semantic_versioning.md` in these pl
 
 # Questions for the Architecture Working Group
 
-1. **Two-sided compatibility.** This proposal treats a change as breaking if it hurts implementers *or* dependents, so relaxing a REQUIRED obligation is a major change. The alternative is to protect implementers only: a software solution that conformed keeps conforming, and relaxations become minor. That gives fewer major releases, but conformance to "Wallet 2" would then mean different things in different minor versions. Which does the Working Group want?
+1. **Two-sided compatibility.** This proposal treats a change as breaking if it hurts implementers *or* dependents, so relaxing a REQUIRED obligation is a major change. The alternative is to protect implementers only: a software solution that conformed keeps conforming, and relaxations become minor. That gives fewer major releases, but conformance to "Example 2" would then mean different things in different minor versions. Which does the Working Group want?
 2. **New REQUIRED requirements.** Is the Working Group prepared to treat every new REQUIRED requirement as a major release, relying on *recommend first, require later* to keep major releases rare?
 3. **Tolerant clients and open value sets.** Should the cross-functional requirements oblige every client to ignore response fields it does not recognise, and should value sets be open by default? Either would turn several breaking interface changes into minor ones, across every Building Block.
 4. **Observability changes.** Moving a requirement from `OBSERVABLE` to `AUDITABLE` does not change what a software solution must do, but it changes the evidence a vendor must produce. Is that minor, as proposed, or major?

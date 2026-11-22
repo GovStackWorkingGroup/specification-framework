@@ -17,7 +17,7 @@ The requirements are the normative content of a Building Block specification. A 
 
 A requirement is a single, verifiable statement of something the Building Block software does or is. Its subject is always the Building Block software, as delimited in *Subject and applicability* in the scope (`chapters/introductory_chapters.md`). A statement whose subject is a person, an organisation or another system is not a requirement of this specification, because nobody can submit that subject for assessment.
 
-Each requirement belongs to exactly one functionality, and lives in that functionality's file in `requirements/` (`chapters/structure_of_specifications.md`, *Requirement files*). Requirements every Building Block shares, such as transport security or structured logging, are cross-functional requirements. They live in `govstack:spec:cfr` and are inherited, not restated.
+Each requirement belongs to exactly one functionality, and lives in that functionality's file in the `functionalities/` folder of its conformance profile (`chapters/structure_of_specifications.md`, *Functionality files*). Requirements every Building Block shares, such as transport security or structured logging, are cross-functional requirements. They live in `govstack:spec:cfr` and are inherited, not restated.
 
 # Writing the statement
 
@@ -29,13 +29,13 @@ The statement follows the sentence pattern of ISO/IEC/IEEE 29148, 5.2.4:
 
 > [Condition] [Subject] [Action] [Object] [Constraint of action]
 
-*When a Verifier requests a presentation* [condition], *the Wallet* [subject] *shows the Holder* [action] *every requested attribute* [object] *before any attribute is sent* [constraint].
+*When System Q requests an item* [condition], *the Example Building Block* [subject] *shows the End User* [action] *every requested attribute* [object] *before any attribute is sent* [constraint].
 
 Only the subject and the action are always present. Conditions and constraints that do not fit in one sentence go into the `documentation` field of the requirement, labelled "Condition:" or "Constraint:", so that the limits of the requirement are explicit when it is assessed.
 
 ## Obligation
 
-The obligation of a requirement is carried by its `level` classifier, not by the verb in its statement. GovMarket and the compliance tooling read the classifier. Write the statement in the plain present tense, "The Wallet keeps …", or with an RFC 2119 keyword, but never rely on the keyword alone to say whether the requirement is mandatory. Where a sentence in the `documentation` needs its own obligation, such as "a software solution MAY additionally …", use the RFC 2119 keywords in capitals.
+The obligation of a requirement is carried by its `level` classifier, not by the verb in its statement. GovMarket and the compliance tooling read the classifier. Write the statement in the plain present tense, "The Example Building Block keeps …", or with an RFC 2119 keyword, but never rely on the keyword alone to say whether the requirement is mandatory. Where a sentence in the `documentation` needs its own obligation, such as "a software solution MAY additionally …", use the RFC 2119 keywords in capitals.
 
 ## Words to avoid
 
@@ -73,15 +73,15 @@ The requirements of a specification are also checked as a set. Together with the
 
 ## Common mistakes
 
-- **The wrong subject.** "A holder MUST be able to add credentials" cannot be assessed, because its subject is a person. Write "The Wallet accepts credentials from …"
-- **Two obligations in one.** "The Wallet stores and encrypts credentials" is two requirements, which may have different levels and different tests
-- **A goal instead of a requirement.** "The Wallet is secure" has no pass or fail. Either state what makes it so, or leave it to the cross-functional requirements
+- **The wrong subject.** "The End User MUST be able to add items" cannot be assessed, because its subject is a person. Write "The Example Building Block accepts items from …"
+- **Two obligations in one.** "The Example Building Block stores and encrypts items" is two requirements, which may have different levels and different tests
+- **A goal instead of a requirement.** "The Example Building Block is secure" has no pass or fail. Either state what makes it so, or leave it to the cross-functional requirements
 - **Restating an inherited requirement.** A cross-functional requirement is inherited through `extends`. Restate it only to tighten an `EXTENSIBLE` one, and cite it when you do
-- **Naming a product.** "The Wallet uses OpenIAM" binds every software solution to a vendor. Name the contract the product implements
+- **Naming a product.** "The Example Building Block uses <product name>" binds every software solution to a vendor. Name the contract the product implements
 
 # Unique identifier
 
-Each requirement has an identification number, unique within its specification, in its `id` field. The number together with the identifier of the specification identifies the requirement wherever it is cited, for example `govstack:spec:bb:wallet#req-7`. Procurement documents and laws cite requirements this way, and the citation has to resolve to the same rule years later.
+Each requirement has an identification number, unique within its specification, in its `id` field. The number together with the identifier of the specification identifies the requirement wherever it is cited, for example `govstack:spec:bb:example#req-7`. Procurement documents and laws cite requirements this way, and the citation has to resolve to the same rule years later.
 
 A requirement receives its number when it is accepted (see *Requirement status*). Working Groups follow these rules:
 
@@ -160,7 +160,7 @@ The observability says how compliance with the requirement is confirmed. A Build
 
 **AUDITABLE** - compliance cannot be determined from external behaviour alone, and requires inspecting architecture documentation, source code, deployment configuration, access control policies or third-party audit reports. Each AUDITABLE requirement lists in its `documentation` the evidence a vendor produces, so that the assessment stays deterministic even when it is manual.
 
-Prefer an observable formulation where one exists. "The Wallet keeps credentials across a restart" is observable; "The Wallet stores credentials in a database" is not, and it also names a design.
+Prefer an observable formulation where one exists. "The Example Building Block keeps items across a restart" is observable; "The Example Building Block stores items in a database" is not, and it also names a design.
 
 ## Mutability
 
@@ -174,7 +174,7 @@ Every Building Block specification extends the cross-functional requirements, an
 
 **INAPPLICABLE** - used only in an extending specification. It switches off an inherited `EXTENSIBLE` or `REPLACEABLE` requirement for that specification, without altering the parent text, and records why.
 
-An extending requirement cites the requirement it extends, replaces or switches off, for example `govstack:spec:bb:wallet#req-1 extends govstack:spec:cfr:data#req-3`.
+An extending requirement cites the requirement it extends, replaces or switches off, for example `govstack:spec:bb:example#req-1 extends govstack:spec:cfr:data#req-3`.
 
 # Interaction types
 
@@ -191,7 +191,7 @@ The interaction type says where a tester has to stand to see the requirement met
 | `FILE` | reads or writes a file or data package in a defined format | This specification, or an external standard for the format | Sample files, and a validator for the files produced |
 | `INTERNAL` | has a characteristic that does not cross any boundary | This specification | Indirect observation, or evidence artefacts |
 
-The first seven types are the interface types of the optional *Interfaces* table in the Technical Overview (`chapters/introductory_chapters.md`). When the table is present, a requirement of any type except `INTERNAL` realises one of the interfaces listed there.
+The first seven types are the interface types of the optional *Interfaces* table in the introduction of each conformance profile (`chapters/functionalities_and_extensions.md`, *The introduction of a conformance profile*). When the table is present, a requirement of the profile of any type except `INTERNAL` realises one of the interfaces listed there.
 
 ## Deciding the type
 
@@ -211,37 +211,37 @@ Rules:
 1. Every requirement has exactly one interaction type. A requirement that seems to need two usually holds two requirements: one for the exchange, and one for what the Building Block software does with its result.
 2. A requirement of type `SERVICE_API` names its operation in `api_operation_id`, and that operation exists in `resources/api.yml`.
 3. A requirement of type `CONSUMED_API`, `PROTOCOL`, `DEVICE` or `FILE` whose contract is defined elsewhere names that contract in `contract`: a publication identifier with the operation, role or section, or a document listed in `references.md`.
-4. When the Technical Overview has an *Interfaces* table, every interface in it is realised by at least one requirement of the matching type, and every requirement that is not `INTERNAL` realises an interface listed in it.
+4. When the introduction of a conformance profile has an *Interfaces* table, every interface in it is realised by at least one requirement of the profile of the matching type, and every requirement of the profile that is not `INTERNAL` realises an interface listed in it.
 5. Interfaces inherited from the cross-functional requirements, such as logging and monitoring, are not given an interaction type here. They belong to the requirements of `govstack:spec:cfr`.
 
 Guidance:
 
 - A file exchanged over a network, for example uploaded through an API operation, is two requirements: one `SERVICE_API` or `CONSUMED_API` for the transfer, and one `FILE` for the format. The format can change without the operation changing, and the reverse
-- `INTERNAL` does not mean `AUDITABLE`. Persistence across a restart is internal, but a tester can see it by restarting the system and reading the credential back. Choose `observability` separately
+- `INTERNAL` does not mean `AUDITABLE`. Persistence across a restart is internal, but a tester can see it by restarting the system and reading the item back. Choose `observability` separately
 - `USER_INTERFACE` requirements state what a person must be shown or asked, not how the screen looks. Layout, wording and accessibility of the screen belong to the cross-functional requirements or to the deployment
 - `DEVICE` is for hardware the Building Block software interacts with. Hardware reached through an operating system service, such as a platform key store, is still `DEVICE` when the requirement depends on the hardware's properties, and `INTERNAL` when it does not
-- When a protocol is realised by an extension functionality, its `PROTOCOL` requirements all sit in that extension (`chapters/functionalities_and_extensions.md`)
+- When a protocol is realised by a functionality of an extension, its `PROTOCOL` requirements all sit in that extension (`chapters/functionalities_and_extensions.md`)
 
 ## Examples
 
-Illustrative requirements for the Wallet Building Block, one per type.
+Requirements for the abstract Example Building Block (`resources/abstract_example.md`), one per type.
 
 | Type | Statement | `contract` or `api_operation_id` |
 |---|---|---|
-| `SERVICE_API` | The Wallet returns the list of credentials it holds, with their issuer and expiry date. | `api_operation_id: listCredentials` |
-| `CONSUMED_API` | The Wallet checks the revocation status of a credential with the Trust Registry before presenting it. | `govstack:ra:credentials`, status lookup |
-| `PROTOCOL` | The Wallet requests a credential from an Issuer in the pre-authorised code flow of OpenID4VCI. | OpenID4VCI, section 3.5 |
-| `EVENT` | The Wallet publishes an event when a credential is deleted. | `resources/events.yml`, `credential.deleted` |
-| `USER_INTERFACE` | The Wallet shows the Holder every attribute a Verifier requests before the Holder approves the presentation. | |
-| `DEVICE` | The Wallet generates and keeps the private key of a credential in a hardware-backed key store, where the device has one. | |
-| `FILE` | The Wallet exports the credentials it holds as an encrypted backup file in the format defined in *Data structures*. | |
-| `INTERNAL` | The Wallet keeps every stored credential across a restart. | |
+| `SERVICE_API` | The Example Building Block returns the list of items it holds, with their identifier and creation time. | `api_operation_id: listItems` |
+| `CONSUMED_API` | The Example Building Block checks the status of an item with Registry R before sending it to System Q. | `govstack:ra:example`, status lookup |
+| `PROTOCOL` | The Example Building Block answers a request from System Q as defined in Protocol Q. | `govstack:ra:example`, Protocol Q, section <n> |
+| `EVENT` | The Example Building Block publishes an event when an item is deleted. | `resources/events.yml`, `item.deleted` |
+| `USER_INTERFACE` | The Example Building Block shows the End User every attribute System Q requests before the End User approves sending it. | |
+| `DEVICE` | The Example Building Block generates and keeps its signing key in a hardware-backed key store, where the device has one. | |
+| `FILE` | The Example Building Block exports the items it holds as a file in the format defined in *Data structures*. | |
+| `INTERNAL` | The Example Building Block keeps every stored item across a restart. | |
 
 ## How the type is used elsewhere
 
 | Where | Use |
 |---|---|
-| *Interfaces* in the Technical Overview, when present | Each interface is realised by requirements of its type. A row with none is missing its requirements |
+| *Interfaces* in the introduction of a conformance profile, when present | Each interface is realised by requirements of its type. A row with none is missing its requirements |
 | Compliance tests | The type tells the test author which harness the requirement needs: client, stand-in, simulator, reference hardware, sample files or evidence |
 | Versioning | The rules in *Interface changes* (`chapters/versioning_and_change_documentation.md`) apply to `SERVICE_API` requirements. Changes to the contract of a `CONSUMED_API`, `PROTOCOL` or `FILE` requirement are judged by the same question: does an existing software solution or counterpart break? |
 | Extensions | A software solution that claims only the core never needs a harness for the types used only in extensions |
@@ -256,11 +256,11 @@ requirements:
     observability: OBSERVABLE
     mutability: IMMUTABLE
     interaction: CONSUMED_API
-    contract: govstack:ra:credentials#status-lookup
-    statement: The Wallet checks the revocation status of a credential with the Trust Registry before presenting it.
+    contract: govstack:ra:example#status-lookup
+    statement: The Example Building Block checks the status of an item with Registry R before sending it to System Q.
     documentation: |
-      Condition: the credential carries a status reference.
-      Constraint: a status that cannot be retrieved is treated as unknown, and the credential is not presented as valid.
+      Condition: the item carries a status reference.
+      Constraint: a status that cannot be retrieved is treated as unknown, and the item is not sent as valid.
     api_operation_id:
     test:
 ```
