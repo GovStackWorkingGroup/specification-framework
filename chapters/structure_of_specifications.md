@@ -69,7 +69,7 @@ extension: # id of an extension declared in metadata.yml; only when conformance 
 requirements:
   - id: '1'
     status: DRAFT # DRAFT, WITHDRAWN, CANDIDATE, ACCEPTED, PUBLISHED, DEPRECATED
-    level: RECOMMENDED # RECOMMENDED, REQUIRED
+    level: RECOMMENDED # RECOMMENDED, REQUIRED; OPTION only for an option, under options
     observability: # OBSERVABLE, AUDITABLE
     mutability: # IMMUTABLE, EXTENSIBLE
     interaction: # SERVICE_API, CONSUMED_API, PROTOCOL, EVENT, USER_INTERFACE, DEVICE, FILE, INTERNAL
@@ -78,8 +78,31 @@ requirements:
     documentation: # conditions, constraints and, for AUDITABLE requirements, the evidence a vendor produces
     api_operation_id:
     test:
+    applies_when: [] # keys of options or ids of extensions; only for a conditional requirement
+  - id: '2' # a variation point: no interaction, api_operation_id or test
+    level: REQUIRED
+    statement: <the choice, and how many options a solution meets>
+    select:
+      min: 1
+      max: # optional
+    options:
+      - id: '2.1'
+        key: # only if applies_when elsewhere names this option
+        status: DRAFT
+        level: OPTION
+        observability:
+        interaction:
+        statement: <one sentence>
+        test:
+      - id: '2.2'
+        status: DRAFT
+        level: OPTION
+        extension: # id of an extension, when the option is met by claiming it; then no interaction or test
+        statement: <one sentence>
 ---
 ```
+
+Options and conditions are explained in `chapters/requirements.md`, *Options and conditions*. The file-level `cardinality` field is not used: a variation point with `select` replaces it.
 
 `realises` lists the capabilities the functionality realises. Every functionality realises at least one, and every capability declared in metadata.yml is realised by at least one functionality.
 

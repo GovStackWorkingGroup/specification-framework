@@ -160,6 +160,13 @@ Guidance:
 - Explain **why each extension is not core**: some conformant products legitimately lack it, it is an obligation towards a domain role that not every deployment has, or it depends on infrastructure that not every deployment has
 - Say which combinations you expect. A buyer reads this to know what to ask for: "a wallet for a credentials ecosystem claims both extensions"
 
+When a core functionality has a **variation point** (`chapters/requirements.md`, *Options and conditions*), say what the choice is, list its options, and mark the options that are met by claiming an extension. A reader should see that the core stands alone: at least `min` options of every core variation point are met without an extension.
+
+| Functionality | Choice | Options | Met through an extension |
+|---|---|---|---|
+| Credential Acquisition | Credential types, at least 1 | `bearer`, `pass`, `vc` | `vc`: Verifiable Credentials |
+| Credential Presentation | Presentation methods, at least 1 | `code`, OpenID4VP, ISO/IEC 18013-5 | OpenID4VP: Remote Presentation; ISO/IEC 18013-5: Proximity Presentation |
+
 Include a **functionality map**: the functionalities inside the boundary of the system under test, the actors outside it, and how each actor reaches each functionality. Draw each extension as a group inside the boundary, so that a reader sees which actors only a solution that claims the extension deals with. This is the diagram a reader returns to while reading the requirements.
 
 ```mermaid
@@ -220,6 +227,7 @@ Guidance:
 - Use the role names of the Domain Reference Architecture where one exists, so that readers can move between the two publications without translating
 - Every actor marked *Outside* reappears in the out-of-scope list in `scope.md`, with its owner
 - When an actor reaches the Building Block only through an extension, name the extension. A solution that claims only the core never deals with that actor
+- When an actor reaches the Building Block only through an option, name the option's key: "Pass issuer (`pass`)". A solution that does not declare the option never deals with that actor. The same applies to *Interfaces*
 
 ### Interfaces
 
@@ -325,6 +333,8 @@ One entry per functionality, with the aspect of it that this document treats. Ad
 ```
 
 An obligation towards a role that sits in an extension is **Covered**, under that extension. Only the counterpart's behaviour is **Not covered**.
+
+Name each variation point with its options in the entry of its functionality, so that a reader sees what kinds of solution conform: "Credential Acquisition: adding credentials of at least one of the types bearer credential (`bearer`), pass (`pass`) or verifiable credential (`vc`, through the Verifiable Credentials extension)".
 
 ## Not covered
 

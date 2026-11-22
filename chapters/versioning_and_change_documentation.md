@@ -83,6 +83,8 @@ A change is **breaking** if it adds an obligation that a conformant solution may
 - **Restricting the mutability of a requirement**, such as `REPLACEABLE` to `EXTENSIBLE` or `EXTENSIBLE` to `IMMUTABLE`. Extending specifications that replaced or switched off the rule are no longer valid
 - **Changing the intent of an `IMMUTABLE` requirement**, at any level. `chapters/requirements.md` already forbids this within a major version
 - **Moving to a new major version of an extended specification**, such as a Building Block specification adopting a new major version of the cross-functional requirements
+- **Deprecating a published option of a `REQUIRED` variation point, or changing its `select`.** Solutions that met only that option, or exactly the old number of options, may no longer conform; dependents that relied on `min` lose a guarantee
+- **Adding a condition to a published `REQUIRED` requirement, or removing one.** Adding one removes an obligation dependents relied on; removing one adds an obligation to solutions that did not meet the condition
 - **Reusing, renumbering or removing a requirement number.** The *Unique Identifier* rules forbid this outright, in any release type; it is listed here only because a specification that did it would break every citation of the number
 
 ## Non-breaking changes
@@ -97,6 +99,7 @@ A change is **non-breaking** if it changes normative content but keeps both prom
 - **Changing how a requirement is verified** (`OBSERVABLE` to `AUDITABLE` or back) without changing what it demands. GovMarket re-verifies the requirement for solutions already listed, and the changelog says so. See question 4 at the end
 - **Announcing a deprecation.** A requirement that will be retired in the next major version is marked as such in the changelog while it remains in force. See [Deprecate first, retire later](#deprecate-first-retire-later)
 - **Changing an interface** in a way listed as non-breaking in [Interface changes](#interface-changes)
+- **Publishing a new option of a variation point.** No solution loses conformance: each still meets the options it declared. A variation point is an open set, like a value set declared open: a dependent relies on the options a solution declares, which GovMarket shows and a procurement cites, never on the options listed today. This is unlike broadening a single `REQUIRED` requirement ("JSON" to "JSON or CBOR"), where the dependent has no declaration to rely on
 - **Moving to a new minor version of an extended specification**, since it brings in new RECOMMENDED requirements
 
 ## Patch changes
@@ -130,6 +133,11 @@ A **patch** change corrects the specification without changing what any solution
 | `mutability` | towards less restrictive (`IMMUTABLE` → `EXTENSIBLE` → `REPLACEABLE`) | MINOR |
 | `observability` | `OBSERVABLE` ↔ `AUDITABLE`, demand unchanged | MINOR |
 | `interaction` | corrected, statement unchanged | PATCH |
+| `status` | → `PUBLISHED` (a new option released), with `level: OPTION` | MINOR |
+| `status` | `PUBLISHED` → `DEPRECATED`, with `level: OPTION`, of a `REQUIRED` variation point | MAJOR |
+| `select` | any change to `min` or `max` of a `REQUIRED` variation point | MAJOR |
+| `applies_when`, `applies_when_all` | added to, removed from or changed on a published `REQUIRED` requirement | MAJOR |
+| `select`, `applies_when`, or an option's `status` | on a `RECOMMENDED` variation point or requirement | MINOR |
 
 A requirement with no explicit classifier takes the default given in `chapters/requirements.md`. Writing the default explicitly is not a change.
 
@@ -174,6 +182,8 @@ Every Building Block specification extends the cross-functional requirements, an
 | a patch | releases at least a patch |
 | a minor | releases at least a minor |
 | a major | releases a major |
+
+An extending specification that narrows a variation point lists the options it **accepts**. A new option published by the extended specification therefore does not enter the extending specification until it adopts the release and lists the option, which it does in a minor release of its own.
 
 An extending specification is not forced to adopt a new release of what it extends. It keeps extending the version it names until it chooses to move, and its own version number tells its readers when it does. A new major version of the cross-functional requirements therefore does not break any Building Block specification on the day it is released; it breaks each one on the day that Building Block adopts it.
 
@@ -296,7 +306,7 @@ This proposal departs from `requirements/use_semantic_versioning.md` in these pl
 
 1. **Two-sided compatibility.** This proposal treats a change as breaking if it hurts implementers *or* dependents, so relaxing a REQUIRED obligation is a major change. The alternative is to protect implementers only: a solution that conformed keeps conforming, and relaxations become minor. That gives fewer major releases, but conformance to "Wallet 2" would then mean different things in different minor versions. Which does the Working Group want?
 2. **New REQUIRED requirements.** Is the Working Group prepared to treat every new REQUIRED requirement as a major release, relying on *recommend first, require later* to keep major releases rare?
-3. **Tolerant clients and open value sets.** Should the cross-functional requirements oblige every client to ignore response fields it does not recognise, and should value sets be open by default? Either would turn several breaking interface changes into minor ones, across every Building Block.
+3. **Tolerant clients and open value sets.** Should the cross-functional requirements oblige every client to ignore response fields it does not recognise, and should value sets be open by default? Either would turn several breaking interface changes into minor ones, across every Building Block. Variation points are already treated as open sets (ARCH-ADR-6): is there a case for a closed one, where publishing an option would be major?
 4. **Observability changes.** Moving a requirement from `OBSERVABLE` to `AUDITABLE` does not change what a solution must do, but it changes the evidence a vendor must produce. Is that minor, as proposed, or major?
 5. **Release cadence.** Should there be a minimum interval between major releases of a specification, or a minimum number of minor releases between a deprecation announcement and the retirement?
 6. **Unpublished requirements in releases.** Under ARCH-ADR-5, a release may contain `DRAFT` or `CANDIDATE` requirements to invite experimentation. This proposal treats changes to them as patch changes. Should introducing a significant body of draft requirements be signalled with a minor release instead?
