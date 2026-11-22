@@ -11,4 +11,20 @@ authors:
     roles: [Author, Reviewer]
     urn: govstack:person:david-higgins
   - name: Nico Lück
-    roles: [Author, Reviewer]
+    roles: [Author, Reviewer, Editor]
+    urn: govstack:person:nico-lueck
+  - name: Sebastian Leidig
+    roles: [Reviewer]
+    urn: govstack:person:sebastian-leidig
+  - name: Yuliia Kravchenko
+    roles: [Reviewer]
+    urn: govstack:person:yuliia-kravchenko
+  - name: PS Ramkumar
+    roles: [Reviewer]
+    urn: govstack:person:ps-ramkumar
+  - name: Jeremi Joslin
+    roles: [Author]
+    urn: govstack:person:jeremi-joslin
+  - name: Hendrik Ebbers
+    roles: [Contributor]
+    urn: govstack:person:hendrik-ebbers
