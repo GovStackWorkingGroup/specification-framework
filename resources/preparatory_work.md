@@ -1,10 +1,12 @@
 ---
-specification_name: # Example: Wallet Building Block Specification
-owner_group: # Example: govstack:wg:cfid
+specification_name: # Example: Example Building Block Specification
+owner_group: # Example: govstack:wg:example
 target_version: # Example: 2.0.0
 ---
 
 # Preparatory Work
+
+The example rows in the tables use the abstract Example Building Block (`resources/abstract_example.md`). Replace them with your own.
 
 This guide leads a Working Group through the conversations that come before writing a Building Block specification. Work through the sections in order: each one builds on the last, and each ends with an output that lands in a named file of the specification.
 
@@ -14,9 +16,9 @@ Fill in the tables as the conversations happen, and keep this document with the 
 |---|---|---|
 | 1. Audience | Who the specification is written for | Calibrates every chapter |
 | 2. Groundwork reading | What already exists, and what we take from it | `introduction/references.md` |
-| 3. Use cases and workflows | Where the Building Block appears in real services | Workflows in `requirements/` |
-| 4. Capabilities and functionalities | What the Building Block provides, and how it is organised | `introduction/purpose.md` (capabilities), `introduction/technical_overview.md` (functionalities), one `requirements/` file per functionality |
-| 5. Actors and interfaces | Who and what the Building Block deals with | `introduction/technical_overview.md`, `resources/tests/` |
+| 3. Use cases and workflows | Where the Building Block appears in real services | Workflows in the functionality files, in `conformance-profiles/<profile>/functionalities/` |
+| 4. Capabilities and functionalities | What the Building Block provides, and how it is organised | `introduction/purpose.md` (capabilities), `introduction/technical_overview.md` (conformance profiles), `conformance-profiles/<profile>/introduction.md` (functionalities), one `requirements/` file per functionality |
+| 5. Actors and interfaces | Who and what the Building Block deals with | `conformance-profiles/<profile>/introduction.md`, `resources/tests/` |
 | 6. Boundary | What this specification leaves to others | `introduction/scope.md` |
 | 7. Scope statement | The draft scope | `introduction/scope.md` |
 | 8. Terminology | The terms to define | `introduction/terminology.yml` |
@@ -31,10 +33,10 @@ Authors write in a different order. Write the Purpose first, then the Technical 
 |---|---|
 | The boundary decided in section 6, *Boundary* | The subject, boundary and applicability statements |
 | *Place in larger systems*, in `purpose.md` | The extension and relationship statements |
-| *Functionalities*, in `technical_overview.md` | The **Covered** list, one entry per functionality, with the same names |
-| *Core and extensions*, in `technical_overview.md` | The conformance statement, and the **Covered** list grouped into the core and each extension |
+| *Functionalities*, in each `conformance-profiles/<profile>/introduction.md` | The **Covered** list, one entry per functionality, with the same names |
+| *Conformance profiles*, in `technical_overview.md` | The conformance statement, and the **Covered** list grouped into the core and each extension |
 | Functionalities considered in the *Market assessment* and placed elsewhere | **Not covered** entries, with the owner of each |
-| *Actors* marked *Outside*, when the actor table is present | **Not covered** entries, with the publication in **Specified where** as owner |
+| *Actors relevant for testing* outside the boundary, in each profile's introduction, when the actor table is present | **Not covered** entries, with the publication in **Specified where** as owner |
 | *Interfaces* whose contract is defined elsewhere, when the interface table is present | **Covered**: this Building Block's side of the interface. **Not covered**: the counterpart's behaviour |
 
 When the Purpose or the Technical Overview changes, review the scope against this table.
@@ -79,8 +81,8 @@ For each source, decide what the specification does with it:
 | # | Source | What it gave us | Verdict |
 |---|---|---|---|
 | 1 | GovStack Architecture, `govstack:ra:architecture` | Common terminology; the Building Block criteria | Adopt |
-| 2 | Wallet Building Block Specification 1.2, `govstack:spec:bb:wallet` | Credential Holder, Holder Binding: terms and scope of the previous version | Adopt |
-| 3 | European Digital Identity Wallet Architecture and Reference Framework, <https://eudi.dev/1.4.0/arf/> | Requirements of one regional regime, used to test our functionalities against | Contrast |
+| 2 | The previous version of this specification, `govstack:spec:bb:example` 1.0 | Terms and scope of the previous version | Adopt |
+| 3 | <A regional or national framework for the domain> | Requirements of one regional regime, used to test our functionalities against | Contrast |
 | | | | |
 
 **Vocabulary regime.** Where a regional or national regime already names the domain, decide whether the specification uses that regime's terms or regime-neutral ones, with the regime as a worked example. A specification meant for every country usually chooses neutral terms.
@@ -97,26 +99,28 @@ Aim for scenarios that differ: a different country, a different sector, a differ
 
 | # | Scenario | Source | Steps the Building Block performs |
 |---|---|---|---|
-| 1 | A person receives a professional licence as a credential and shows it to an employer | Country practice | Accept the credential; store it; ask the person's consent; present the licence attributes |
+| 1 | <A service in which an End User and System Q take part> | Country practice | <Step 1>; <step 2>; <step 3> |
 | | | | |
 
 # 4. Capabilities and functionalities
 
 Turn the marked steps into the shape of the specification.
 
-**Capabilities** say what the Building Block makes possible, as outcomes. Name each one with a noun phrase ("Credential Custody", not "stores credentials"), and name no technology. Give each a short id. Capabilities are declared in `metadata.yml` and appear in `purpose.md`.
+**Capabilities** say what the Building Block makes possible, as outcomes. Name each one with a noun phrase ("Document Findability", not "finds documents"), and name no technology. Give each a short id. Capabilities are declared in `metadata.yml` and appear in `purpose.md`.
 
 | Id | Capability | Outcome, for whom |
 |---|---|---|
-| `custody` | Credential Custody | A person keeps the credentials issued to them and can use them whenever they need to |
+| `capability-a` | Capability A | <the outcome, for whom> |
 | | | |
 
-**Functionalities** organise the requirements. Group the marked steps from section 3 into functionalities. Each functionality becomes one file in `requirements/`, and each must realise at least one capability. A functionality may realise several capabilities, and a capability is often realised by several functionalities.
+**Functionalities** organise the requirements. Group the marked steps from section 3 into functionalities. Each functionality becomes one file in the `functionalities/` folder of its conformance profile, and each must realise at least one capability. A functionality may realise several capabilities, and a capability is often realised by several functionalities.
 
-| Functionality | Steps from section 3 | Capabilities it realises |
-|---|---|---|
-| Credential Intake | Accept the credential | `custody` |
-| | | |
+| Functionality | Steps from section 3 | Capabilities it realises | Conformance profile |
+|---|---|---|---|
+| Functionality A | <Step 1> | `capability-a` | `core-profile` (core) |
+| | | | |
+
+Then sort the functionalities into **conformance profiles**: the core, which every conformant software solution needs, and extensions, which some legitimately lack (`chapters/functionalities_and_extensions.md`, *Deciding what is core and what is an extension*). Each profile becomes a folder in `conformance-profiles/`, named in kebab-case.
 
 Check the result:
 
@@ -136,7 +140,7 @@ An actor **inside** is part of the software being specified. An actor **outside*
 
 | Actor | Kind | Inside or outside | Interface with the Building Block | Behaviour specified by | Test needs |
 |---|---|---|---|---|---|
-| Credential Issuer | System | Outside | Credential issuance | `govstack:ra:credentials` | An emulated Issuer that offers and issues credentials |
+| System P | System | Outside | Protocol P | `govstack:ra:example` | An emulated System P that follows Protocol P |
 | | | | | | |
 
 The *Test needs* column is what the test environment must supply in place of each outside actor: an emulator, a stub, sample data. It is what makes `resources/tests/` writable later.
@@ -149,7 +153,7 @@ Building Block specifications are technical. Legal and organisational matters be
 
 | Excluded | Raised because | Owned by |
 |---|---|---|
-| Trust registry operation | Every scenario needs one | `govstack:ra:credentials` |
+| Operation of Registry R | Every scenario with System Q needs one | `govstack:ra:example` |
 | | | |
 
 **Reference architectures.** Name each Domain Reference Architecture in which the Building Block performs a role, and the role. If none exists for the domain, record that, and tell the Architecture Working Group.
@@ -170,5 +174,5 @@ Actor names and functionality names are terms, and they are the terms most likel
 
 | Candidate term | From section | Already defined in |
 |---|---|---|
-| Credential Holder | 5 | `govstack:spec:bb:wallet` 1.2 |
+| Role B | 5 | `govstack:ra:example` |
 | | | |
