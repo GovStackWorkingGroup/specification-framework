@@ -82,7 +82,7 @@ A functionality is reached by an actor, directly or through another functionalit
 A conformance profile is a named set of one or more functionalities that a software solution claims as a whole. Each profile has its own folder in `conformance-profiles/`, and the folder name, in kebab-case, is its id. The folder holds an `introduction.md` that declares and describes the profile, and a `functionalities/` folder with the files of its functionalities.
 
 ```mermaid
-treeView
+treeView-beta
   conformance-profiles/
       core-profile/
           introduction.md

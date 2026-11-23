@@ -68,7 +68,7 @@ See `chapters/introductory_chapters.md` for guidance on writing each section, an
 The `conformance-profiles/` directory holds the normative part of the specification. It has one folder per conformance profile, and nothing else. A specification has requirements rather than chapters, so this directory takes the place that `chapters/` has in other GovStack publications.
 
 ```mermaid
-treeView
+treeView-beta
   conformance-profiles/
       file-management/
           introduction.md
