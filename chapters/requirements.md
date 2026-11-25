@@ -8,7 +8,7 @@ references:
 ---
 
 {% hint style="info" %}
-This chapter is a draft. *Requirement status* describes the model proposed in ARCH-ADR-5 (`ADR/ARCH-ADR-5.md`), which has not yet been decided by the Architecture Committee. The interaction classifier in *Interaction types* is new and has not been discussed by the Architecture Working Group. *Options*, the `OPTION` level and option ids follow ARCH-ADR-6 (`ADR/ARCH-ADR-6.md`), also not yet decided.
+This chapter is a draft. *Requirement status* describes the model proposed in ARCH-ADR-5 (`ADR/ARCH-ADR-5.md`), which has not yet been decided by the Architecture Committee. The interaction classifier in *Interaction types* is new and has not been discussed by the Architecture Working Group. *Options*, the `OPTION` level and option ids follow ARCH-ADR-6 (`ADR/ARCH-ADR-6.md`), and *Conditional requirements* follows ARCH-ADR-9 (`ADR/ARCH-ADR-9.md`), neither yet decided.
 {% endhint %}
 
 The requirements are the normative content of a Building Block specification. A solution is assessed against them, and nothing else in the specification makes a solution conformant or not. This chapter says what a requirement is, how its statement is written, how it is identified, which classifiers it carries, and how to tell what kind of interaction a requirement asks of the system under test.
@@ -78,6 +78,7 @@ The requirements of a specification are also checked as a set. Together with the
 - **A goal instead of a requirement.** "The Wallet is secure" has no pass or fail. Either state what makes it so, or leave it to the cross-functional requirements
 - **Restating an inherited requirement.** A cross-functional requirement is inherited through `extends`. Restate it only to tighten an `EXTENSIBLE` one, and cite it when you do
 - **Naming a product.** "The Wallet uses OpenIAM" binds every solution to a vendor. Name the contract the product implements
+- **A condition in the statement.** "When the Wallet accepts passes, it verifies…" hides the condition from the compiler and the test harness. Put it in `applies_when` (see *Conditional requirements*)
 
 # Unique identifier
 
@@ -319,7 +320,7 @@ Use an extension for an option when the option needs counterparts that follow a 
 
 1. A variation point has at least two options, and `select.min` is at least 1. A choice a solution may skip entirely is a set of `RECOMMENDED` requirements, or an extension.
 2. A variation point states the choice and nothing else. It has no `interaction`, `api_operation_id` or `test`.
-3. An option has `level: OPTION`, sits in the `options` list of its variation point, and follows every rule of *Writing the statement*. It has no `select` and no `options` of its own: a choice that follows from an option is a separate variation point, placed where it applies.
+3. An option has `level: OPTION`, sits in the `options` list of its variation point, and follows every rule of *Writing the statement*. It has no `select` and no `options` of its own: a choice that follows from an option is a separate variation point, placed where it applies, or made conditional on the option (see *Conditional requirements*).
 4. In a core functionality, at least `min` options of each variation point are met without an extension. Otherwise the core could not stand alone.
 5. A solution declares the options it meets in the same conformance declaration as its extensions. Only `PUBLISHED` options count towards `min`.
 6. A variation point is an open set. A minor release may publish a new option, so a dependent relies on the options a solution declares, not on the options listed today (`chapters/versioning_and_change_documentation.md`).
@@ -327,6 +328,54 @@ Use an extension for an option when the option needs counterparts that follow a 
 "Option" is a noun here, never the adjective "optional": an option is not something a solution may skip, and it is not an extension, though it may be met by claiming one.
 
 ARCH-ADR-6 gives the full rules, including narrowing a variation point in an extending specification, compiler checks, and how changes are versioned.
+
+# Conditional requirements
+
+{% hint style="info" %}
+This section describes the mechanism proposed in ARCH-ADR-9 (`ADR/ARCH-ADR-9.md`, Approach 3), which has not yet been decided by the Architecture Committee.
+{% endhint %}
+
+Some requirements bind only some solutions: those that meet a given option (see *Options*), or claim a given extension (`chapters/functionalities_and_extensions.md`). "The Wallet verifies the manifest hashes of a pass before storing it" binds a wallet that accepts passes, and means nothing for one that does not.
+
+| Term | Means | `level` |
+|---|---|---|
+| **Condition** | Option keys or extension ids, in `applies_when` (any of them) or `applies_when_all` (all of them) | |
+| **Conditional requirement** | A requirement with a condition. When the condition does not hold, it is **not applicable**, neither passed nor failed | `REQUIRED` or `RECOMMENDED`, binding only when the condition holds |
+
+## Writing a conditional requirement
+
+```yaml
+  - id: '31'
+    status: ACCEPTED
+    level: REQUIRED
+    observability: OBSERVABLE
+    applies_when: [pass]
+    interaction: FILE
+    statement: The Wallet verifies the signature and the manifest hashes of a pass before storing it.
+    test: resources/tests/credential-acquisition/31-pass-manifest.feature
+```
+
+| Field | On | Content |
+|---|---|---|
+| `applies_when` | any requirement; a functionality | Keys of options, or ids of extensions. The requirement applies if the solution declares **any** of them |
+| `applies_when_all` | any requirement; a functionality | As `applies_when`, but the requirement applies only if the solution declares **all** of them |
+
+`applies_when` in a functionality's front matter applies to every requirement in the file. A condition names an option by its `key`, never by its id.
+
+## Rules
+
+1. A condition goes into `applies_when`, never into the statement. A statement that begins "When the Wallet supports…" or "If…" is rewritten without the condition.
+2. A conditional requirement sits in the functionality it belongs to by meaning, which need not be the one where the option is chosen. It may sit in an extension and name another extension, so that requirements several extensions share are written once.
+3. A requirement that applies to every solution, whatever it chose, carries no condition.
+4. A requirement in an extension functionality does not name its own extension in its condition: it already applies only to solutions that claim it.
+5. A condition names only what a solution can declare. It does not negate.
+6. A requirement whose condition does not hold is **not applicable**, neither passed nor failed, and a `RECOMMENDED` one is left out of the share GovMarket reports.
+
+## Views by key
+
+The compiler renders, for each key, every requirement whose condition names it, grouped by functionality, under the option or extension that defines the key. For the Wallet's `pass`, this one page shows how a pass is added, checked, updated, shown as voided and copied. The view is generated and informative: it never disagrees with the functionality files, and conformance is still assessed per requirement.
+
+ARCH-ADR-9 gives the full rules, including compiler checks and how changes are versioned.
 
 # In the front matter
 

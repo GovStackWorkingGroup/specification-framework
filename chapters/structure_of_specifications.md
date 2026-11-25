@@ -78,6 +78,7 @@ requirements:
     documentation: # conditions, constraints and, for AUDITABLE requirements, the evidence a vendor produces
     api_operation_id:
     test:
+    applies_when: [] # keys of options or ids of extensions; only for a conditional requirement
   - id: '2' # a variation point: no interaction, api_operation_id or test
     level: REQUIRED
     statement: <the choice, and how many options a solution meets>
@@ -100,7 +101,7 @@ requirements:
 ---
 ```
 
-Options are explained in `chapters/requirements.md`, *Options*.
+Options and conditions are explained in `chapters/requirements.md`, *Options* and *Conditional requirements*.
 
 `realises` lists the capabilities the functionality realises. Every functionality realises at least one, and every capability declared in metadata.yml is realised by at least one functionality.
 
