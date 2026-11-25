@@ -8,7 +8,7 @@ references:
 ---
 
 {% hint style="info" %}
-This chapter is a draft. *Requirement status* describes the model proposed in ARCH-ADR-5 (`ADR/ARCH-ADR-5.md`), which has not yet been decided by the Architecture Committee. The interaction classifier in *Interaction types* is new and has not been discussed by the Architecture Working Group. *Options and conditions*, the `OPTION` level and option ids follow ARCH-ADR-6 (`ADR/ARCH-ADR-6.md`), also not yet decided.
+This chapter is a draft. *Requirement status* describes the model proposed in ARCH-ADR-5 (`ADR/ARCH-ADR-5.md`), which has not yet been decided by the Architecture Committee. The interaction classifier in *Interaction types* is new and has not been discussed by the Architecture Working Group. *Options*, the `OPTION` level and option ids follow ARCH-ADR-6 (`ADR/ARCH-ADR-6.md`), also not yet decided.
 {% endhint %}
 
 The requirements are the normative content of a Building Block specification. A solution is assessed against them, and nothing else in the specification makes a solution conformant or not. This chapter says what a requirement is, how its statement is written, how it is identified, which classifiers it carries, and how to tell what kind of interaction a requirement asks of the system under test.
@@ -93,7 +93,7 @@ A requirement receives its number when it is accepted (see *Requirement status*)
 
 The GovStack compiler checks rules 1 to 4 on every pull request and every release. A release that removes, reuses or renumbers a requirement fails to compile. For rule 5 the compiler reports every change of wording to an `IMMUTABLE` requirement, and the reviewers judge whether the intent changed.
 
-An **option** of a variation point (see *Options and conditions*) is numbered from its variation point: the variation point's number, a full stop, and the option's own number. The options of requirement 30 are 30.1, 30.2 and 30.3, cited as `govstack:spec:bb:wallet#req-30.2`. Rules 2 to 5 apply to option numbers within their variation point: an option number is never removed, reused or renumbered.
+An **option** of a variation point (see *Options*) is numbered from its variation point: the variation point's number, a full stop, and the option's own number. The options of requirement 30 are 30.1, 30.2 and 30.3, cited as `govstack:spec:bb:wallet#req-30.2`. Rules 2 to 5 apply to option numbers within their variation point: an option number is never removed, reused or renumbered.
 
 Until the Architecture Working Group decides otherwise, a specification uses one sequence of numbers for all its requirements, and options do not take numbers from it.
 
@@ -120,7 +120,7 @@ The level says how strongly a conformant solution is bound.
 
 **RECOMMENDED** - the requirement improves a solution, and a solution may skip it. GovMarket reports the share of published RECOMMENDED requirements a solution meets, as an additional signal for buyers.
 
-**OPTION** - the requirement is one of the options of a variation point. It does not bind on its own: a solution meets at least `min` of the options, and the variation point fails if it does not. An option that a solution declares is assessed and reported like any requirement. Only options use this level, and every option uses it (see *Options and conditions*).
+**OPTION** - the requirement is one of the options of a variation point. It does not bind on its own: a solution meets at least `min` of the options, and the variation point fails if it does not. An option that a solution declares is assessed and reported like any requirement. Only options use this level, and every option uses it (see *Options*).
 
 ## Requirement status
 
@@ -212,7 +212,7 @@ Ask in order, and stop at the first yes:
 
 Rules:
 
-1. Every requirement has exactly one interaction type, except a variation point, and an option met by claiming an extension, which have none (see *Options and conditions*). A requirement that seems to need two usually holds two requirements: one for the exchange, and one for what the system under test does with its result.
+1. Every requirement has exactly one interaction type, except a variation point, and an option met by claiming an extension, which have none (see *Options*). A requirement that seems to need two usually holds two requirements: one for the exchange, and one for what the system under test does with its result.
 2. A requirement of type `SERVICE_API` names its operation in `api_operation_id`, and that operation exists in `resources/api.yml`.
 3. A requirement of type `CONSUMED_API`, `PROTOCOL`, `DEVICE` or `FILE` whose contract is defined elsewhere names that contract in `contract`: a publication identifier with the operation, role or section, or a document listed in `references.md`.
 4. Every interface in the overview is realised by at least one requirement of the matching type, and every requirement that is not `INTERNAL` realises an interface listed in the overview.
@@ -250,23 +250,22 @@ Illustrative requirements for the Wallet Building Block, one per type.
 | Versioning | The rules in *Interface changes* (`chapters/versioning_and_change_documentation.md`) apply to `SERVICE_API` requirements. Changes to the contract of a `CONSUMED_API`, `PROTOCOL` or `FILE` requirement are judged by the same question: does an existing solution or counterpart break? |
 | Extensions | A solution that claims only the core never needs a harness for the types used only in extensions |
 
-# Options and conditions
+# Options
 
 {% hint style="info" %}
 This section describes the mechanism proposed in ARCH-ADR-6 (`ADR/ARCH-ADR-6.md`, Approach 3), which has not yet been decided by the Architecture Committee.
 {% endhint %}
 
-Some requirements let a solution choose how to meet them: "the Wallet adds credentials of at least one of these types". The solution cannot skip the requirement, but it chooses which types, and the choice decides which other requirements apply to it.
+Some requirements let a solution choose how to meet them: "the Wallet adds credentials of at least one of these types". The solution cannot skip the requirement, but it chooses which types.
 
 | Term | Means | `level` | `interaction` and `test` |
 |---|---|---|---|
 | **Variation point** | A requirement a solution meets by meeting at least `min` of its options. Its options are listed beneath it | `REQUIRED` or `RECOMMENDED` | None. It is verified by counting the options that pass |
 | **Option** | One of the choices a variation point permits. A solution chooses among the options, but cannot decline them all | `OPTION` | Its own, unless it is met by claiming an extension |
-| **Conditional requirement** | A requirement that applies only to solutions that meet a given option, or claim a given extension | `REQUIRED` or `RECOMMENDED`, binding only when the condition holds | Its own |
 
 ## Writing a variation point
 
-A variation point has a `select` and an `options` list. Its options are indented beneath it, each with `level: OPTION` and an id made of the variation point's id and its own number (see *Unique identifier*). An option that other requirements refer to has a `key`, which `applies_when` uses.
+A variation point has a `select` and an `options` list. Its options are indented beneath it, each with `level: OPTION` and an id made of the variation point's id and its own number (see *Unique identifier*). An option that is named elsewhere, in a conformance declaration or an extending specification, has a `key`.
 
 ```yaml
   - id: '30'
@@ -301,47 +300,29 @@ A variation point has a `select` and an `options` list. Its options are indented
         observability: OBSERVABLE
         extension: verifiable-credentials
         statement: The Wallet obtains verifiable credentials from issuers as the Verifiable Credentials extension specifies.
-  - id: '31'
-    status: ACCEPTED
-    level: REQUIRED
-    observability: OBSERVABLE
-    applies_when: [pass]
-    interaction: FILE
-    statement: The Wallet verifies the signature and the manifest hashes of a pass before storing it.
-    test: resources/tests/credential-acquisition/31-pass-manifest.feature
 ```
 
 | Field | On | Content |
 |---|---|---|
 | `select` | a variation point | `min`, the number of options a solution meets, default 1; `max`, the most it may declare, default no maximum |
 | `options` | a variation point | Its options, indented beneath it |
-| `key` | an option that other requirements refer to | A short lowercase identifier, unique across the options and extensions of the specification, never reused or changed once published |
+| `key` | an option that is named elsewhere | A short lowercase identifier, unique across the options and extensions of the specification, never reused or changed once published |
 | `extension` | an option | The id of an extension. The option is met by claiming the extension and passing its tests |
-| `applies_when` | any requirement; a functionality | Keys of options, or ids of extensions. The requirement applies if the solution meets **any** of them |
-| `applies_when_all` | any requirement; a functionality | As `applies_when`, but the requirement applies only if the solution meets **all** of them |
-
-`applies_when` in a functionality's front matter applies to every requirement in the file.
 
 ## Options met by claiming an extension
 
 An option with `extension` is met when the solution claims that extension and passes its `PUBLISHED` requirements. It has no `interaction` or `test` of its own, but its statement still says in one sentence what the solution does, so that the variation point reads in full without opening the extension.
 
-Use an extension for an option when the option needs counterparts that follow a given protocol or trust infrastructure, or brings workflows, data structures and APIs of its own. Otherwise use a plain option and conditional requirements: they stay in the functionalities they belong to, and nothing has to be declared, documented or assessed separately. See `chapters/functionalities_and_extensions.md`.
+Use an extension for an option when the option needs counterparts that follow a given protocol or trust infrastructure, or brings workflows, data structures and APIs of its own. Otherwise use a plain option: nothing has to be declared, documented or assessed separately. See `chapters/functionalities_and_extensions.md`.
 
 ## Rules
 
 1. A variation point has at least two options, and `select.min` is at least 1. A choice a solution may skip entirely is a set of `RECOMMENDED` requirements, or an extension.
 2. A variation point states the choice and nothing else. It has no `interaction`, `api_operation_id` or `test`.
-3. An option has `level: OPTION`, sits in the `options` list of its variation point, and follows every rule of *Writing the statement*. It has no `select` and no `options` of its own: a choice that follows from an option is a separate variation point with `applies_when`.
+3. An option has `level: OPTION`, sits in the `options` list of its variation point, and follows every rule of *Writing the statement*. It has no `select` and no `options` of its own: a choice that follows from an option is a separate variation point, placed where it applies.
 4. In a core functionality, at least `min` options of each variation point are met without an extension. Otherwise the core could not stand alone.
-5. A condition goes into `applies_when`, never into the statement. A statement that begins "When the Wallet supports…" or "If…" is rewritten without the condition.
-6. A conditional requirement sits in the functionality it belongs to by meaning, which need not be the one where the choice is made. It may sit in an extension and name another extension, so that requirements several extensions share are written once.
-7. A solution declares the options it meets in the same conformance declaration as its extensions. A requirement whose condition does not hold is **not applicable**, neither passed nor failed. Only `PUBLISHED` options count towards `min`.
-8. A variation point is an open set. A minor release may publish a new option, so a dependent relies on the options a solution declares, not on the options listed today (`chapters/versioning_and_change_documentation.md`).
-
-## Views by key
-
-The compiler renders, for each key, every requirement whose `applies_when` names it, grouped by functionality, under the option that defines the key. For the Wallet's `pass`, this one page shows how a pass is added, checked, updated, shown as voided and copied. The view is generated and informative: it never disagrees with the functionality files, and conformance is still assessed per requirement.
+5. A solution declares the options it meets in the same conformance declaration as its extensions. Only `PUBLISHED` options count towards `min`.
+6. A variation point is an open set. A minor release may publish a new option, so a dependent relies on the options a solution declares, not on the options listed today (`chapters/versioning_and_change_documentation.md`).
 
 "Option" is a noun here, never the adjective "optional": an option is not something a solution may skip, and it is not an extension, though it may be met by claiming one.
 

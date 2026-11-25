@@ -137,7 +137,7 @@ Rules:
 2. An extension may add to the behaviour of a core functionality when it is claimed. It may not weaken or replace a core requirement.
 3. An extension may require other extensions. The core never depends on an extension, and there are no cycles. An option met by claiming an extension is not a dependency, as long as the core meets `min` of that variation point's options without one.
 4. A variation point (ARCH-ADR-6) may sit in an extension. It then binds only the solutions that claim the extension.
-5. With ARCH-ADR-6, `applies_when` may name an extension id, so that a requirement applies only to solutions that claim the extension. In a core functionality, use it when the requirement belongs there by meaning. In an extension, use it for requirements that several other extensions share: the Wallet's verifier checks sit in `verifiable-credentials` with `applies_when: [remote-presentation, proximity-presentation]`, written once, rather than in an extension of their own. Without ARCH-ADR-6, write such a requirement in a functionality of the extension.
+5. With ARCH-ADR-6, `applies_when` may name an extension id, so that a requirement in a core functionality applies only to solutions that claim the extension. Use it when the requirement belongs in the core functionality by meaning, for example "the wallet logs the verifier's identity for each presentation" in a transaction log that is core. Without ARCH-ADR-6, write such a requirement in a functionality of the extension.
 
 # Deciding what is core and what is an extension
 
@@ -157,7 +157,7 @@ The second reason follows from how reference architectures work. A Domain Refere
 
 Every solution may have to do something that some solutions do through a domain's protocol and others do alone. The Wallet must add credentials of at least one type: bearer credentials and passes it handles alone, verifiable credentials only within an ecosystem of issuers and trust infrastructure. Making every type an extension splits small, autonomous sets of requirements into extensions every wallet would claim. Making every type a plain option pulls a whole protocol stack into the core.
 
-The answer is a core variation point whose options are mostly plain, with an option met by claiming an extension where the option needs one (`chapters/requirements.md`, *Options and conditions*). The extension holds what needs the ecosystem. Requirements specific to a plain option stay in the core functionalities they belong to, conditional on the option's key.
+The answer is a core variation point whose options are mostly plain, with an option met by claiming an extension where the option needs one (`chapters/requirements.md`, *Options*). The extension holds what needs the ecosystem. Requirements specific to a plain option stay in the core functionalities they belong to.
 
 Use an extension for an option when one of the reasons in the table above holds for that option. Otherwise use a plain option.
 
@@ -169,7 +169,6 @@ An extension names the role it serves and the reference architecture that descri
 |---|---|---|
 | Every solution does something, but may do it in one of several ways | A variation point with options (ARCH-ADR-6) | The solution cannot skip it |
 | As above, but one of the ways needs a domain's protocol or infrastructure | A variation point with an option met by claiming an extension | The choice cannot be skipped; only the protocol-bound way is an extension |
-| Several extensions need the same requirements | Requirements in the extension they all require, with `applies_when` naming the extensions that use them | No product would claim the shared requirements on their own |
 | A behaviour improves quality and a solution may skip it | A `RECOMMENDED` requirement | Nothing is claimed; GovMarket reports the share met |
 | A whole specification is narrowed for one context, such as a country | A profile: a separate specification that extends this one | The narrowing is decided by someone other than the Working Group, for one context |
 | The part can be assessed as a component on its own, with its own system under test | A separate Building Block specification | It does not need this Building Block's core |
@@ -181,7 +180,6 @@ An extension names the role it serves and the reference architecture that descri
 - **The core cannot stand alone.** A solution that meets only the core would not be useful. A functionality the core needs has been placed in an extension.
 - **The extension can be assessed without the core.** It may be a separate Building Block.
 - **Extensions multiply with each combination.** Two extensions that differ only in how they do the same thing are usually a variation point. If each way needs its own protocol, keep them as extensions and make them options of one variation point; otherwise make them plain options inside one functionality or extension.
-- **No product would claim the extension on its own.** It exists only to be required by other extensions. Move its requirements into an extension they already require, conditional on the extensions that use them.
 - **Every option of a core variation point is an extension.** The core cannot stand alone. Move a way that needs no counterpart into the core as a plain option.
 
 # Conformance
@@ -227,10 +225,10 @@ The Wallet declares three capabilities: Credential Custody (`custody`), Selectiv
 | Functionality | Realises | Conformance | Extension |
 |---|---|---|---|
 | Credential Acquisition: adding credentials of at least one type. Options: bearer credentials (`bearer`) and passes (`pass`) in the core, verifiable credentials (`vc`) met by claiming `verifiable-credentials` | `custody` | `CORE` | |
-| Credential Management: storage, expiry, revocation, removal and portability, with conditional requirements for `bearer` and `pass` | `custody`, `control` | `CORE` | |
+| Credential Management: storage, expiry, revocation, removal and portability | `custody`, `control` | `CORE` | |
 | Credential Presentation: presenting with the holder's consent, in at least one way. Options: showing the code a credential was issued with (`code`) in the core, OpenID4VP and ISO/IEC 18013-5 met by claiming their extensions | `disclosure`, `control` | `CORE` | |
 | Verifiable Credential Acquisition, Holder Binding, Verifiable Credential Lifecycle | `custody` | `EXTENSION` | `verifiable-credentials` |
-| Answering a Verifier's Request, Privacy-preserving Presentation (conditional on `remote-presentation` or `proximity-presentation`) | `disclosure` | `EXTENSION` | `verifiable-credentials` |
+| Answering a Verifier's Request, Privacy-preserving Presentation | `disclosure` | `EXTENSION` | `verifiable-credentials` |
 | Remote Presentation over OpenID4VP | `disclosure` | `EXTENSION` | `remote-presentation` (requires `verifiable-credentials`) |
 | Proximity Presentation over ISO/IEC 18013-5 | `disclosure` | `EXTENSION` | `proximity-presentation` (requires `verifiable-credentials`) |
 
@@ -243,7 +241,7 @@ A complete worked example of the introductory chapters is in `resources/examples
 # References
 
 - ARCH-ADR-5, *Separate a requirement's obligation level from its lifecycle status*
-- ARCH-ADR-6 (proposed), *Model options and conditional requirements*
+- ARCH-ADR-6 (proposed), *Model options*
 - ARCH-ADR-7 (proposed), *Organise a specification's functionalities into a core and extensions*
 - ARCH-TDR-1 (proposed), *Declare capabilities and link functionalities to them*
 - ISO/IEC/IEEE 29148:2018, *Systems and software engineering — Life cycle processes — Requirements engineering*

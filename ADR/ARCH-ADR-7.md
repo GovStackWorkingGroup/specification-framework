@@ -215,5 +215,5 @@ Confirmed by the Architecture Committee following Architecture Working Group dis
 * `bb-payments/ADR/ADR-bb-payments-001.md` and `ADR-bb-payments-001-analysis.md`, variant C2
 * `bb-wallet/research/2.0-requirements-reorganization-proposal.md`, *Autonomous and Reference Architecture bound requirements*
 * ARCH-ADR-5, *Separate a requirement's obligation level from its lifecycle status*
-* ARCH-ADR-6 (proposed), *Model options and conditional requirements*, `ADR/ARCH-ADR-6.md`
+* ARCH-ADR-6 (proposed), *Model options*, `ADR/ARCH-ADR-6.md`
 * OGC 08-131r3, *The Specification Model — A Standard for Modular Specifications*, Open Geospatial Consortium, 2009

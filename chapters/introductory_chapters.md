@@ -160,7 +160,7 @@ Guidance:
 - Explain **why each extension is not core**: some conformant products legitimately lack it, it is an obligation towards a domain role that not every deployment has, or it depends on infrastructure that not every deployment has
 - Say which combinations you expect. A buyer reads this to know what to ask for: "a wallet for a credentials ecosystem claims both extensions"
 
-When a core functionality has a **variation point** (`chapters/requirements.md`, *Options and conditions*), say what the choice is, list its options, and mark the options that are met by claiming an extension. A reader should see that the core stands alone: at least `min` options of every core variation point are met without an extension.
+When a core functionality has a **variation point** (`chapters/requirements.md`, *Options*), say what the choice is, list its options, and mark the options that are met by claiming an extension. A reader should see that the core stands alone: at least `min` options of every core variation point are met without an extension.
 
 | Functionality | Choice | Options | Met through an extension |
 |---|---|---|---|
