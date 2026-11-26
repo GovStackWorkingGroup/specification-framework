@@ -177,7 +177,7 @@ Every Building Block specification extends the cross-functional requirements, an
 
 **REPLACEABLE** - an extending specification may replace how the requirement is met, as long as its external contract, its inputs, outputs and behaviour, stays the same. This allows a technology to be substituted where policy or the local ecosystem demands it.
 
-**INAPPLICABLE** - used only in an extending specification. It switches off an inherited `EXTENSIBLE` or `REPLACEABLE` requirement for that specification, without altering the parent text, and records why.
+**INAPPLICABLE** - used only in an extending specification. It switches off an inherited `EXTENSIBLE` or `REPLACEABLE` requirement for that specification, without altering the parent text, and records why. Adding a condition to such a requirement switches it off for some solutions only, and follows the same terms (see *Conditional requirements*).
 
 An extending requirement cites the requirement it extends, replaces or switches off, for example `govstack:spec:bb:wallet#req-1 extends govstack:spec:cfr:data#req-3`.
 
@@ -370,6 +370,7 @@ Some requirements bind only some solutions: those that meet a given option (see 
 4. A requirement in an extension functionality does not name its own extension in its condition: it already applies only to solutions that claim it.
 5. A condition names only what a solution can declare. It does not negate.
 6. A requirement whose condition does not hold is **not applicable**, neither passed nor failed, and a `RECOMMENDED` one is left out of the share GovMarket reports.
+7. An extending specification may add a condition to an inherited `EXTENSIBLE` or `REPLACEABLE` requirement, as a scoped `INAPPLICABLE` (see *Mutability*): it cites the requirement and records why. It may not add one to an `IMMUTABLE` requirement. Removing a condition only tightens the requirement, and is always allowed on an `EXTENSIBLE` one.
 
 ## Views by key
 

@@ -92,7 +92,7 @@ A conditional requirement is not an option. An option is one of several ways of 
 
 `applies_when` set in a functionality's front matter applies to every requirement in the file. A requirement in that file may add a condition of its own; both must hold. A requirement may carry `applies_when` and `applies_when_all` together; both must hold.
 
-A condition names an option by its **key** (ARCH-ADR-6, *Keys*), never by its id, so that it reads as what it means and does not change when a `DRAFT` option is numbered. Without ARCH-ADR-6, a condition names only extension ids.
+A condition names an option by its **key** (ARCH-ADR-6, *Writing a variation point*), never by its id, so that it reads as what it means and does not change when a `DRAFT` option is numbered. Without ARCH-ADR-6, a condition names only extension ids.
 
 A conditional requirement names the options that make it apply. It sits in the functionality it belongs to by meaning, which may not be the one where the choice is made:
 
@@ -198,7 +198,12 @@ For every key, the compiler renders the requirements whose `applies_when` or `ap
 
 ### Mutability and extending specifications
 
-* An extending specification may not add a condition to an `EXTENSIBLE` requirement, since that weakens it for solutions that do not meet the condition. It may remove one, which only tightens the base.
+*Mutability* in *Requirements* already lets an extending specification switch off an inherited `EXTENSIBLE` or `REPLACEABLE` requirement with `INAPPLICABLE`, recording why. Adding a condition switches the requirement off for some solutions only, so it is treated as a scoped `INAPPLICABLE`, on the same terms:
+
+* An extending specification may add a condition to an inherited `EXTENSIBLE` or `REPLACEABLE` requirement. It cites the requirement, as for any extending requirement, and records why the requirement does not apply to solutions outside the condition: "requirement 31 applies in this profile only to wallets that declare `vc`, because passes here are signed under a national scheme specified in requirement 12".
+* It may not add a condition to an `IMMUTABLE` requirement, just as it may not switch one off.
+* It may remove a condition from an inherited `EXTENSIBLE` requirement, or narrow the keys a condition names. Either one binds more solutions, so it only tightens the base.
+* A condition it adds names only keys and ids that the base specification or the extending specification declares, under rule 6.
 * An extending specification that narrows a variation point to some of its options (ARCH-ADR-6) makes the requirements conditional on the other options not applicable to every solution under it. The compiler marks them so in the extending specification's views.
 
 ### Versioning
@@ -218,6 +223,7 @@ Changes are classified by the two promises of *Versioning and Change Documentati
 
 * Every key in `applies_when` and `applies_when_all` is the key of an option or the id of a declared extension.
 * A requirement in an extension functionality does not name its own extension in its condition.
+* A condition added in an extending specification is on an inherited `EXTENSIBLE` or `REPLACEABLE` requirement, cites it, and records a reason.
 * No cycles: a requirement is not conditional on itself or on an option of itself, directly or through nested conditions.
 * Warn when a statement holds a condition in prose ("When the Wallet supports…", "If…") and has no condition field.
 * Warn when an option has a key and nothing names it, in a condition or elsewhere.
@@ -225,7 +231,7 @@ Changes are classified by the two promises of *Versioning and Change Documentati
 
 ### Consequences
 
-* *Requirements* (`chapters/requirements.md`) gains a section *Conditional requirements* with the vocabulary, fields and rules above, and its *Common mistakes* adds conditions written in the statement.
+* *Requirements* (`chapters/requirements.md`) gains a section *Conditional requirements* with the vocabulary, fields and rules above, and its *Common mistakes* adds conditions written in the statement. Its *Mutability* section notes that adding a condition in an extending specification is a scoped `INAPPLICABLE`.
 * *Functionalities and Extensions* (`chapters/functionalities_and_extensions.md`) and ARCH-ADR-7 point to this ADR for `applies_when`, in rule 5 and rule 6 respectively. *Other mechanisms, and when to use them instead* adds requirements shared by several extensions, and *Warning signs* adds an extension no product would claim on its own.
 * The requirement file template in *Structure of Specifications* and `bb-template`, and the publications compiler's requirements parser, gain `applies_when` and `applies_when_all`.
 * The compiler renders the condition next to each conditional requirement, and a view for each key.
@@ -279,7 +285,7 @@ A functionality file may carry a condition in its front matter, and every requir
 2. **Functionality-level conditions.** Should `applies_when` be allowed in a functionality's front matter, or only on requirements, so that every condition is read in one place?
 3. **Conditions on core requirements naming extensions.** ARCH-ADR-7, rule 6 allows a core requirement to apply only when an extension is claimed. Is that a requirement of the core or of the extension, for citation and for the extension's tests?
 4. **Implied conditions.** A requirement conditional on `mdoc` also depends on `vc`, since `mdoc` is an option of a variation point that applies only to `vc` wallets. Should the compiler require the condition to name `vc` too, or infer it?
-5. **Extending specifications.** Should an extending specification be allowed to add a condition to an `EXTENSIBLE` requirement in any case, for example to relax a national requirement for wallets that do not hold verifiable credentials?
+5. **Conditions added by extending specifications.** This ADR treats a condition added by an extending specification as a scoped `INAPPLICABLE`: allowed on `EXTENSIBLE` and `REPLACEABLE` requirements, with a recorded reason, and never on `IMMUTABLE` ones. Does the Architecture Working Group accept this, or should a partial switch-off need more than a full one, such as review by the Working Group that owns the base specification?
 
 ## More information
 
