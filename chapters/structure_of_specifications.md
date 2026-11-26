@@ -83,7 +83,6 @@ requirements:
     statement: <the choice, and how many options a solution meets>
     select:
       min: 1
-      max: # optional
     options:
       - id: '2.1'
         key: # only if the option is named elsewhere, such as in a conformance declaration
@@ -101,7 +100,7 @@ requirements:
 ---
 ```
 
-Options are explained in `chapters/requirements.md`, *Options*. The file-level `cardinality` field is not used: a variation point with `select` replaces it.
+Options are explained in `chapters/requirements.md`, *Options*.
 
 `realises` lists the capabilities the functionality realises. Every functionality realises at least one, and every capability declared in metadata.yml is realised by at least one functionality.
 

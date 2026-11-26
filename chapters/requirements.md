@@ -253,7 +253,7 @@ Illustrative requirements for the Wallet Building Block, one per type.
 # Options
 
 {% hint style="info" %}
-This section describes the mechanism proposed in ARCH-ADR-6 (`ADR/ARCH-ADR-6.md`, Approach 3), which has not yet been decided by the Architecture Committee.
+This section describes the mechanism proposed in ARCH-ADR-6 (`ADR/ARCH-ADR-6.md`, Approach 1), which has not yet been decided by the Architecture Committee.
 {% endhint %}
 
 Some requirements let a solution choose how to meet them: "the Wallet adds credentials of at least one of these types". The solution cannot skip the requirement, but it chooses which types.
@@ -304,7 +304,7 @@ A variation point has a `select` and an `options` list. Its options are indented
 
 | Field | On | Content |
 |---|---|---|
-| `select` | a variation point | `min`, the number of options a solution meets, default 1; `max`, the most it may declare, default no maximum |
+| `select` | a variation point | `min`, the number of options a solution meets, default 1 |
 | `options` | a variation point | Its options, indented beneath it |
 | `key` | an option that is named elsewhere | A short lowercase identifier, unique across the options and extensions of the specification, never reused or changed once published |
 | `extension` | an option | The id of an extension. The option is met by claiming the extension and passing its tests |

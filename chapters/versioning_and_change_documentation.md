@@ -134,7 +134,7 @@ A **patch** change corrects the specification without changing what any solution
 | `interaction` | corrected, statement unchanged | PATCH |
 | `status` | → `PUBLISHED` (a new option released), with `level: OPTION` | MINOR |
 | `status` | `PUBLISHED` → `DEPRECATED`, with `level: OPTION`, of a `REQUIRED` variation point | MAJOR |
-| `select` | any change to `min` or `max` of a `REQUIRED` variation point | MAJOR |
+| `select` | any change to `min` of a `REQUIRED` variation point | MAJOR |
 | `select`, or an option's `status` | on a `RECOMMENDED` variation point | MINOR |
 
 A requirement with no explicit classifier takes the default given in `chapters/requirements.md`. Writing the default explicitly is not a change.
