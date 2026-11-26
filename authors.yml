@@ -4,3 +4,11 @@ authors:
   - name: Ali González-García
     roles: [Author, Editor]
     urn: govstack:person:ali-gonzalez-garcia
+  - name: Kristo Vaher
+    roles: [Author, Editor]
+    urn: govstack:person:kristo-vaher
+  - name: David Higgins
+    roles: [Author, Reviewer]
+    urn: govstack:person:david-higgins
+  - name: Nico Lück
+    roles: [Author, Reviewer]
