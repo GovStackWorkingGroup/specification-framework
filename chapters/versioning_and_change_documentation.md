@@ -84,6 +84,7 @@ A change is **breaking** if it adds an obligation that a conformant solution may
 - **Changing the intent of an `IMMUTABLE` requirement**, at any level. `chapters/requirements.md` already forbids this within a major version
 - **Moving to a new major version of an extended specification**, such as a Building Block specification adopting a new major version of the cross-functional requirements
 - **Deprecating a published option of a `REQUIRED` variation point, or changing its `select`.** Solutions that met only that option, or exactly the old number of options, may no longer conform; dependents that relied on `min` lose a guarantee
+- **Adding a condition to a published `REQUIRED` requirement, or removing one.** Adding one removes an obligation dependents relied on; removing one adds an obligation to solutions that did not meet the condition
 - **Reusing, renumbering or removing a requirement number.** The *Unique Identifier* rules forbid this outright, in any release type; it is listed here only because a specification that did it would break every citation of the number
 
 ## Non-breaking changes
@@ -135,7 +136,8 @@ A **patch** change corrects the specification without changing what any solution
 | `status` | → `PUBLISHED` (a new option released), with `level: OPTION` | MINOR |
 | `status` | `PUBLISHED` → `DEPRECATED`, with `level: OPTION`, of a `REQUIRED` variation point | MAJOR |
 | `select` | any change to `min` of a `REQUIRED` variation point | MAJOR |
-| `select`, or an option's `status` | on a `RECOMMENDED` variation point | MINOR |
+| `applies_when`, `applies_when_all` | added to, removed from or changed on a published `REQUIRED` requirement | MAJOR |
+| `select`, `applies_when`, or an option's `status` | on a `RECOMMENDED` variation point or requirement | MINOR |
 
 A requirement with no explicit classifier takes the default given in `chapters/requirements.md`. Writing the default explicitly is not a change.
 

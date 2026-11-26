@@ -43,7 +43,7 @@ Both kinds belong in the Wallet specification. But if every functionality binds 
 |---|---|---|
 | `extends`, and profiles (`chapters/versioning_and_change_documentation.md`, *Extended specifications*) | A whole specification inherits another, and may tighten it | Too coarse. Each part would be a separate publication, owned by the same Working Group, with its own version and release, and a buyer would cite several documents for one product |
 | `RECOMMENDED` | One requirement | Says the requirement may be skipped, and turns a whole capability into a quality score. A product that claims a capability must meet all of it, which `RECOMMENDED` cannot express |
-| Variation points and conditional requirements (ARCH-ADR-6, proposed) | One requirement and the requirements that depend on it | Expresses "at least one of" inside a functionality. It has no unit for "these functionalities, as a whole, are claimed or not", and a variation point has `min` of at least 1, so it cannot be skipped |
+| Variation points (ARCH-ADR-6, proposed) and conditional requirements (ARCH-ADR-9, proposed) | One requirement and the requirements that depend on it | Expresses "at least one of" inside a functionality. It has no unit for "these functionalities, as a whole, are claimed or not", and a variation point has `min` of at least 1, so it cannot be skipped |
 
 What is missing is the middle: **a named set of functionalities inside one specification that a solution claims or does not claim, and must meet in full when it claims it.**
 
@@ -55,7 +55,7 @@ What is missing is the middle: **a named set of functionalities inside one speci
 * GovMarket's rule must keep its meaning: whatever a solution claims, it meets 100% of the `REQUIRED` requirements of
 * A buyer must be able to cite precisely what they procure, in one identifier per Building Block
 * One Working Group, one specification, one release cycle: the parts of a Building Block should not need separate publications
-* The model should fit ARCH-ADR-5 (status and level) and ARCH-ADR-6 (variation points and conditional requirements), and work if ARCH-ADR-6 is not accepted
+* The model should fit ARCH-ADR-5 (status and level) and ARCH-ADR-6 (variation points) and ARCH-ADR-9 (conditional requirements), and work if either is not accepted
 * The model should use established vocabulary rather than invent its own
 * `extends`, profile and the new unit must not be confused with each other
 
@@ -122,7 +122,7 @@ extensions:
 3. The core must stand alone: a solution that meets only the core is a useful, conformant instance of the Building Block.
 4. An extension may add to the behaviour of a core functionality, for example by requiring more of it when the extension is claimed. It may not weaken or replace a core requirement.
 5. An extension may require other extensions (`requires`). The core never depends on an extension.
-6. Under ARCH-ADR-6, `applies_when` may name an extension id, so that a requirement in a core functionality applies only when the extension is claimed. Without ARCH-ADR-6, such a requirement is written in a functionality of the extension.
+6. Under ARCH-ADR-9, `applies_when` may name an extension id, so that a requirement in a core functionality applies only when the extension is claimed. Without ARCH-ADR-9, such a requirement is written in a functionality of the extension.
 7. A variation point may sit in an extension. It then binds only solutions that claim the extension.
 
 ### Conformance
@@ -148,7 +148,7 @@ Under `requirements/use_semantic_versioning.md`, an extension's requirements fol
 * Every declared extension has at least one functionality.
 * At least one functionality is `CORE`.
 * Every id in `requires` is a declared extension, and there are no cycles.
-* Every entry in `applies_when` is the key of an option or a declared extension id (with ARCH-ADR-6).
+* Every entry in `applies_when` is the key of an option (with ARCH-ADR-6) or a declared extension id (with ARCH-ADR-9).
 * Extension ids are unique in the specification and are never reused, as requirement ids are not.
 * Warn when an extension has no `REQUIRED` requirement: it may be better expressed as `RECOMMENDED` requirements in the core.
 
@@ -216,4 +216,5 @@ Confirmed by the Architecture Committee following Architecture Working Group dis
 * `bb-wallet/research/2.0-requirements-reorganization-proposal.md`, *Autonomous and Reference Architecture bound requirements*
 * ARCH-ADR-5, *Separate a requirement's obligation level from its lifecycle status*
 * ARCH-ADR-6 (proposed), *Model options*, `ADR/ARCH-ADR-6.md`
+* ARCH-ADR-9 (proposed), *Model conditional requirements*, `ADR/ARCH-ADR-9.md`
 * OGC 08-131r3, *The Specification Model — A Standard for Modular Specifications*, Open Geospatial Consortium, 2009
